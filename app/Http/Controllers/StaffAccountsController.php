@@ -42,6 +42,19 @@ class StaffAccountsController extends Controller
         return new StaffResource($new_staff);
     }
 
+    public function ChangePassword(Request $request)
+    {
+        $user = $request->user('staff');
+        if(!Hash::check($request->old_password,$user->password))
+        {
+            return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);
+        }
+        
+        $user->password = Hash::make($request->new_password);
+
+        return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
+    }
+
     public function GetAllStaff()
     {
         $staff = Staff::where('is_active',true)->get();
@@ -90,7 +103,7 @@ class StaffAccountsController extends Controller
 
     public function LogoutStaff(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user('staff')->currentAccessToken()->delete();
         return response()->json([
             'message'=>'تم تسجيل الخروج'
         ]);
