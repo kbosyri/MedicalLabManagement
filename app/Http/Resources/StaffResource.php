@@ -25,6 +25,7 @@ class StaffResource extends JsonResource
             'is_lab_staff'=>$this->when($this->is_lab_staff,true,false),
             'is_reception'=>$this->when($this->is_reception,true,false),
             'is_active'=>$this->when($this->is_active,true,false),
+            'is_staff'=>true,
         ];
     }
 }
