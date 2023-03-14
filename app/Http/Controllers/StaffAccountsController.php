@@ -44,13 +44,15 @@ class StaffAccountsController extends Controller
 
     public function ChangePassword(Request $request)
     {
-        $user = $request->user('staff');
+        $user = Staff::find(Auth::user()->id);
         if(!Hash::check($request->old_password,$user->password))
         {
             return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);
         }
         
         $user->password = Hash::make($request->new_password);
+
+        $user->save();
 
         return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
     }
