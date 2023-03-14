@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->integer('biometric_id', $unsigned = true)->nullable();
+            $table->integer('biometric_id', false, true)->nullable();
             $table->string('first_name');
             $table->string('father_name');
             $table->string('last_name');
