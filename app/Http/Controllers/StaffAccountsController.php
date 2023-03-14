@@ -92,7 +92,7 @@ class StaffAccountsController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json([
-            'message'=>'token deleted'
+            'message'=>'تم تسجيل الخروج'
         ]);
     }
 
@@ -106,7 +106,7 @@ class StaffAccountsController extends Controller
 
         return response()->json([
             'staff'=>new StaffResource($staff),
-            'message'=>'Account Terminated',
+            'message'=>'تم إلغاء حساب الموظف',
         ]);
     }
 }
