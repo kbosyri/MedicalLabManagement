@@ -88,7 +88,7 @@ class StaffAccountsController extends Controller
     {
         $staff = Staff::where('username',$request->username)->first();
         
-        if(!Auth::attempt(['username'=>$request->username,'password'=>$request->password],true))
+        if(!Auth::guard('staff')->attempt(['username'=>$request->username,'password'=>$request->password],true))
         {
             return response()->json(['message'=>'بيانات تسجيل الدخول غير صحيحة'],400);
         }
