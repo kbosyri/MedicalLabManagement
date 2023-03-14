@@ -19,6 +19,7 @@ class StaffAccountsController extends Controller
         $new_staff->father_name = $request->father_name;
         $new_staff->last_name = $request->last_name;
         $new_staff->username = $request->username;
+        $new_staff->qualifications = $request->qualifications;
         $new_staff->password = Hash::make($request->password);
 
         if($request->admin)
@@ -63,6 +64,7 @@ class StaffAccountsController extends Controller
         $staff->father_name = $request->father_name;
         $staff->last_name = $request->last_name;
         $staff->username = $request->username;
+        $staff->qualifications = $request->qualifications;
         
         $staff->save();
 

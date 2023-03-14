@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('username')->unique();
             $table->string('password');
+            $table->text('qualifications');
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_lab_staff')->default(false);
             $table->boolean('is_reception')->default(false);
