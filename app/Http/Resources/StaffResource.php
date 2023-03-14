@@ -14,6 +14,12 @@ class StaffResource extends JsonResource
      */
     public function toArray($request)
     {
+        $active = false;
+        if($this->is_active)
+        {
+            $active = true;
+        }
+
         return [
             'id'=>$this->id,
             'biometric_id'=>$this->biometric_id,
@@ -21,10 +27,11 @@ class StaffResource extends JsonResource
             'father_name'=>$this->father_name,
             'last_name'=>$this->last_name,
             'username'=>$this->username,
+            'qualifications'=>$this->qualifications,
             'is_admin'=>$this->when($this->is_admin,true,false),
             'is_lab_staff'=>$this->when($this->is_lab_staff,true,false),
             'is_reception'=>$this->when($this->is_reception,true,false),
-            'is_active'=>$this->when($this->is_active,true,false),
+            'is_active'=>$active,
             'is_staff'=>true,
         ];
     }

@@ -22,9 +22,9 @@ class StaffAccountsController extends Controller
         $new_staff->qualifications = $request->qualifications;
         $new_staff->password = Hash::make($request->password);
 
-        if($request->admin)
+        if($request->is_admin)
         {
-            $new_staff->admin = $request->admin;
+            $new_staff->is_admin = $request->admin;
         }
 
         else if($request->is_lab_staff)
