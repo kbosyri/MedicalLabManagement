@@ -105,7 +105,7 @@ class StaffAccountsController extends Controller
 
     public function LogoutStaff(Request $request)
     {
-        $request->user('staff')->currentAccessToken()->delete();
+        $request->user()->currentAccessToken()->delete();
         return response()->json([
             'message'=>'تم تسجيل الخروج'
         ]);
