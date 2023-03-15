@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'staff-register-validation'=>\App\Http\Middleware\StaffRegisterValidation::class,
         'staff-update-validation'=>\App\Http\Middleware\StaffUpdateValidation::class,
+        'staff-passwordchange-validation'=>\App\Http\Middleware\StaffPasswordChangeValidation::class,
     ];
 
     protected $middlewarePriority = [
@@ -79,6 +80,7 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\StaffRegisterValidation::class,
-        \App\Http\Middleware\StaffUpdateValidation::class
+        \App\Http\Middleware\StaffUpdateValidation::class,
+        \App\Http\Middleware\StaffPasswordChangeValidation::class,
     ];
 }
