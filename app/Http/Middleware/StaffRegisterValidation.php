@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Staff;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,11 @@ class StaffRegisterValidation
             'email'=>'email',
 
         ]);
+
+        if(Staff::where('username',$request->username)->where('is_active',true)->exists())
+        {
+            return response()->json(['message'=>'المستخدم مسجل في النظام'],400);
+        }
 
         if($request->is_lab_staff == null)
         {

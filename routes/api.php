@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::middleware('staff-update-validation')->post('/staff/update/{id}',[StaffAccountsController::class,'UpdateStaff']);
     Route::delete('/staff/terminate/{id}',[StaffAccountsController::class,'TerminateStaff']);
     Route::post('/staff/logout',[StaffAccountsController::class,'LogoutStaff']);
-    Route::middelware('staff-passwordchange-validation')->post('/staff/changepassword',[StaffAccountsController::class,'ChangePassword']);
+    Route::middleware('staff-passwordchange-validation')->post('/staff/changepassword',[StaffAccountsController::class,'ChangePassword']);
     Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
     Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
 });

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('father_name');
             $table->string('last_name');
-            $table->string('username')->unique();
+            $table->string('username');
             $table->string('password');
             $table->text('qualifications');
             $table->boolean('is_admin')->default(false);

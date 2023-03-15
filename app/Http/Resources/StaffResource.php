@@ -28,6 +28,8 @@ class StaffResource extends JsonResource
             'last_name'=>$this->last_name,
             'username'=>$this->username,
             'qualifications'=>$this->qualifications,
+            'email'=>$this->email,
+            'phone'=>$this->phone,
             'is_admin'=>$this->when($this->is_admin,true,false),
             'is_lab_staff'=>$this->when($this->is_lab_staff,true,false),
             'is_reception'=>$this->when($this->is_reception,true,false),

@@ -106,7 +106,7 @@ class StaffAccountsController extends Controller
 
     public function LoginStaff(Request $request)
     {
-        $staff = Staff::where('username',$request->username)->first();
+        $staff = Staff::where('username',$request->username)->where('is_active',true)->first();
         
         if(!Auth::guard('staff')->attempt(['username'=>$request->username,'password'=>$request->password],true))
         {

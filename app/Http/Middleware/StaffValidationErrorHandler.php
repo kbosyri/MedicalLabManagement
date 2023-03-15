@@ -3,9 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
-class StaffPasswordChangeValidation
+class StaffValidationErrorHandler
 {
     /**
      * Handle an incoming request.
@@ -16,10 +18,14 @@ class StaffPasswordChangeValidation
      */
     public function handle(Request $request, Closure $next)
     {
-        $request->validate([
-            'old_password'=>'required',
-            'new_password'=>'required',
-        ]);
-        return $next($request);
+        $response = null;
+        try{
+            $response = $next($request);
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['message'=>'خطأ في الدخل إلى النظام'],400);
+        }
+        return $response;
     }
 }
