@@ -37,6 +37,15 @@ class StaffAccountsController extends Controller
             $new_staff->is_reception = $request->is_reception;
         }
 
+        if($request->email)
+        {
+            $new_staff->email = $request->email;
+        }
+        if($request->phone)
+        {
+            $new_staff->phone = $request->phone;
+        }
+
         $new_staff->save();
 
         return new StaffResource($new_staff);
