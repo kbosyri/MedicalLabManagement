@@ -89,6 +89,15 @@ class StaffAccountsController extends Controller
         $staff->last_name = $request->last_name;
         $staff->username = $request->username;
         $staff->qualifications = $request->qualifications;
+
+        if($request->email)
+        {
+            $staff->email = $request->email;
+        }
+        if($request->phone)
+        {
+            $staff->phone = $request->phone;
+        }
         
         $staff->save();
 
