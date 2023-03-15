@@ -63,7 +63,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'register-validation'=>\App\Http\Middleware\StaffRegisterValidation::class,
+        'staff-register-validation'=>\App\Http\Middleware\StaffRegisterValidation::class,
+        'staff-update-validation'=>\App\Http\Middleware\StaffUpdateValidation::class,
     ];
 
     protected $middlewarePriority = [
@@ -78,5 +79,6 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\StaffRegisterValidation::class,
+        \App\Http\Middleware\StaffUpdateValidation::class
     ];
 }
