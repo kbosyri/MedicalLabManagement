@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/staff/login',[StaffAccountsController::class,'LoginStaff']);
 
 Route::middleware('auth:sanctum')->group(function (){
-    Route::middleware('staff-register-validation')->post('/staff/register',[StaffAccountsController::class,'RegisterStaff']);
+    Route::post('/staff/register',[StaffAccountsController::class,'RegisterStaff']);
     Route::middleware('staff-update-validation')->post('/staff/update/{id}',[StaffAccountsController::class,'UpdateStaff']);
     Route::delete('/staff/terminate/{id}',[StaffAccountsController::class,'TerminateStaff']);
     Route::post('/staff/logout',[StaffAccountsController::class,'LogoutStaff']);

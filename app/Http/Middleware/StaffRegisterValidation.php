@@ -17,18 +17,6 @@ class StaffRegisterValidation
      */
     public function handle(Request $request, Closure $next)
     {
-        $request->validate([
-            'first_name'=>'required',
-            'father_name'=>'required',
-            'last_name'=>'required',
-            'username'=>'required',
-            'qualifications'=>'required',
-            'password'=>'required',
-            'is_lab_staff'=>'boolean',
-            'is_reception'=>'boolean',
-            'email'=>'email',
-
-        ]);
 
         if(Staff::where('username',$request->username)->where('is_active',true)->exists())
         {
