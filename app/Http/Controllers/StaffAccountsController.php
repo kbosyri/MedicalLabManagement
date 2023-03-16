@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\StaffRegisterRequest;
 use App\Http\Resources\StaffResource;
 use App\Models\Staff;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class StaffAccountsController extends Controller
 {
-    public function RegisterStaff(RegisterRequest $request)
+    public function RegisterStaff(StaffRegisterRequest $request)
     {
         $new_staff = new Staff();
 

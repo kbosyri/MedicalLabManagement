@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Auth;
 
-class RegisterRequest extends FormRequest
+class StaffRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -40,11 +40,11 @@ class RegisterRequest extends FormRequest
     }
 
     public function failedValidation(Validator $validator)
-{
-   throw new HttpResponseException(response()->json([
-     'success'   => false,
-     'message'   => 'خطأ في القيم',
-     'errors'      => $validator->errors()
-   ],400));
-}
+    {
+       throw new HttpResponseException(response()->json([
+         'success'   => false,
+         'message'   => 'خطأ في القيم',
+         'errors'      => $validator->errors()
+       ],400));
+    }
 }
