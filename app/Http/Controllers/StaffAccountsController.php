@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StaffLoginRequest;
 use App\Http\Requests\StaffPasswordChangeRequest;
 use App\Http\Requests\StaffRegisterRequest;
 use App\Http\Requests\StaffUpdateRequest;
@@ -107,7 +108,7 @@ class StaffAccountsController extends Controller
         return new StaffResource($staff);
     }
 
-    public function LoginStaff(Request $request)
+    public function LoginStaff(StaffLoginRequest $request)
     {
         $staff = Staff::where('username',$request->username)->where('is_active',true)->first();
         
