@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StaffRegisterRequest;
+use App\Http\Requests\StaffUpdateRequest;
 use App\Http\Resources\StaffResource;
 use App\Models\Staff;
 use Illuminate\Http\Request;
@@ -81,7 +82,7 @@ class StaffAccountsController extends Controller
         return new StaffResource($staff);
     }
 
-    public function UpdateStaff(Request $request, $id)
+    public function UpdateStaff(StaffUpdateRequest $request, $id)
     {
         $staff = Staff::find($id);
 
