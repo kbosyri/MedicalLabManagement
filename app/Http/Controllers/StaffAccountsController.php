@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StaffPasswordChangeRequest;
 use App\Http\Requests\StaffRegisterRequest;
 use App\Http\Requests\StaffUpdateRequest;
 use App\Http\Resources\StaffResource;
@@ -53,7 +54,7 @@ class StaffAccountsController extends Controller
         return new StaffResource($new_staff);
     }
 
-    public function ChangePassword(Request $request)
+    public function ChangePassword(StaffPasswordChangeRequest $request)
     {
         $user = Staff::find(Auth::user()->id);
         if(!Hash::check($request->old_password,$user->password))
