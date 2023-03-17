@@ -8,6 +8,7 @@ use App\Http\Requests\StaffRegisterRequest;
 use App\Http\Requests\StaffUpdateRequest;
 use App\Http\Resources\StaffResource;
 use App\Models\Staff;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -138,6 +139,7 @@ class StaffAccountsController extends Controller
         $staff = Staff::find($id);
 
         $staff->is_active = false;
+        $staff->terminated_at = Carbon::now();
 
         $staff->save();
 
