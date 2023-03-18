@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StaffLoginRequest;
+use App\Http\Requests\StaffPasswordChangeRequest;
+use App\Http\Requests\StaffRegisterRequest;
+use App\Http\Requests\StaffUpdateRequest;
 use App\Http\Resources\StaffResource;
 use App\Models\Staff;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +16,7 @@ use Illuminate\Support\Str;
 
 class StaffAccountsController extends Controller
 {
-    public function RegisterStaff(Request $request)
+    public function RegisterStaff(StaffRegisterRequest $request)
     {
         $new_staff = new Staff();
 
@@ -19,11 +24,12 @@ class StaffAccountsController extends Controller
         $new_staff->father_name = $request->father_name;
         $new_staff->last_name = $request->last_name;
         $new_staff->username = $request->username;
+        $new_staff->qualifications = $request->qualifications;
         $new_staff->password = Hash::make($request->password);
 
-        if($request->admin)
+        if($request->is_admin)
         {
-            $new_staff->admin = $request->admin;
+            $new_staff->is_admin = $request->admin;
         }
 
         else if($request->is_lab_staff)
@@ -36,9 +42,33 @@ class StaffAccountsController extends Controller
             $new_staff->is_reception = $request->is_reception;
         }
 
+        if($request->email)
+        {
+            $new_staff->email = $request->email;
+        }
+        if($request->phone)
+        {
+            $new_staff->phone = $request->phone;
+        }
+
         $new_staff->save();
 
         return new StaffResource($new_staff);
+    }
+
+    public function ChangePassword(StaffPasswordChangeRequest $request)
+    {
+        $user = Staff::find(Auth::user()->id);
+        if(!Hash::check($request->old_password,$user->password))
+        {
+            return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);
+        }
+        
+        $user->password = Hash::make($request->new_password);
+
+        $user->save();
+
+        return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
     }
 
     public function GetAllStaff()
@@ -55,7 +85,7 @@ class StaffAccountsController extends Controller
         return new StaffResource($staff);
     }
 
-    public function UpdateStaff(Request $request, $id)
+    public function UpdateStaff(StaffUpdateRequest $request, $id)
     {
         $staff = Staff::find($id);
 
@@ -63,17 +93,27 @@ class StaffAccountsController extends Controller
         $staff->father_name = $request->father_name;
         $staff->last_name = $request->last_name;
         $staff->username = $request->username;
+        $staff->qualifications = $request->qualifications;
+
+        if($request->email)
+        {
+            $staff->email = $request->email;
+        }
+        if($request->phone)
+        {
+            $staff->phone = $request->phone;
+        }
         
         $staff->save();
 
         return new StaffResource($staff);
     }
 
-    public function LoginStaff(Request $request)
+    public function LoginStaff(StaffLoginRequest $request)
     {
-        $staff = Staff::where('username',$request->username)->first();
+        $staff = Staff::where('username',$request->username)->where('is_active',true)->first();
         
-        if(!Auth::attempt(['username'=>$request->username,'password'=>$request->password],true))
+        if(!Auth::guard('staff')->attempt(['username'=>$request->username,'password'=>$request->password],true))
         {
             return response()->json(['message'=>'بيانات تسجيل الدخول غير صحيحة'],400);
         }
@@ -90,7 +130,7 @@ class StaffAccountsController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json([
-            'message'=>'token deleted'
+            'message'=>'تم تسجيل الخروج'
         ]);
     }
 
@@ -99,12 +139,13 @@ class StaffAccountsController extends Controller
         $staff = Staff::find($id);
 
         $staff->is_active = false;
+        $staff->terminated_at = Carbon::now();
 
         $staff->save();
 
         return response()->json([
             'staff'=>new StaffResource($staff),
-            'message'=>'Account Terminated',
+            'message'=>'تم إلغاء حساب الموظف',
         ]);
     }
 }

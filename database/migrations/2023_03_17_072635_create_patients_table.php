@@ -13,21 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->integer('biometric_id', false, true)->nullable();
-            $table->string('first_name');
-            $table->string('father_name');
-            $table->string('last_name');
-            $table->string('username');
+            $table->string(column:'Fist_Name');
+            $table->string(column:'Last_Name');
+            $table->string(column:'Father_Name');
+            $table->string(column:'Gender');
+            $table->string('email')->nullable();
             $table->string('password');
-            $table->text('qualifications');
-            $table->boolean('is_admin')->default(false);
-            $table->boolean('is_lab_staff')->default(false);
-            $table->boolean('is_reception')->default(false);
+            $table->string('phone')->nullable();
+            $table->string(column:'Date_Of_Birth');
             $table->boolean('is_active')->default(true);
+            $table->date(column: 'Deactivation_Date')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('patients');
     }
 };
