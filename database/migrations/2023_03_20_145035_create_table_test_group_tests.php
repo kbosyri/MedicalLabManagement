@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('table_test_group_tests', function (Blueprint $table) {
+        Schema::create('test_group_tests', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(TestsGroup::class,'tests_group_id');
             $table->foreignIdFor(Test::class,'test_id');
