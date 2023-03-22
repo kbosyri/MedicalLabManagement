@@ -3,70 +3,89 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
-use Illuminate\Support\Facades\Validator;
+//
+use App\Http\Requests\PatientLoginRequest;
+use App\Http\Requests\PatientPasswordChangeRequest;
+use App\Http\Requests\PatientRegisterRequest;
+use App\Http\Requests\PatientreisterRequest;
+use App\Http\Resources\PatientResource;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+
+
+
+
+
+
+
+
 
 class PatientController extends Controller
 {
 
     public function index(){
-       /* $patient=Patient::all();
+        $patient=Patient::all()->where('is_active',true);
        if($patient->count() >0){
-        return  response()->json([
-            'statuse'=>200,
-            'patient'=>$patient
-              ],200);
+        return  PatientResource::collection($patient);
        }
        else{
         return  response()->json([
-            'statuse'=>404,
-            'message'=>'No Records Found'
-              ],404);
-       }*/
+            'message'=>' لا يوجد سجلات للمرضى '
+              ],500);
+       }
 
-       $patient=Patient::all();
-       return  response()->json([
-        'patients'=>$patient
-          ],200);
+    
 
     }
 
 
-    public function create(Request $request){
+    public function createpatient(Request $request){
         $patient=new patient;
         $patient->First_Name=$request->First_Name;
         $patient->Last_Name=$request->Last_Name;
         $patient->Father_Name=$request->Father_Name;
         $patient->Gender=$request->Gender;
         $patient->Date_Of_Birth=$request->Date_Of_Birth;
+        $patient->username=$request->username;
+        $patient->password=Hash::make($request->password);
+        $patient->email=$request->email;
+        $patient->phone=$request->phone;
         $patient->save();
-        return new patientResource($new_patient); 
+        return response()->json([
+            'message'=>'تم انشأ الحساب بنجاح',
+              ],500); new patientResource($patient); 
     }
 
 
-    public function edit ($id){
-        $patient=patient::find($id);
-        return new patientResource($new_patient); 
-        ;
-        
-    }
 
 
-    public function ubdate (Request $request,$id){
+
+    public function ubdatepatient (Request $request,$id){
         $patient=patient::find($id);
         $patient->First_Name=$request->First_Name;
         $patient->Last_Name=$request->Last_Name;
         $patient->Father_Name=$request->Father_Name;
         $patient->Gender=$request->Gender;
         $patient->Date_Of_Birth=$request->Date_Of_Birth;
+        $patient->username=$request->username;
+        $patient->password=Hash::make($request->password);
+        $patient->email=$request->email;
+        $patient->phone=$request->phone;
         $patient->save();
-        return new patientResource($new_patient); 
+        return  response()->json([
+            'message'=>'تم تعديل معلومات الحساب بنجاح',
+              ],500); new patientResource($patient); 
         ;
         
     }
 
 
 
-    public function delete ($id){
+    public function deletepatient ($id)
+    {
         $patient = Patient::find($id);
 
         $patient->is_active = false;
@@ -74,28 +93,98 @@ class PatientController extends Controller
 
         $patient->save();
 
-        return response()->json([
+        response()->json([
             'message'=>'تم إلغاء تفعيل الحساب بنجاح',
         ]);
 
-    }//returne--------
+    }
 
 
-    public function store (storePatientRequest $request){
-        try {
-            patient::create($request->all());
-            return redirect()->back()->with('success','Data saved successfully');
-        }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error'=>$e->getMessage()]);
+
+   public function Registerpatient(PatientreisterRequest $request)
+    {
+        $patient = new Patient();
+
+        $patient->First_Name=$request->First_Name;
+        $patient->Last_Name=$request->Last_Name;
+        $patient->Father_Name=$request->Father_Name;
+        $patient->Gender=$request->Gender;
+        $patient->Date_Of_Birth=$request->Date_Of_Birth;
+        $patient->username=$request->username;
+        $patient->password=Hash::make($request->password);
+        $patient->email=$request->email;
+        $patient->phone=$request->phone;
+    
+        
+
+        if($request->email)
+        {
+            $patient->email = $request->email;
+        }
+        if($request->phone)
+        {
+            $patient->phone = $request->phone;
         }
 
-$validator=validator::make($request->all(),)
+        $patient->save();
 
+        return  response()->json([
+            'message'=>'  تم تسجيل الدخول بنجاح',
+              ],500); new patientResource($patient); 
     }
+
+
+    public function Loginpatient(PatientloginRequest $request)
+    {
+        $patient = Patient::where('username',$request->username)->where('is_active',true)->first();
+        
+        if(!Auth::attempt(['username'=>$request->username,'password'=>$request->password],true))
+        {
+            return response()->json(['message'=>'بيانات تسجيل الدخول غير صحيحة'],400);
+        }
+
+        $token = $patient->createToken('authtoken')->plainTextToken;
+
+        return response()->json([
+            'token'=> $token,
+            'message'=>'تم تسجيل الدخول بنجاح',
+            'patient'=> new PatientResource($patient),
+        ]);
+    }
+
+    public function Logoutpatient(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'message'=>'تم تسجيل الخروج',
+        ]);
+    }
+
+
+    public function ChangePassword(PatientPasswordChangeRequest $request)
+    {
+        $user = patient::find(Auth::user()->id);
+        if(!Hash::check($request->old_password,$user->password))
+        {
+            return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);
+        }
+        
+        $user->password = Hash::make($request->new_password);
+
+        $user->save();
+
+        return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
+    }
+
+
+
+
+
+
+}
 
 
     
 
 
 
-}

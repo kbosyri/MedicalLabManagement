@@ -23,19 +23,22 @@ use App\Http\Controllers\PatientController;
 <<<<<<< HEAD
 });*/
 
+Route::post('/patient/login',[PatientController::class,'Loginpatient']);
+Route::middleware('auth:sanctum')->group(function (){
 
-Route::get('patients',[App\Http\Controllers\PatientController::class,'index']);
+    Route::get('/patients',[App\Http\Controllers\PatientController::class,'index']);
+    Route::post('/createpatients',[App\Http\Controllers\PatientController::class,'creatpatient'])->name('create');
+    Route::post('/updatepatients/{id}',[App\Http\Controllers\PatientController::class,'updatepatient'])->name('update');
+    Route::delete('/deletepatients/{id}',[App\Http\Controllers\PatientController::class,'deletepatient'])->name('delete');
+    Route::post('/patient/logout',[PatientController::class,'Logoutpatient']);
+    Route::middleware('')->post('/patient/register',[PatientController::class,'Registerpatient']);
+    Route::post('/patient/changepassword',[StaffAccountsController::class,'ChangePassword']);
 
-Route::post('createpatients',[App\Http\Controllers\PatientController::class,'creat'])->name('create');
-Route::get('editepatients/{id}',[App\Http\Controllers\PatientController::class,'edit'])->name('edite');
-Route::put('updatepatients/{id}',[App\Http\Controllers\PatientController::class,'update'])->name('update');
-Route::get('deletepatients/{id}',[App\Http\Controllers\PatientController::class,'delete'])->name('delete');
-Route::post('patients',[App\Http\Controllers\PatientController::class,'store'])->name('store');
-
+});
 Route::post('/staff/login',[StaffAccountsController::class,'LoginStaff']);
 
 Route::middleware('auth:sanctum')->group(function (){
-    Route::post('/staff/register',[StaffAccountsController::class,'RegisterStaff']);
+    Route::middleware('staff-register-validation')->post('/staff/register',[StaffAccountsController::class,'RegisterStaff']);
     Route::post('/staff/update/{id}',[StaffAccountsController::class,'UpdateStaff']);
     Route::delete('/staff/terminate/{id}',[StaffAccountsController::class,'TerminateStaff']);
     Route::post('/staff/logout',[StaffAccountsController::class,'LogoutStaff']);
