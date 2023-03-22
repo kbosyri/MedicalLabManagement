@@ -16,7 +16,7 @@ class PatientUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_recaption;
+        return Auth::user()->is_reception;
     }
 
     /**

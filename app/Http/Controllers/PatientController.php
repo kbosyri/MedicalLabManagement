@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Http\Requests\PatientLoginRequest;
 use App\Http\Requests\PatientPasswordChangeRequest;
 use App\Http\Requests\PatientRegisterRequest;
+use App\Http\Requests\PatientreisterRequest;
 use App\Http\Resources\PatientResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class PatientController extends Controller
 {
 
     public function index(){
-        $patient=Patient::all()->where(is_active,true);
+        $patient=Patient::all()->where('is_active',true);
        if($patient->count() >0){
         return  PatientResource::collection($patient);
        }
@@ -55,7 +56,7 @@ class PatientController extends Controller
         $patient->save();
         return response()->json([
             'message'=>'تم انشأ الحساب بنجاح',
-              ],500); new patientResource($new_patient); 
+              ],500); new patientResource($patient); 
     }
 
 
@@ -76,14 +77,15 @@ class PatientController extends Controller
         $patient->save();
         return  response()->json([
             'message'=>'تم تعديل معلومات الحساب بنجاح',
-              ],500); new patientResource($new_patient); 
+              ],500); new patientResource($patient); 
         ;
         
     }
 
 
 
-    public function deletepatient ($id){
+    public function deletepatient ($id)
+    {
         $patient = Patient::find($id);
 
         $patient->is_active = false;
@@ -91,7 +93,7 @@ class PatientController extends Controller
 
         $patient->save();
 
-        return response()->json([
+        response()->json([
             'message'=>'تم إلغاء تفعيل الحساب بنجاح',
         ]);
 
@@ -99,7 +101,7 @@ class PatientController extends Controller
 
 
 
-   public function Registerpatient(PatientRegisterRequest $request)
+   public function Registerpatient(PatientreisterRequest $request)
     {
         $patient = new Patient();
 
@@ -128,7 +130,7 @@ class PatientController extends Controller
 
         return  response()->json([
             'message'=>'  تم تسجيل الدخول بنجاح',
-              ],500); new patientResource($new_patient); 
+              ],500); new patientResource($patient); 
     }
 
 
@@ -136,7 +138,7 @@ class PatientController extends Controller
     {
         $patient = Patient::where('username',$request->username)->where('is_active',true)->first();
         
-        if(!Auth::guard('patient')->attempt(['username'=>$request->username,'password'=>$request->password],true))
+        if(!Auth::attempt(['username'=>$request->username,'password'=>$request->password],true))
         {
             return response()->json(['message'=>'بيانات تسجيل الدخول غير صحيحة'],400);
         }
