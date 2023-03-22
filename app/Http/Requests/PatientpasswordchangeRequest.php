@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
 class PatientpasswordchangeRequest extends FormRequest
 {
@@ -15,7 +16,14 @@ class PatientpasswordchangeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if(Auth::user()->email == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class PatientloginRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class PatientloginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +28,16 @@ class PatientloginRequest extends FormRequest
         return [
             'username'=>'required',
             'password'=>'required',
-            'email'=>'email',
+            //'email'=>'email', غير ضروري
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'=>false,
+            'message'=>'يوجد خطأ في القيم المدخلة',
+            'errors'=>$validator->errors()
+        ],400));
     }
 }

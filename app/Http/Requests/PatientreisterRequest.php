@@ -33,7 +33,7 @@ class PatientreisterRequest extends FormRequest
             'father_name'=>'required',
             'username'=>'required',
             'password'=>'required',
-            'phone'=>'phone',
+            //'phone'=>'phone', غير موجود كقاعدة
             'email'=>'email',
         ];
     }
