@@ -26,6 +26,7 @@ class PatientloginRequest extends FormRequest
         return [
             'username'=>'required',
             'password'=>'required',
+            'phone'=>'phone',
             'email'=>'email',
         ];
     }
