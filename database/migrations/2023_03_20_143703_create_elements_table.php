@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('name');
             $table->text('arabic_name');
-            $table->sting('symbol');
+            $table->string('symbol');
             $table->boolean('is_value')->default(false);
             $table->boolean('is_percentage')->default(false);
             $table->boolean('is_exist')->default(false);

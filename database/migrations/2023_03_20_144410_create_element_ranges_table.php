@@ -16,17 +16,18 @@ return new class extends Migration
     {
         Schema::create('element_ranges', function (Blueprint $table) {
             $table->id();
-            $table->set('gender',['m','f']);
+            $table->set('gender',['m','f','n']);
             $table->foreignIdFor(Element::class,'element_id');
             $table->integer('from_age');
             $table->integer('to_age');
+            $table->string('age_unit');
             $table->string('unit');
             $table->boolean('is_range');
             $table->boolean('is_affected_by_gender');
-            $table->integer('min_value');
-            $table->integer('max_value');
-            $table->integer('max_possible_value');
-            $table->integer('min_possible_value');
+            $table->float('min_value');
+            $table->float('max_value');
+            $table->float('max_possible_value');
+            $table->float('min_possible_value');
             $table->timestamps();
         });
     }
