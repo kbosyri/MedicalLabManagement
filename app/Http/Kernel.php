@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'staff-register-validation'=>\App\Http\Middleware\StaffRegisterValidation::class,
         'staff-update-validation'=>\App\Http\Middleware\StaffUpdateValidation::class,
         'staff-passwordchange-validation'=>\App\Http\Middleware\StaffPasswordChangeValidation::class,
+        'patient-register-validation'=>\App\Http\Middleware\PatientRegisterValidation::class,
     ];
 
     protected $middlewarePriority = [
