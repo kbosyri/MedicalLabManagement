@@ -22,8 +22,6 @@ class PatientRegisterValidation
             return response()->json(['message'=>'المستخدم مسجل في النظام'],400);
         }
 
-        
-
         return $next($request);
     }
 }

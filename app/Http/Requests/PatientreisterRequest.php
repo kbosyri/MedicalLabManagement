@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Validation\Rule;
 
 class PatientreisterRequest extends FormRequest
 {
@@ -17,7 +17,7 @@ class PatientreisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return  Auth::user()->is_recption;
+        return  Auth::user()->is_reception;
     }
 
     /**
@@ -28,9 +28,11 @@ class PatientreisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'father_name'=>'required',
+            'First_Name'=>'required',
+            'Last_Name'=>'required',
+            'Father_Name'=>'required',
+            'Gender'=>['required',Rule::in(['f','F','m','M'])],
+            'Date_Of_Birth'=>['required','date'],
             'username'=>'required',
             'password'=>'required',
             //'phone'=>'phone', غير موجود كقاعدة

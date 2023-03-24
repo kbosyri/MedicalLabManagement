@@ -41,6 +41,12 @@ class PatientController extends Controller
 
     }
 
+    public function GetSpecificPatient($id)
+    {
+        $patient = Patient::find($id);
+        
+        return new PatientResource($patient);
+    }
 
     public function createpatient(Request $request){
         $patient=new patient;
@@ -63,7 +69,7 @@ class PatientController extends Controller
 
 
 
-    public function ubdatepatient (Request $request,$id){
+    public function updatepatient (Request $request,$id){
         $patient=patient::find($id);
         $patient->First_Name=$request->First_Name;
         $patient->Last_Name=$request->Last_Name;
@@ -89,7 +95,7 @@ class PatientController extends Controller
         $patient = Patient::find($id);
 
         $patient->is_active = false;
-        $patient->Deactive_Date = Carbon::now();
+        $patient->Deactivation_Date = Carbon::now();
 
         $patient->save();
 
@@ -112,9 +118,6 @@ class PatientController extends Controller
         $patient->Date_Of_Birth=$request->Date_Of_Birth;
         $patient->username=$request->username;
         $patient->password=Hash::make($request->password);
-        $patient->email=$request->email;
-        $patient->phone=$request->phone;
-    
         
 
         if($request->email)
@@ -129,8 +132,9 @@ class PatientController extends Controller
         $patient->save();
 
         return  response()->json([
-            'message'=>'  تم تسجيل الدخول بنجاح',
-              ],500); new patientResource($patient); 
+            'message'=>'  تم تسجيل المريض بنجاح',
+            'patient'=>new patientResource($patient)
+              ],200); 
     }
 
 
@@ -164,6 +168,7 @@ class PatientController extends Controller
     public function ChangePassword(PatientPasswordChangeRequest $request)
     {
         $user = patient::find(Auth::user()->id);
+
         if(!Hash::check($request->old_password,$user->password))
         {
             return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);

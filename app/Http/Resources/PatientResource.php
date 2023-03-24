@@ -16,14 +16,14 @@ class PatientResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'first_name'=>$this->first_name,
-            'last_name'=>$this->last_name,
-            'father_name'=>$this->father_name,
-            'gender'=>$this->gender,
+            'first_name'=>$this->First_Name,
+            'last_name'=>$this->Last_Name,
+            'father_name'=>$this->Father_Name,
+            'gender'=>$this->Gender,
+            'date_of_birth'=>$this->Date_Of_Birth,
             'email'=>$this->email,
             'phone'=>$this->phone,
-            'is_active'=>$this->active,
-            'date_of_birth'=>$this->date_of_birth,
+            'is_active'=>$this->is_active,
 
         ];
     }
