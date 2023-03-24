@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller;
+use App\Http\Controllers\TestsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,4 +18,6 @@ use App\Http\Controller;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/elements',[TestsController::class,'ElementsPage']);
 

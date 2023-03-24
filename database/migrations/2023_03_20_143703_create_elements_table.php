@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('is_value')->default(false);
             $table->boolean('is_percentage')->default(false);
             $table->boolean('is_exist')->default(false);
+            $table->boolean('is_category')->default(false);
             $table->timestamps();
         });
     }
