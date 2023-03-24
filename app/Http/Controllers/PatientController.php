@@ -105,7 +105,12 @@ class PatientController extends Controller
 
     }
 
+    public function GetUser()
+    {
+        $user = Patient::find(Auth::user()->id);
 
+        return new PatientResource($user);
+    }
 
    public function Registerpatient(PatientreisterRequest $request)
     {

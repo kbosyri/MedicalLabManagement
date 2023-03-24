@@ -27,6 +27,7 @@ Route::post('/patient/login',[PatientController::class,'Loginpatient']);
 Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/patients',[App\Http\Controllers\PatientController::class,'index']);
+    Route::get('/patients/user',[PatientController::class,'GetUser']);
     Route::post('/patients/changepassword',[PatientController::class,'ChangePassword']);
     Route::get('/patients/{id}',[App\Http\Controllers\PatientController::class,'GetSpecificPatient']);
     Route::post('/createpatients',[App\Http\Controllers\PatientController::class,'creatpatient'])->name('create');
@@ -40,10 +41,12 @@ Route::post('/staff/login',[StaffAccountsController::class,'LoginStaff']);
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::middleware('staff-register-validation')->post('/staff/register',[StaffAccountsController::class,'RegisterStaff']);
+    
     Route::post('/staff/update/{id}',[StaffAccountsController::class,'UpdateStaff']);
     Route::delete('/staff/terminate/{id}',[StaffAccountsController::class,'TerminateStaff']);
     Route::post('/staff/logout',[StaffAccountsController::class,'LogoutStaff']);
     Route::post('/staff/changepassword',[StaffAccountsController::class,'ChangePassword']);
     Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
+    Route::get('/staff/user',[StaffAccountsController::class,'GetUser']);
     Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
 });
