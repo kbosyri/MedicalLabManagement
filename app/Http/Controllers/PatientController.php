@@ -95,7 +95,7 @@ class PatientController extends Controller
         $patient = Patient::find($id);
 
         $patient->is_active = false;
-        $patient->Deactive_Date = Carbon::now();
+        $patient->Deactivation_Date = Carbon::now();
 
         $patient->save();
 
@@ -109,7 +109,6 @@ class PatientController extends Controller
 
    public function Registerpatient(PatientreisterRequest $request)
     {
-        error_log("Entered Controller");
         $patient = new Patient();
 
         $patient->First_Name=$request->First_Name;
@@ -169,6 +168,7 @@ class PatientController extends Controller
     public function ChangePassword(PatientPasswordChangeRequest $request)
     {
         $user = patient::find(Auth::user()->id);
+
         if(!Hash::check($request->old_password,$user->password))
         {
             return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);
