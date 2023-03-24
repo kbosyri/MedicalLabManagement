@@ -103,6 +103,7 @@ class PatientController extends Controller
 
    public function Registerpatient(PatientreisterRequest $request)
     {
+        error_log("Entered Controller");
         $patient = new Patient();
 
         $patient->First_Name=$request->First_Name;
@@ -112,9 +113,6 @@ class PatientController extends Controller
         $patient->Date_Of_Birth=$request->Date_Of_Birth;
         $patient->username=$request->username;
         $patient->password=Hash::make($request->password);
-        $patient->email=$request->email;
-        $patient->phone=$request->phone;
-    
         
 
         if($request->email)
@@ -129,8 +127,9 @@ class PatientController extends Controller
         $patient->save();
 
         return  response()->json([
-            'message'=>'  تم تسجيل الدخول بنجاح',
-              ],500); new patientResource($patient); 
+            'message'=>'  تم تسجيل المريض بنجاح',
+            'patient'=>new patientResource($patient)
+              ],200); 
     }
 
 

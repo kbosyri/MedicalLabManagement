@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/updatepatients/{id}',[App\Http\Controllers\PatientController::class,'updatepatient'])->name('update');
     Route::delete('/deletepatients/{id}',[App\Http\Controllers\PatientController::class,'deletepatient'])->name('delete');
     Route::post('/patient/logout',[PatientController::class,'Logoutpatient']);
-    Route::middleware('')->post('/patient/register',[PatientController::class,'Registerpatient']);
+    Route::middleware('patient-register-validation')->post('/patient/register',[PatientController::class,'Registerpatient']);
     Route::post('/patient/changepassword',[StaffAccountsController::class,'ChangePassword']);
 
 });
