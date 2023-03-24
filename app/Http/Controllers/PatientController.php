@@ -41,6 +41,12 @@ class PatientController extends Controller
 
     }
 
+    public function GetSpecificPatient($id)
+    {
+        $patient = Patient::find($id);
+        
+        return new PatientResource($patient);
+    }
 
     public function createpatient(Request $request){
         $patient=new patient;
@@ -63,7 +69,7 @@ class PatientController extends Controller
 
 
 
-    public function ubdatepatient (Request $request,$id){
+    public function updatepatient (Request $request,$id){
         $patient=patient::find($id);
         $patient->First_Name=$request->First_Name;
         $patient->Last_Name=$request->Last_Name;
