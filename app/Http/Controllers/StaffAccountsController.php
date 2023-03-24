@@ -71,6 +71,13 @@ class StaffAccountsController extends Controller
         return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
     }
 
+    public function GetUser()
+    {
+        $user = Staff::find(Auth::user()->id);
+
+        return new StaffResource($user);
+    }
+
     public function GetAllStaff()
     {
         $staff = Staff::where('is_active',true)->get();
