@@ -36,7 +36,7 @@ class ElementsController extends Controller
         }
         else if($element->is_exist)
         {
-            
+            ValueStorage::SetCategoryElementsExistValues($element->id,$request->values);
         }
 
         return response()->json(['message'=>'Category Element Created Successfully']);
@@ -44,7 +44,7 @@ class ElementsController extends Controller
 
     public function GetSubCategories()
     {
-
+        
     }
 
     public function GetCategories()
