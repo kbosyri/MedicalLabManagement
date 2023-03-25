@@ -6,7 +6,7 @@ use App\Models\CategoryElement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryElementValueRange extends Model
+class CategoryElementExistValue extends Model
 {
     use HasFactory;
 
