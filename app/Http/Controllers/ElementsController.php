@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ElementsValuesStorage\ValueStorage;
 use App\Http\Resources\Elements\CategoryElementResource;
 use App\Http\Resources\Elements\CategoryResource;
+use App\Http\Resources\Elements\ElementResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
 use App\Models\Element;
@@ -69,6 +70,8 @@ class ElementsController extends Controller
 
     public function GetElements()
     {
-        
+        $elements = Element::all();
+
+        return ElementResource::collection($elements);
     }
 }

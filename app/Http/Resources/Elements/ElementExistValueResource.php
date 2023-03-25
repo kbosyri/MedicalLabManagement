@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Elements;
 
-use App\Models\Elements\CategoryElementExistValue;
+use App\Models\ElementExistValue;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryElementExistValueResource extends JsonResource
+class ElementExistValueResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,8 +14,8 @@ class CategoryElementExistValueResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-    protected $collects = CategoryElementExistValue::class;
-    
+    protected $collects = ElementExistValue::class;
+
     public function toArray($request)
     {
         return [

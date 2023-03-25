@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\Elements;
 
+use App\Http\Resources\SubCategoryElementResource;
 use App\Models\CategoryElement;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryElementSubCategoryResource extends JsonResource
+class ElementSubCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,6 +24,7 @@ class CategoryElementSubCategoryResource extends JsonResource
             'name'=>$this->name,
             'arabic_name'=>$this->arabic_name,
             'symbol'=>$this->symbol,
+            'elements'=>SubCategoryElementResource::collection($this->values),
         ];
     }
 }
