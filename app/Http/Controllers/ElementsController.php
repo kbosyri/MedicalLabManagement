@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\ElementsValuesStorage\ValueStorage;
+use App\Http\Resources\Elements\CategoryElementResource;
+use App\Http\Resources\Elements\CategoryResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
+use App\Models\Element;
 use Illuminate\Http\Request;
 
 class ElementsController extends Controller
@@ -52,12 +55,16 @@ class ElementsController extends Controller
 
     public function GetCategories()
     {
+        $categories = Element::where('is_category',true)->get();
 
+        return CategoryResource::collection($categories);
     }
 
     public function GetCategoryElements()
     {
+        $elements = CategoryElement::where('subcategory_id',null)->get();
 
+        return CategoryElementResource::collection($elements);
     }
 
     public function GetElements()
