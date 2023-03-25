@@ -19,6 +19,7 @@ return new class extends Migration
             $table->set('gender',['m','f','n']);
             $table->string('from_age')->nullable();
             $table->string('to_age')->nullable();
+            $table->string('age_unit')->nullable();
             $table->string('min_value')->nullable();
             $table->string('max_value')->nullable();
             $table->string('value')->nullable();
