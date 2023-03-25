@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ElementsValuesStorage\ValueStorage;
+use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,9 @@ class ElementsController extends Controller
 
     public function GetSubCategories()
     {
-        
+        $subcategories = CategoryElement::where('is_subcategory',true)->get();
+
+        return SubCategoryResource::collection($subcategories);
     }
 
     public function GetCategories()
