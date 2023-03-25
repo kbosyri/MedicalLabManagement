@@ -19,6 +19,7 @@ class ValueStorage
             $new_range->gender = $value['gender'];
             $new_range->from_age = $value['from_age'];
             $new_range->to_age = $value['to_age'];
+            $new_range->age_unit = $value['age_unit'];
             $new_range->min_value = $value['min_value'];
             $new_range->max_value = $value['max_value'];
             $new_range->value = $value['value'];
@@ -57,6 +58,7 @@ class ValueStorage
             $new_range->gender = $value['gender'];
             $new_range->from_age = $value['from_age'];
             $new_range->to_age = $value['to_age'];
+            $new_range->age_unit = $value['age_unit'];
             $new_range->difference = $value['difference'];
             $new_range->min_value = $value['min_value'];
             $new_range->max_value = $value['max_value'];
