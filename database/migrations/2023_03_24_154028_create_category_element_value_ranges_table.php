@@ -23,7 +23,7 @@ return new class extends Migration
             $table->set('difference',['0','+1','+2','+3','+4'])->nullable();
             $table->string('min_value')->nullable();
             $table->string('max_value')->nullable();
-            $table->string('value');
+            $table->string('value')->nullable();
             $table->string('unit')->nullable();
             $table->boolean('is_range')->default(false);
             $table->boolean('is_gender_affected')->default(false);

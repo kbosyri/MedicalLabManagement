@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Element;
-use App\Models\ElementRange;
+use App\Models\ElementValueRange;
 use Illuminate\Http\Request;
 
 class TestsController extends Controller
@@ -34,7 +34,7 @@ class TestsController extends Controller
             array_push($ranges,$range);
         }
 
-        ElementRange::insert($ranges);
+        ElementValueRange::insert($ranges);
 
         return response()->json(['message'=>'success']);
     }

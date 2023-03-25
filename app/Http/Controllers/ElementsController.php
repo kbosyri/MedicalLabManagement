@@ -32,11 +32,11 @@ class ElementsController extends Controller
 
         if($element->is_value)
         {
-            
+            ValueStorage::SetCategoryElementValueRanges($element->id,$request->values);
         }
         else if($element->is_exist)
         {
-
+            
         }
 
         return response()->json(['message'=>'Category Element Created Successfully']);

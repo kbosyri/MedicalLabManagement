@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('category_element_exist_value.phps', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(CategoryElement::class,'element_id');
+            $table->foreignIdFor(CategoryElement::class,'category_element_id');
             $table->boolean('value');
             $table->set('difference',['0','+1','+2','+3','+4']);
             $table->boolean('is_difference_affected')->default(false);
