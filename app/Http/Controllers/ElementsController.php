@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ElementsValuesStorage\ValueStorage;
 use App\Models\CategoryElement;
 use Illuminate\Http\Request;
 
@@ -31,13 +32,33 @@ class ElementsController extends Controller
 
         if($element->is_value)
         {
-
+            
         }
         else if($element->is_exist)
         {
-            
+
         }
 
         return response()->json(['message'=>'Category Element Created Successfully']);
+    }
+
+    public function GetSubCategories()
+    {
+
+    }
+
+    public function GetCategories()
+    {
+
+    }
+
+    public function GetCategoryElements()
+    {
+
+    }
+
+    public function GetElements()
+    {
+        
     }
 }
