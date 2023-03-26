@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 
 class ElementsController extends Controller
 {
+    //Addition Functions
     public function AddCategoryElement(Request $request)
     {
         $element = new CategoryElement();
@@ -38,15 +39,6 @@ class ElementsController extends Controller
         $element->is_subcategory = $request->is_subcategory;
 
         $element->save();
-
-        if($element->is_value)
-        {
-            ValueStorage::SetCategoryElementValueRanges($element->id,$request->values);
-        }
-        else if($element->is_exist)
-        {
-            ValueStorage::SetCategoryElementsExistValues($element->id,$request->values);
-        }
 
         return response()->json([
             'message'=>'تم إضافة المؤشر الجزئي',
@@ -213,15 +205,6 @@ class ElementsController extends Controller
 
         $element->save();
 
-        if($element->is_value)
-        {
-            ValueStorage::SetElementValueRanges($element->id,$request->values);
-        }
-        else if($element->is_exist)
-        {
-            ValueStorage::SetElementExistValues($element->id,$request->values);
-        }
-
         return response()->json([
             'message'=>'تم إضافة المؤشر الجزئي',
             'element'=>new ElementResource($element),
@@ -247,6 +230,7 @@ class ElementsController extends Controller
         ]);
     }
 
+    //Getting Function
     public function GetSubCategories()
     {
         $subcategories = CategoryElement::where('is_subcategory',true)->get();

@@ -4,38 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Element;
 use App\Models\ElementValueRange;
+use App\Models\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TestsController extends Controller
 {
-    public function ElementsPage()
+
+    public function AddTest(Request $request)
     {
-        return view('elements');
-    }
+        $new_test = new Test();
 
-    public function AddElement(Request $request)
-    {
-        $element = new Element();
+        $new_test->name = $request->name;
+        $new_test->arabic_name = $request->arabic_name;
+        $new_test->symbol = $request->symbol;
+        $new_test->cost = $request->cost;
 
-        $element->name = $request->name;
-        $element->arabic_name = $request->arabic_name;
-        $element->symbol = $request->symbol;
-        $element->is_value = $request->is_value;
-        $element->is_percentage = $request->is_percentage;
-        $element->is_exist = $request->is_exist;
+        $new_test->save();
 
-        $element->save();
+        $elements = [];
 
-        $ranges = array();
-
-        foreach($request->ranges as $range)
+        foreach($request->elements as $element)
         {
-            $range['id'] = $element->id;
-            array_push($ranges,$range);
+            array_push($elements,['element_id'=>$element,'test_id'=>$new_test->id]);
         }
 
-        ElementValueRange::insert($ranges);
+        DB::table('test_elements')->insert($elements);
 
-        return response()->json(['message'=>'success']);
+        return response()->json([
+            'message'=>"تم إضافة التحليل بنجاح",
+        ]);
     }
 }
