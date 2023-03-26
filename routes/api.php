@@ -4,6 +4,7 @@ use App\Http\Controllers\StaffAccountsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\PatientController;
 
 
@@ -49,4 +50,11 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
     Route::get('/staff/user',[StaffAccountsController::class,'GetUser']);
     Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
+});
+
+Route::post('/elements/add',[ElementsController::class,'AddElement']);
+Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
+
+Route::middleware('auth:sanctum')->group(function(){
+    
 });

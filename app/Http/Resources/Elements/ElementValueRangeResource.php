@@ -23,6 +23,7 @@ class ElementValueRangeResource extends JsonResource
             'gender'=>$this->gender,
             'from_age'=>$this->from_age,
             'to_age'=>$this->to_age,
+            'age_unit'=>$this->age_unit,
             'min_value'=>$this->min_value,
             'max_value'=>$this->max_value,
             'value'=>$this->value,
