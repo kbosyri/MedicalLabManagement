@@ -9,6 +9,10 @@ use App\Http\Resources\Elements\ElementResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
 use App\Models\Element;
+use App\Models\ElementExistValue;
+use App\Models\Elements\CategoryElementExistValue;
+use App\Models\Elements\CategoryElementValueRange;
+use App\Models\ElementValueRange;
 use Illuminate\Http\Request;
 
 class ElementsController extends Controller
@@ -48,6 +52,124 @@ class ElementsController extends Controller
             'message'=>'تم إضافة المؤشر الجزئي',
             'element'=>new CategoryElementResource($element),
         ]);
+    }
+
+    public function AddValueRangeToCategoryElement(Request $request,$element_id)
+    {
+        $element = CategoryElement::find($element_id);
+        if($element->is_value)
+        {
+            $new_range = new CategoryElementValueRange();
+
+            $new_range->category_element_id = $element_id;
+            $new_range->gender = $request->gender;
+            $new_range->from_age = $request->from_age;
+            $new_range->to_age = $request->to_age;
+            $new_range->age_unit = $request->age_unit;
+            $new_range->difference = $request->difference;
+            $new_range->min_value = $request->min_value;
+            $new_range->max_value = $request->max_value;
+            $new_range->value = $request->value;
+            $new_range->unit = $request->unit;
+            $new_range->is_range = $request->is_range;
+            $new_range->is_gender_affected = $request->is_gender_affected;
+            $new_range->is_age_affected = $request->is_age_affected;
+            $new_range->is_difference_affected = $request->is_difference_affected;
+
+            $new_range->save();
+
+            return response()->json([
+                'message'=>'تم إضافة مجال القيم للمؤشر',
+                'element'=>new CategoryElementResource($element),
+            ]);
+        }
+
+        return response()->json([
+            'message'=>'هذا المؤشر يحتوي على قيم',
+        ],400);
+    }
+
+    public function AddExistValueToCategoryElement(Request $request, $element_id)
+    {
+        $element = CategoryElement::find($element_id);
+        if($element->is_exist)
+        {
+            $new_value = new CategoryElementExistValue();
+
+            $new_value->category_element_id = $element_id;
+            $new_value->value = $request->value;
+            $new_value->difference = $request->difference;
+            $new_value->is_difference_affected = $request->is_difference_affected;
+
+            $new_value->save();
+
+            return response()->json([
+                'message'=>"تم إضافة القيمة إلى المؤشر",
+                'element'=>new CategoryElementResource($element),
+            ]);
+        }
+
+        return response()->json([
+            'message'=>"المؤشر يتحقق من وجود مادة",
+        ],400);
+    }
+
+    public function AddValueRangeToElement(Request $request,$element_id)
+    {
+        $element = Element::find($element_id);
+        if($element->is_value)
+        {
+            $new_range = new ElementValueRange();
+
+            $new_range->element_id = $element_id;
+            $new_range->gender = $request->gender;
+            $new_range->from_age = $request->from_age;
+            $new_range->to_age = $request->to_age;
+            $new_range->age_unit = $request->age_unit;
+            $new_range->min_value = $request->min_value;
+            $new_range->max_value = $request->max_value;
+            $new_range->value = $request->value;
+            $new_range->unit = $request->unit;
+            $new_range->is_range = $request->is_range;
+            $new_range->is_gender_affected = $request->is_gender_affected;
+            $new_range->is_age_affected = $request->is_age_affected;
+
+            $new_range->save();
+
+            return response()->json([
+                'message'=>'تم إضافة مجال القيم للمؤشر',
+                'element'=>new ElementResource($element),
+            ]);
+        }
+
+        return response()->json([
+            'message'=>'هذا المؤشر يحتوي على قيم',
+        ],400);
+    }
+
+    public function AddExistValueToElement(Request $request, $element_id)
+    {
+        $element = Element::find($element_id);
+        if($element->is_exist)
+        {
+            $new_value = new ElementExistValue();
+
+            $new_value->element_id = $element_id;
+            $new_value->value = $request->value;
+            $new_value->difference = $request->difference;
+            $new_value->is_difference_affected = $request->is_difference_affected;
+
+            $new_value->save();
+
+            return response()->json([
+                'message'=>"تم إضافة القيمة إلى المؤشر",
+                'element'=>new ElementResource($element),
+            ]);
+        }
+
+        return response()->json([
+            'message'=>"المؤشر يتحقق من وجود مادة",
+        ],400);
     }
 
     public function AddSubcategory(Request $request)
