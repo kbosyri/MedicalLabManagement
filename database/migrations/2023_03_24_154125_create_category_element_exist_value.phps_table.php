@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('category_element_exist_value.phps', function (Blueprint $table) {
+        Schema::create('category_element_exist_value', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(CategoryElement::class,'category_element_id');
             $table->boolean('value');
