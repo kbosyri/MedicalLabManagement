@@ -15,7 +15,7 @@ return new class extends Migration
     {
         if(!Schema::hasColumn('patients','username'))
         {
-            Schema::create('patients', function (Blueprint $table) {
+            Schema::table('patients', function (Blueprint $table) {
                 $table->string('username');
             });
         }
