@@ -4,6 +4,7 @@ namespace App\Http\Resources\Elements;
 
 use App\Http\Resources\CategoryElementExistValueResource;
 use App\Http\Resources\CategoryElementValueResource;
+use App\Http\Resources\SubCategoryElementResource;
 use App\Models\CategoryElement;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -33,9 +34,13 @@ class CategoryElementResource extends JsonResource
         {
             $array['values'] = CategoryElementValueResource::collection($this->values);
         }
-        else
+        else if($this->is_exist)
         {
             $array['values'] = CategoryElementExistValueResource::collection($this->values);
+        }
+        else if($this->is_subcategory)
+        {
+            $array['elements'] = SubCategoryElementResource::collection($this->values);
         }
 
         if($this->category_id)

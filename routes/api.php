@@ -62,14 +62,15 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/elements/category/add',[ElementsController::class,'AddCategory']);
     Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
     Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
-    Route::get('/category',[ElementsController::class,'GetCategories']);
-    Route::get('/category/{id}',[ElementsController::class,'GetCategory']);
     Route::post('/category/elements/add',[ElementsController::class,'AddCategoryElement']);
     Route::get('/category/elements/',[ElementsController::class,'GetCategoryElements']);
     Route::get('/category/elements/{id}',[ElementsController::class,'GetCategoryElement']);
+    Route::get('/category',[ElementsController::class,'GetCategories']);
+    Route::get('/category/subcategory/',[ElementsController::class,'GetSubCategories']);
+    Route::get('/category/subcategory/{id}',[ElementsController::class,'GetSubcategory']);
+    Route::get('/category/{id}',[ElementsController::class,'GetCategory']);
     Route::post('/category/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToCategoryElement']);
     Route::post('/categoy/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToCategoryElement']);
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
-    Route::get('/category/subcategory/',[ElementsController::class,'GetSubCategories']);
-    Route::get('/category/subcategory/{id}',[ElementsController::class,'GetSubcategory']);
+    
 });
