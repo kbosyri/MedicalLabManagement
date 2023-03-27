@@ -5,9 +5,10 @@ namespace App\Http\Resources\Elements;
 use App\Http\Resources\CategoryElementExistValueResource;
 use App\Http\Resources\CategoryElementValueResource;
 use App\Models\CategoryElement;
+use App\Models\Elements\CategoryElementExistValue;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryElementResource extends JsonResource
+class CategoryCategoryElementResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +17,7 @@ class CategoryElementResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-    protected $collects = CategoryElement::class;
+    protected $collects= CategoryElement::class;
 
     public function toArray($request)
     {
@@ -36,15 +37,6 @@ class CategoryElementResource extends JsonResource
         else
         {
             $array['values'] = CategoryElementExistValueResource::collection($this->values);
-        }
-
-        if($this->category_id)
-        {
-            $array['category'] = new CategoryElementCategoryResource($this->category);
-        }
-        else if($this->subcategory_id)
-        {
-            $array['subcategory'] = new CategoryElementSubCategoryResource($this->category);
         }
 
         return $array;

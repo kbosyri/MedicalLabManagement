@@ -24,7 +24,6 @@ class CategoryResource extends JsonResource
             'name'=>$this->name,
             'arabic_name'=>$this->arabic_name,
             'symbol'=>$this->symbol,
-            'cost'=>$this->cost,
         ];
 
         $array['content'] = [];
@@ -36,7 +35,7 @@ class CategoryResource extends JsonResource
             }
             else
             {
-                array_push($array['content'],new SubCategoryResource($value));
+                array_push($array['content'],new CategoryCategoryElementResource($value));
             }
         }
         

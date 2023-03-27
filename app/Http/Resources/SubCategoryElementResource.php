@@ -32,7 +32,7 @@ class SubCategoryElementResource extends JsonResource
         }
         else
         {
-            $array['values'] = CategoryElementExistValueResource::collection($this->value);
+            $array['values'] = CategoryElementExistValueResource::collection($this->values);
         }
         return $array;
     }

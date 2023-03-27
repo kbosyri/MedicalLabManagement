@@ -102,7 +102,7 @@ class ElementsController extends Controller
         }
 
         return response()->json([
-            'message'=>"المؤشر يتحقق من وجود مادة",
+            'message'=>"المؤشر لا يتحقق من وجود مادة",
         ],400);
     }
 
@@ -206,7 +206,7 @@ class ElementsController extends Controller
         $element->save();
 
         return response()->json([
-            'message'=>'تم إضافة المؤشر الجزئي',
+            'message'=>'تم إضافة المؤشر',
             'element'=>new ElementResource($element),
         ]);
     }
@@ -243,6 +243,13 @@ class ElementsController extends Controller
         $categories = Element::where('is_category',true)->get();
 
         return CategoryResource::collection($categories);
+    }
+
+    public function GetCategory($id)
+    {
+        $category = Element::find($id);
+
+        return new CategoryResource($category);
     }
 
     public function GetCategoryElements()

@@ -14,10 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('category_element_exist_value', function (Blueprint $table) {
+        Schema::create('category_element_exist_values', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(CategoryElement::class,'category_element_id');
-            $table->boolean('value');
+            $table->set('value',['p','a','pa']);
             $table->set('difference',['0','+1','+2','+3','+4']);
             $table->boolean('is_difference_affected')->default(false);
             $table->timestamps();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_element_exist_value.phps');
+        Schema::dropIfExists('category_element_exist_values');
     }
 };
