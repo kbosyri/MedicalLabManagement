@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CategoryElementExistValueResource;
 use App\Http\Resources\CategoryElementValueResource;
 use App\Http\Resources\Elements\CategoryElementResource;
+use App\Http\Resources\Elements\CategoryResource;
 use App\Http\Resources\Elements\ElementExistValueResource;
 use App\Http\Resources\Elements\ElementResource;
 use App\Http\Resources\Elements\ElementValueRangeResource;
+use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
 use App\Models\Element;
 use App\Models\ElementExistValue;
@@ -134,6 +136,44 @@ class ElementsUpdateAndDeleteController extends Controller
         return response()->json([
             'message'=>'تم تعديل المؤشر الجزئي',
             'element'=>new CategoryElementResource($element),
+        ]);
+    }
+
+    public function UpdateCategory(Request $request, $id)
+    {
+        $element = Element::find($id);
+
+        $element->name = $request->name;
+        $element->arabic_name = $request->arabic_name;
+        $element->symbol = $request->symbol;
+        $element->is_value = $request->is_value;
+        $element->is_exist = $request->is_exist;
+        $element->is_category = $request->is_category;
+
+        $element->save();
+
+        return response()->json([
+            'message'=>'تم التعديل الفئة',
+            'subcategory'=>new CategoryResource($element),
+        ]);
+    }
+
+    public function UpdateSubcategory(Request $request, $id)
+    {
+        $element = CategoryElement::find($id);
+
+        $element->name = $request->name;
+        $element->arabic_name = $request->arabic_name;
+        $element->symbol = $request->symbol;
+        $element->is_value = $request->is_value;
+        $element->is_exist = $request->is_exist;
+        $element->is_subcategory = $request->is_subcategory;
+
+        $element->save();
+
+        return response()->json([
+            'message'=>'تم إنشاء الفئة الفرعية',
+            'subcategory'=>new SubCategoryResource($element),
         ]);
     }
 }
