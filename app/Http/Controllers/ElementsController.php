@@ -238,6 +238,13 @@ class ElementsController extends Controller
         return SubCategoryResource::collection($subcategories);
     }
 
+    public function GetSubcategory($id)
+    {
+        $subcategory = CategoryElement::find($id);
+
+        return new SubCategoryResource($subcategory);
+    }
+
     public function GetCategories()
     {
         $categories = Element::where('is_category',true)->get();
@@ -259,10 +266,24 @@ class ElementsController extends Controller
         return CategoryElementResource::collection($elements);
     }
 
+    public function GetCategoryElement($id)
+    {
+        $element = CategoryElement::find($id);
+
+        return new CategoryElementResource($element);
+    }
+
     public function GetElements()
     {
         $elements = Element::all();
 
         return ElementResource::collection($elements);
+    }
+
+    public function GetElement($id)
+    {
+        $element = Element::find($id);
+
+        return new ElementResource($element);
     }
 }
