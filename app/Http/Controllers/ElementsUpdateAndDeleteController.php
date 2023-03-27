@@ -17,6 +17,7 @@ use App\Models\Elements\CategoryElementExistValue;
 use App\Models\Elements\CategoryElementValueRange;
 use App\Models\ElementValueRange;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ElementsUpdateAndDeleteController extends Controller
 {
@@ -174,6 +175,28 @@ class ElementsUpdateAndDeleteController extends Controller
         return response()->json([
             'message'=>'تم تعديل الفئة الفرعية',
             'subcategory'=>new SubCategoryResource($element),
+        ]);
+    }
+
+    public function UpdateSubcategoryContent(Request $request, $id)
+    {
+        CategoryElement::where('subcategory_id',$id)->update(['subcategory_id'=>null]);
+        CategoryElement::whereIn('id',$request->elements)->Update(['subcategory_id'=>$id]);
+        
+        return response()->json([
+            'message'=>'تم تعديل محتوى الفئة الجزئية',
+            'subcategory'=>new SubCategoryResource(CategoryElement::find($id)),
+        ]);
+    }
+
+    public function UpdateCategoryContent(Request $request, $id)
+    {
+        CategoryElement::where('category_id',$id)->update(['category_id'=>null]);
+        CategoryElement::whereIn('id',$request->elements)->Update(['category_id'=>$id]);
+        
+        return response()->json([
+            'message'=>'تم تعديل محتوى الفئة',
+            'category'=>new SubCategoryResource(CategoryElement::find($id)),
         ]);
     }
 }
