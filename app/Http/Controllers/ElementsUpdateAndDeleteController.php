@@ -172,7 +172,7 @@ class ElementsUpdateAndDeleteController extends Controller
         $element->save();
 
         return response()->json([
-            'message'=>'تم إنشاء الفئة الفرعية',
+            'message'=>'تم تعديل الفئة الفرعية',
             'subcategory'=>new SubCategoryResource($element),
         ]);
     }
