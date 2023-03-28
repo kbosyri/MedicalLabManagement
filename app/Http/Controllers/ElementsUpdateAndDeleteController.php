@@ -308,7 +308,10 @@ class ElementsUpdateAndDeleteController extends Controller
             {
                 foreach($element->values as $categoryelement)
                 {
-                    $categoryelement->values->delete();
+                    foreach($categoryelement->values as $value)
+                    {
+                        $value->delete();
+                    }
 
                     $categoryelement->delete();
                 }
@@ -332,7 +335,10 @@ class ElementsUpdateAndDeleteController extends Controller
 
         foreach($subcategory->values as $categoryelement)
         {
-            $categoryelement->values->delete();
+            foreach($categoryelement->values as $value)
+            {
+                $value->delete();
+            }
 
             $categoryelement->delete();
         }
