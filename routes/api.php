@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\ElementsController;
+use App\Http\Controllers\ElementsUpdateAndDeleteController;
 use App\Http\Controllers\PatientController;
 
 
@@ -60,8 +61,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/elements',[ElementsController::class,'GetElements']);
     Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
     Route::post('/elements/category/add',[ElementsController::class,'AddCategory']);
+    Route::post('/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementValueRange']);
+    Route::post('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementExistValue']);
     Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
     Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
+    Route::post('/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElement']);
     Route::post('/category/elements/add',[ElementsController::class,'AddCategoryElement']);
     Route::get('/category/elements/',[ElementsController::class,'GetCategoryElements']);
     Route::get('/category/elements/{id}',[ElementsController::class,'GetCategoryElement']);
@@ -69,8 +73,13 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/category/subcategory/',[ElementsController::class,'GetSubCategories']);
     Route::get('/category/subcategory/{id}',[ElementsController::class,'GetSubcategory']);
     Route::get('/category/{id}',[ElementsController::class,'GetCategory']);
+    Route::post('/category/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElementValueRange']);
+    Route::post('/category/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElementExistValue']);
     Route::post('/category/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToCategoryElement']);
     Route::post('/categoy/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToCategoryElement']);
+    Route::post('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElement']);
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
+    Route::post('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'UpdateSubcategory']);
+    Route::post('/category/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategory']);
     
 });
