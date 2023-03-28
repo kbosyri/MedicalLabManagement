@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\DB;
 
 class ElementsUpdateAndDeleteController extends Controller
 {
+
+    //Update Functions
     public function UpdateElementValueRange(Request $request,$id)
     {
         $range = ElementValueRange::find($id);
@@ -197,6 +199,142 @@ class ElementsUpdateAndDeleteController extends Controller
         return response()->json([
             'message'=>'تم تعديل محتوى الفئة',
             'category'=>new SubCategoryResource(CategoryElement::find($id)),
+        ]);
+    }
+
+    public function DeleteElementValueRange($id)
+    {
+        ElementValueRange::find($id)->delete();
+
+        return response()->json([
+            'message'=>'تم حذف مجال قيم المؤشر'
+        ]);
+    }
+    
+    public function DeleteCategoryElementValueRange($id)
+    {
+        CategoryElementValueRange::find($id)->delete();
+
+        return response()->json([
+            'message'=>'تم حذف مجال قيم المؤشر'
+        ]);
+    }
+
+    public function DeleteElementExistValue($id)
+    {
+        ElementExistValue::find($id)->delete();
+
+        return response()->json([
+            'message'=>'تم حذف قيمة المؤشر'
+        ]);
+    }
+
+    public function DeleteCategoryElementExistValue($id)
+    {
+        CategoryElementExistValue::find($id)->delete();
+
+        return response()->json([
+            'message'=>'تم حذف قيمة المؤشر'
+        ]);
+    }
+
+    public function DeleteCategoryElement($id)
+    {
+        $element = CategoryElement::find($id);
+
+        $element->values->delete();
+
+        $element->delete();
+
+        return response()->json([
+            'message'=>'تم حذف المؤشر الجزئي'
+        ]);
+    }
+
+    public function DeleteElement($id)
+    {
+        $element = CategoryElement::find($id);
+
+        $element->values->delete();
+
+        $element->delete();
+
+        return response()->json([
+            'message'=>'تم حذف المؤشر'
+        ]);
+    }
+
+    public function RemoveCategoryElementFromCategory($id)
+    {
+        $element = CategoryElement::find($id);
+
+        $category = Element::find($element->category_id);
+
+        $element->category_id = null;
+
+        return response()->json([
+            'message'=>'تم إزالة المؤشر الجزئي من الفئة',
+            'category'=>new CategoryResource($category),
+        ]);
+    }
+
+    public function RemoveCategoryElementFromSubcategory($id)
+    {
+        $element = CategoryElement::find($id);
+
+        $subcategory = CategoryElement::find($element->subcategory_id);
+
+        $element->subcategory_id = null;
+
+        return response()->json([
+            'message'=>'تم إزالة المؤشر الجزئي من الفئة',
+            'category'=>new CategoryResource($subcategory),
+        ]);
+    }
+
+    public function DeleteCategory($id)
+    {
+        $category = Element::find($id);
+        
+        foreach($category->values as $element)
+        {
+            if($element->is_subcategory)
+            {
+                foreach($element->values as $categoryelement)
+                {
+                    $categoryelement->values->delete();
+
+                    $categoryelement->delete();
+                }
+                $element->delete();
+            }
+            else
+            {
+                $element->values->delete();
+                $element->delete();
+            }
+        }
+
+        return response()->json([
+            'message'=> 'تم حذف الفئة'
+        ]);
+    }
+
+    public function DeleteSubcategory($id)
+    {
+        $subcategory = CategoryElement::find($id);
+
+        foreach($subcategory->values as $categoryelement)
+        {
+            $categoryelement->values->delete();
+
+            $categoryelement->delete();
+        }
+
+        $subcategory->delete();
+
+        return response()->json([
+            'message'=>'تم حذف المجموعة الجزئية'
         ]);
     }
 }
