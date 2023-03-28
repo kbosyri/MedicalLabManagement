@@ -242,7 +242,10 @@ class ElementsUpdateAndDeleteController extends Controller
     {
         $element = CategoryElement::find($id);
 
-        $element->values->delete();
+        foreach($element->values as $value)
+        {
+            $value->delete();
+        }
 
         $element->delete();
 
@@ -253,9 +256,12 @@ class ElementsUpdateAndDeleteController extends Controller
 
     public function DeleteElement($id)
     {
-        $element = CategoryElement::find($id);
+        $element = Element::find($id);
 
-        $element->values->delete();
+        foreach($element->values as $value)
+        {
+            $value->delete();
+        }
 
         $element->delete();
 

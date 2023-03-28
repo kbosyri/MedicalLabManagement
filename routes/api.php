@@ -81,5 +81,15 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
     Route::post('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'UpdateSubcategory']);
     Route::post('/category/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategory']);
-    
+
+    Route::delete('/elements/value/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementValueRange']);
+    Route::delete('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementExistValue']);
+    Route::delete('/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElement']);
+    Route::delete('/category/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElementValueRange']);
+    Route::delete('/category/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElementExistValue']);
+    Route::delete('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElement']);
+    Route::delete('/category/remove-element/{id}',[ElementsUpdateAndDeleteController::class,'RemoveCategoryElementFromCategory']);
+    Route::delete('/category/subcategory/remove-element/{id}',[ElementsUpdateAndDeleteController::class,'RemoveCategoryElementFromSubcategory']);
+    Route::delete('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'DeleteSubcategory']);
+    Route::delete('/category/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategory']);
 });
