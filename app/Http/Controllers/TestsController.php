@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Tests\TestGroupResource;
+use App\Http\Resources\Tests\TestResource;
 use App\Models\Element;
 use App\Models\ElementValueRange;
 use App\Models\Test;
@@ -87,5 +89,31 @@ class TestsController extends Controller
         ]);
     }
 
-    
+    public function GetTests()
+    {
+        $tests = Test::all();
+
+        return TestResource::collection($tests);
+    }
+
+    public function GetTest($id)
+    {
+        $test = Test::find($id);
+
+        return new TestResource($test);
+    }
+
+    public function GetTestGroups()
+    {
+        $groups = TestsGroup::all();
+
+        return TestGroupResource::collection($groups);
+    }
+
+    public function GetTestGroup($id)
+    {
+        $group = TestsGroup::find($id);
+
+        return new TestGroupResource($group);
+    }
 }
