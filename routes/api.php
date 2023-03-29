@@ -7,7 +7,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\ElementsUpdateAndDeleteController;
 use App\Http\Controllers\PatientController;
-
+use App\Http\Controllers\TestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,3 +93,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'DeleteSubcategory']);
     Route::delete('/category/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategory']);
 });
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/tests/add',[TestsController::class,'AddTest']);
+    Route::post('/test-groups/add',[TestsController::class,'AddTestGroup']);
+    Route::post('/tests/{id}',[TestsController::class,'updateTest']);
+    Route::post('/test-groups/{id}',[TestsController::class,'UpdateTestsGroup']);
+
+    Route::delete('/tests/{id}',[TestsController::class,'DeleteTest']);
+    Route::delete('/test-groups/{id}',[TestsController::class,'DeleteTestGroup']);
+});
+
+Route::get('/tests',[TestsController::class,'GetTests']);
+Route::get('/tests/{id}',[TestsController::class,'GetTest']);
+Route::get('/test-groups',[TestsController::class,'GetTestGroups']);
+Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
