@@ -100,11 +100,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/tests/{id}',[TestsController::class,'updateTest']);
     Route::post('/test-groups/{id}',[TestsController::class,'UpdateTestsGroup']);
 
-    Route::get('/tests',[TestsController::class,'GetTests']);
-    Route::get('/tests/{id}',[TestsController::class,'GetTest']);
-    Route::get('/test-groups',[TestsController::class,'GetTestGroups']);
-    Route::get('/test=groups/{id}',[TestsController::class,'GetTestGroups']);
-
     Route::delete('/tests/{id}',[TestsController::class,'DeleteTest']);
     Route::delete('/test-groups/{id}',[TestsController::class,'DeleteTestGroup']);
 });
+
+Route::get('/tests',[TestsController::class,'GetTests']);
+Route::get('/tests/{id}',[TestsController::class,'GetTest']);
+Route::get('/test-groups',[TestsController::class,'GetTestGroups']);
+Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
