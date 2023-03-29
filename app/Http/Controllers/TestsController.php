@@ -116,4 +116,55 @@ class TestsController extends Controller
 
         return new TestGroupResource($group);
     }
+
+    public function UpdateTestsGroup(Request $request, $id)
+    {
+        $group = TestsGroup::find($id);
+
+        $group->name = $request->name;
+
+        $group->save();
+
+        DB::table('test_group_tests')->where('tests_group_id','=',$id)->delete();
+
+        $tests = [];
+
+        foreach($request->tests as $test)
+        {
+            array_push($tests,['tests_group_id'=>$group->id,'test_id'=>$test]);
+        }
+
+        DB::table('test_group_tests')->insert($tests);
+
+        return response()->json([
+            'message'=>'تم إضافة مجموعة التحاليل بنجاح'
+        ]);
+    }
+
+    public function updateTest(Request $request, $id)
+    {
+        $test = Test::find($id);
+
+        $test->name = $request->name;
+        $test->arabic_name = $request->arabic_name;
+        $test->symbol = $request->symbol;
+        $test->cost = $request->cost;
+
+        $test->save();
+
+        DB::table('test_elements')->where('test_id','=',$id)->delete();
+
+        $elements = [];
+
+        foreach($request->elements as $element)
+        {
+            array_push($elements,['element_id'=>$element,'test_id'=>$test->id]);
+        }
+
+        DB::table('test_elements')->insert($elements);
+
+        return response()->json([
+            'message'=>"تم إضافة التحليل بنجاح",
+        ]);
+    }
 }
