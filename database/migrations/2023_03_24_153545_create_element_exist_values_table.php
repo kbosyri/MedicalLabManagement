@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('element_exist_values', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Element::class,'element_id');
-            $table->boolean('value');
+            $table->set('value',['p','a','pa']);
             $table->set('difference',['0','+1','+2','+3','+4']);
             $table->boolean('is_difference_affected')->default(false);
             $table->timestamps();
