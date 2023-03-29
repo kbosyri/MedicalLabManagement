@@ -230,6 +230,41 @@ class ElementsController extends Controller
         ]);
     }
 
+    //Possibly Needed Functions
+    public function AddElementsToCategory(Request $request, $id)
+    {
+        $elements = CategoryElement::whereIn('id',$request->elements)->get();
+
+        foreach($elements as $element)
+        {
+            $element->category_id = $id;
+
+            $element->save();
+        }
+
+        return response()->json([
+            'message'=>'تم إضافة المؤشرات إلى الفئة',
+            'category'=>new CategoryResource(Element::find($id)),
+        ]);
+    }
+
+    public function AddElementsToSubcategory(Request $request, $id)
+    {
+        $elements = CategoryElement::whereIn('id',$request->elements)->get();
+
+        foreach($elements as $element)
+        {
+            $element->subcategory_id = $id;
+
+            $element->save();
+        }
+
+        return response()->json([
+            'message'=>'تم إضافة المؤشرات إلى الفئة الجزئية',
+            'category'=>new SubCategoryResource(CategoryElement::find($id)),
+        ]);
+    }
+
     //Getting Function
     public function GetSubCategories()
     {
