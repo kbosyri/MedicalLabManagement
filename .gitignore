@@ -17,3 +17,6 @@ yarn-error.log
 /.idea
 /.vscode
 error.html
+/examples
+/resources/views/elements.blade.php
+/public/js/elements.js

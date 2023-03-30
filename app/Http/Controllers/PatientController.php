@@ -77,7 +77,6 @@ class PatientController extends Controller
         $patient->Gender=$request->Gender;
         $patient->Date_Of_Birth=$request->Date_Of_Birth;
         $patient->username=$request->username;
-        $patient->password=Hash::make($request->password);
         $patient->email=$request->email;
         $patient->phone=$request->phone;
         $patient->save();
@@ -105,7 +104,12 @@ class PatientController extends Controller
 
     }
 
+    public function GetUser()
+    {
+        $user = Patient::find(Auth::user()->id);
 
+        return new PatientResource($user);
+    }
 
    public function Registerpatient(PatientreisterRequest $request)
     {
