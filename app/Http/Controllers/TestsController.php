@@ -20,6 +20,8 @@ class TestsController extends Controller
 
         $new_test->name = $request->name;
         $new_test->arabic_name = $request->arabic_name;
+        $new_test->overview = $request->overview;
+        $new_test->preconditions = $request->preconditions;
         $new_test->symbol = $request->symbol;
         $new_test->cost = $request->cost;
 
@@ -137,7 +139,7 @@ class TestsController extends Controller
         DB::table('test_group_tests')->insert($tests);
 
         return response()->json([
-            'message'=>'تم إضافة مجموعة التحاليل بنجاح'
+            'message'=>'تم تعديل مجموعة التحاليل بنجاح'
         ]);
     }
 
@@ -147,6 +149,8 @@ class TestsController extends Controller
 
         $test->name = $request->name;
         $test->arabic_name = $request->arabic_name;
+        $test->overview = $request->overview;
+        $test->preconditions = $request->preconditions;
         $test->symbol = $request->symbol;
         $test->cost = $request->cost;
 
@@ -164,7 +168,7 @@ class TestsController extends Controller
         DB::table('test_elements')->insert($elements);
 
         return response()->json([
-            'message'=>"تم إضافة التحليل بنجاح",
+            'message'=>"تم تعديل التحليل بنجاح",
         ]);
     }
 }

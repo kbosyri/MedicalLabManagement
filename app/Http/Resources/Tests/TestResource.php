@@ -23,6 +23,8 @@ class TestResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'arabic_name'=>$this->arabic_name,
+            'overview'=>$this->overview,
+            'preconditions'=>$this->preconditions,
             'symbol'=>$this->symbol,
             'cost'=>$this->cost,
             'elements'=>ElementResource::collection($this->elements),
