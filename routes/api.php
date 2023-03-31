@@ -107,4 +107,5 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::get('/tests',[TestsController::class,'GetTests']);
 Route::get('/tests/{id}',[TestsController::class,'GetTest']);
 Route::get('/test-groups',[TestsController::class,'GetTestGroups']);
+Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
 Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
