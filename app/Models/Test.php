@@ -22,12 +22,7 @@ class Test extends Model
 
     public function patienttests()
     {
-        return $this->belongsToMany(TestsGroup::class,'test_group_tests','test_id','tests_group_id');
-    }
-
-    public function patienttes()
-    {
-        return $this->hasMany(Patienttest::class,'test_id','test_group_tests','tests_group_id');
+        return $this->hasMany(Patienttest::class,'test_id');
     }
 
 

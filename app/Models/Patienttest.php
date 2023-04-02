@@ -16,20 +16,15 @@ class Patienttest extends Model
     }
 
 
-    public function tests()
-    {
-        return $this->belongsTo(Test::class,'test_group_tests','test_id','tests_group_id');
-    }
-
     public function test()
     {
-        return $this->belongsToMany(Test::class,'test_id','test_group_tests','tests_group_id');
+        return $this->belongsTo(Test::class,'test_id');
     }
 
 
     public function staff()
     {
-        return $this->belongsToMany(Staff::class,'staff_id');
+        return $this->belongsTo(Staff::class,'staff_id');
     }
 
 
