@@ -27,5 +27,9 @@ class Patienttest extends Model
         return $this->belongsTo(Staff::class,'staff_id');
     }
 
+    public function values()
+    {
+        return $this->hasMany(PatientTestValue::class,'patient_test_id','id');
+    }
 
 }

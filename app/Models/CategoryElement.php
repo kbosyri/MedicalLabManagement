@@ -42,4 +42,9 @@ class CategoryElement extends Model
             return $this->hasMany(CategoryElement::class,'subcategory_id','id');
         }
     }
+
+    public function testvalues()
+    {
+        return $this->hasMany(PatientTestValue::class,'category_element_id','id');
+    }
 }

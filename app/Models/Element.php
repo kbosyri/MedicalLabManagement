@@ -29,4 +29,9 @@ class Element extends Model
             return $this->hasMany(CategoryElement::class,'category_id','id');
         }
     }
+
+    public function testvalues()
+    {
+        return $this->hasMany(PatientTestValue::class,'element_id','id');
+    }
 }
