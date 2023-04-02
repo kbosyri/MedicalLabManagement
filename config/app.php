@@ -196,6 +196,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValuesStorageSeviceProvider::class,
+        App\Providers\GetPatientTestValuesProvider::class,
 
     ],
 
@@ -213,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'valuestorage'=> App\ElementsValuesStorage\ValueStorageFacade::class,
+        'GetPatientTestValues'=>App\GetPatientTestValues\GetPatientTestValuesFacade::class
     ])->toArray(),
 
 ];
