@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GetPatientTestValues\GetPatientTestValues;
 use App\Http\Resources\patienttestResource;
 use App\Models\Patienttest;
 use App\Models\PatientTestValue;
@@ -79,7 +80,7 @@ class PatientTestsValueController extends Controller
     {
         $test = Patienttest::find($id);
 
-        $resource = $test->GetResource($id);
+        $resource = GetPatientTestValues::GetPatientTestResource($test);
 
         return response()->json($resource);
     }

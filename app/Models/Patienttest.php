@@ -33,15 +33,5 @@ class Patienttest extends Model
     {
         return $this->hasMany(PatientTestValue::class,'patient_test_id','id');
     }
-
-    public function GetResource()
-    {
-        $test = [
-            'patient'=>new PatientResource($this->patient()),
-            'test'=>$this->test(),
-            'staff'=>new StaffResource($this->staff()),
-        ];
-
-        return $test;
-    }
+    
 }

@@ -24,27 +24,5 @@ class Test extends Model
     {
         return $this->hasMany(Patienttest::class,'test_id');
     }
-
-
-    public function GetResource($id)
-    {
-        $array = [
-            'id'=>$this->id,
-            'name'=>$this->name,
-            'arabic_name'=>$this->arabic_name,
-            'overview'=>$this->overview,
-            'preconditions'=>$this->preconditions,
-            'symbol'=>$this->symbol,
-            'cost'=>$this->cost,
-        ];
-
-        $array['elements'] = [];
-
-        foreach($this->elements() as $element)
-        {
-            array_push($array['elements'],$element->GetResource($id));
-        }
-        return $array;
-    }
     
 }
