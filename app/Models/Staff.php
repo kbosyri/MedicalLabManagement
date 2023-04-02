@@ -17,4 +17,16 @@ class Staff extends Authenticatable
     protected $fillable = ['first_name','father_name','last_name','username','password'];
 
     protected $hidden = ['password','remember_token'];
+
+
+    public function patienttests()
+    {
+        return $this->hasMany(Patienttest::class,'staff_id');
+    }
+
+
+
 }
+
+
+
