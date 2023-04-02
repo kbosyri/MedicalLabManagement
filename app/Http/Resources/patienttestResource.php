@@ -21,7 +21,7 @@ class patienttestResource extends JsonResource
             'test_cost'=>$this->test_cost,
             'test'=> new TestResource($this->test),
             'staff'=>new StaffResource($this->staff),
-            'pateint'=>new PatientResource($this->patient),
+            'patient'=>new PatientResource($this->patient),
             'is_finished'=>$this->is_finished,
             'is_audited'=>$this->is_audited,
         ];
