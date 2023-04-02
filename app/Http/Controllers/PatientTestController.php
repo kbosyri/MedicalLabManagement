@@ -31,6 +31,9 @@ public function update_patient_test(Request $request, $id)
     $patienttest=Patienttest::find($id);
     $patienttest->test_date=$request->test_date;
     $patienttest->test_cost=$request->test_cost;
+    $patienttest->test_id = $request->test_id;
+    $patienttest->patient_id = $request->patient_id;
+    $patienttest->staff_id = $request->staff_id;
     $patienttest->save();
     return response()->json([
         'message'=>'تم تعديل  التحاليل المطلوبة بنجاح',
