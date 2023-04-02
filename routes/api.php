@@ -7,6 +7,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\ElementsUpdateAndDeleteController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientTestController;
 use App\Http\Controllers\TestsController;
 use App\Models\Patienttest;
 
@@ -112,8 +113,8 @@ Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
 
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::post('/add_patient_test',[Patienttest::class,'add_patient_test']);
-    Route::post('/update_patient_test',[Patienttest::class,'update_patient_test']);
+    Route::post('/add_patient_test',[PatientTestController::class,'add_patient_test']);
+    Route::post('/update_patient_test',[PatientTestController::class,'update_patient_test']);
 
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);

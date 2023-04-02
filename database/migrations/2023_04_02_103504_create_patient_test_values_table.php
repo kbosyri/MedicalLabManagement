@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\CategoryElement;
+use App\Models\Element;
 use App\Models\Patienttest;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
