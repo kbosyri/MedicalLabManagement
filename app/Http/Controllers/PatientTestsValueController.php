@@ -37,4 +37,11 @@ class PatientTestsValueController extends Controller
             'test'=>new patienttestResource($test),
         ]);
     }
+
+    public function GetTestValues($id)
+    {
+        $test = Patienttest::find($id);
+
+        $resource = $test->GetResource();
+    }
 }
