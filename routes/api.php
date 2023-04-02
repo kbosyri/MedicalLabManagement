@@ -116,4 +116,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/update_patient_test',[Patienttest::class,'update_patient_test']);
 
 });
-
+Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
+Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
