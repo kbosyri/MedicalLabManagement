@@ -22,7 +22,6 @@ return new class extends Migration
             $table->foreignIdFor(Staff::class,'staff_id');
             $table->foreignIdFor(Test::class,'test_id');
             $table->date('test_date');
-            $table->integer('test_cost');
             $table->boolean('is_finished')->default(false);
             $table->boolean('is_audited')->default(false);
             $table->timestamps();
