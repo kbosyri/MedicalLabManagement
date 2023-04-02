@@ -87,6 +87,7 @@ class PatientController extends Controller
         
     }
 
+    
 
 
     public function deletepatient ($id)
@@ -138,7 +139,7 @@ class PatientController extends Controller
         return  response()->json([
             'message'=>'  تم تسجيل المريض بنجاح',
             'patient'=>new patientResource($patient)
-              ],200); 
+            ],200); 
     }
 
 
@@ -173,6 +174,11 @@ class PatientController extends Controller
     {
         $user = patient::find(Auth::user()->id);
 
+        if($request->confirm_password != $request->new_password)
+        {
+            return response()->json(['message'=>'كلمة السر الجديدة غير متطابقة مع تأكيد كلمة السر'],400);
+        }
+
         if(!Hash::check($request->old_password,$user->password))
         {
             return response()->json(['message'=>'كلمة السر القديمة غير متطابقة'],400);
@@ -184,11 +190,6 @@ class PatientController extends Controller
 
         return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
     }
-
-
-
-
-
 
 }
 
