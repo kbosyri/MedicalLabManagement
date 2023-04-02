@@ -62,7 +62,8 @@ class PatientController extends Controller
         $patient->save();
         return response()->json([
             'message'=>'تم انشأ الحساب بنجاح',
-              ],500); new patientResource($patient); 
+            'patient'=>new patientResource($patient),
+              ]); 
     }
 
 
@@ -82,8 +83,8 @@ class PatientController extends Controller
         $patient->save();
         return  response()->json([
             'message'=>'تم تعديل معلومات الحساب بنجاح',
-              ],500); new patientResource($patient); 
-        ;
+            'patient'=>new patientResource($patient),
+            ]); 
         
     }
 
