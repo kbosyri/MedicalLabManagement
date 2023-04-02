@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Resources\PatientResource;
+use App\Http\Resources\StaffResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Patient;
@@ -35,9 +37,9 @@ class Patienttest extends Model
     public function GetResource()
     {
         $test = [
-            'patient'=>$this->patient(),
+            'patient'=>new PatientResource($this->patient()),
             'test'=>$this->test(),
-            'staff'=>$this->staff(),
+            'staff'=>new StaffResource($this->staff()),
         ];
 
         return $test;

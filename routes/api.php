@@ -8,6 +8,7 @@ use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\ElementsUpdateAndDeleteController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientTestController;
+use App\Http\Controllers\PatientTestsValueController;
 use App\Http\Controllers\TestsController;
 use App\Models\Patienttest;
 
@@ -33,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('/patients',[App\Http\Controllers\PatientController::class,'index']);
     Route::get('/patients/user',[PatientController::class,'GetUser']);
     Route::post('/patients/changepassword',[PatientController::class,'ChangePassword']);
+    Route::get('/patients/{id}/tests',[PatientTestController::class,'GetPatientTests']);
     Route::get('/patients/{id}',[App\Http\Controllers\PatientController::class,'GetSpecificPatient']);
     Route::post('/createpatients',[App\Http\Controllers\PatientController::class,'creatpatient'])->name('create');
     Route::post('/updatepatients/{id}',[App\Http\Controllers\PatientController::class,'updatepatient'])->name('update');
@@ -52,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/staff/changepassword',[StaffAccountsController::class,'ChangePassword']);
     Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
     Route::get('/staff/user',[StaffAccountsController::class,'GetUser']);
+    Route::get('/staff/tests',[PatientTestController::class,'GetStaffPatientTests']);
     Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
 });
 
@@ -114,7 +117,12 @@ Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/add_patient_test',[PatientTestController::class,'add_patient_test']);
-    Route::post('/update_patient_test',[PatientTestController::class,'update_patient_test']);
+    Route::post('/update_patient_test/{id}',[PatientTestController::class,'update_patient_test']);
+    Route::post('/patienttests/bulk',[PatientTestController::class,'AddPatientTests']);
+    Route::post('/patienttests/{id}/values',[PatientTestsValueController::class,'AddValuesToTest']);
+    Route::get('/patienttests/unaudited',[PatientTestController::class,'GetUnAuditedTests']);
+    Route::get('patienttests/{id}/values',[PatientTestsValueController::class,'GetTestValues']);
+    Route::get('/user/tests',[PatientTestController::class,'GetUserTests']);
 
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);

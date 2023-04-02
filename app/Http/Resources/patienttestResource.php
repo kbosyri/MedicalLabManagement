@@ -17,8 +17,7 @@ class patienttestResource extends JsonResource
     {
         $array=[
             'id'=>$this->id,
-            'test_date'=>$this->test_id,
-            'test_cost'=>$this->test_cost,
+            'test_date'=>$this->test_date,
             'test'=> new TestResource($this->test),
             'staff'=>new StaffResource($this->staff),
             'patient'=>new PatientResource($this->patient),
