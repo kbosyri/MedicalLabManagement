@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\ElementsValuesStorage\ValueStorage;
+use App\Http\Requests\ElementsGetAndAdd\AddCategoryElementRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddCategoryRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddElementRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddElementToCategoryRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddElementTosSubcategoryRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddExistValueToCategoryElementRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddExistValueToElementRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddSubcategoryRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddValueRangeToCategoryElementRequest;
+use App\Http\Requests\ElementsGetAndAdd\AddValueRangeToElementRequest;
 use App\Http\Resources\Elements\CategoryElementResource;
 use App\Http\Resources\Elements\CategoryResource;
 use App\Http\Resources\Elements\ElementResource;
@@ -18,7 +28,7 @@ use Illuminate\Http\Request;
 class ElementsController extends Controller
 {
     //Addition Functions
-    public function AddCategoryElement(Request $request)
+    public function AddCategoryElement(AddCategoryElementRequest $request)
     {
         $element = new CategoryElement();
 
@@ -46,7 +56,7 @@ class ElementsController extends Controller
         ]);
     }
 
-    public function AddValueRangeToCategoryElement(Request $request,$element_id)
+    public function AddValueRangeToCategoryElement(AddValueRangeToCategoryElementRequest $request,$element_id)
     {
         $element = CategoryElement::find($element_id);
         if($element->is_value)
@@ -81,7 +91,7 @@ class ElementsController extends Controller
         ],400);
     }
 
-    public function AddExistValueToCategoryElement(Request $request, $element_id)
+    public function AddExistValueToCategoryElement(AddExistValueToCategoryElementRequest $request, $element_id)
     {
         $element = CategoryElement::find($element_id);
         if($element->is_exist)
@@ -106,7 +116,7 @@ class ElementsController extends Controller
         ],400);
     }
 
-    public function AddValueRangeToElement(Request $request,$element_id)
+    public function AddValueRangeToElement(AddValueRangeToElementRequest $request,$element_id)
     {
         $element = Element::find($element_id);
         if($element->is_value)
@@ -139,7 +149,7 @@ class ElementsController extends Controller
         ],400);
     }
 
-    public function AddExistValueToElement(Request $request, $element_id)
+    public function AddExistValueToElement(AddExistValueToElementRequest $request, $element_id)
     {
         $element = Element::find($element_id);
         if($element->is_exist)
@@ -164,7 +174,7 @@ class ElementsController extends Controller
         ],400);
     }
 
-    public function AddSubcategory(Request $request)
+    public function AddSubcategory(AddSubcategoryRequest $request)
     {
         $element = new CategoryElement();
 
@@ -192,7 +202,7 @@ class ElementsController extends Controller
         ]);
     }
 
-    public function AddElement(Request $request)
+    public function AddElement(AddElementRequest $request)
     {
         $element = new Element();
 
@@ -211,7 +221,7 @@ class ElementsController extends Controller
         ]);
     }
 
-    public function AddCategory(Request $request)
+    public function AddCategory(AddCategoryRequest $request)
     {
         $element = new Element();
 
@@ -231,7 +241,7 @@ class ElementsController extends Controller
     }
 
     //Possibly Needed Functions
-    public function AddElementsToCategory(Request $request, $id)
+    public function AddElementsToCategory(AddElementToCategoryRequest $request, $id)
     {
         $elements = CategoryElement::whereIn('id',$request->elements)->get();
 
@@ -248,7 +258,7 @@ class ElementsController extends Controller
         ]);
     }
 
-    public function AddElementsToSubcategory(Request $request, $id)
+    public function AddElementsToSubcategory(AddElementTosSubcategoryRequest $request, $id)
     {
         $elements = CategoryElement::whereIn('id',$request->elements)->get();
 

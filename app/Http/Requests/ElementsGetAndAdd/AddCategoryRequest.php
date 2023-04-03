@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\ElementsGetAndAdd;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
 class AddCategoryRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class AddCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->is_admin;
     }
 
     /**
@@ -24,7 +27,20 @@ class AddCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required'],
+            'arabic_name'=>['required'],
+            'is_value'=>['required_if:is_exist,null','required_if:is_category,null'],
+            'is_exist'=>['required_if:is_value,null','required_if:is_category,null'],
+            'is_category'=>['required_if:is_value,null','required_if:is_exist,null'],
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'=>false,
+            'message'=>'يوجد خطأ في القيم المدخلة',
+            'errors'=>$validator->errors()
+        ],400));
     }
 }
