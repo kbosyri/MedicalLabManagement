@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\ElementsUpdateAndDelete;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateCategoryElementRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class UpdateCategoryElementRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->is_admin;
     }
 
     /**
@@ -24,7 +27,19 @@ class UpdateCategoryElementRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required'],
+            'element_id'=>['required'],
+            'belongs_to_element'=>['required_unless:belongs_to_subcategory,true'],
+            'belongs_to_subcategory'=>['required_unless:belongs_to_element,true'],
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'=>false,
+            'message'=>'يوجد خطأ في القيم المدخلة',
+            'errors'=>$validator->errors()
+        ],400));
     }
 }

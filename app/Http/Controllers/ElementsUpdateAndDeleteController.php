@@ -2,6 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateCategoryContentRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateCategoryElementExistValueRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateCategoryElementRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateCategoryElementValueRangeRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateCategoryRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateElementExistValueRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateElementRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateElementValueRangeRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateSubcategoryContentRequest;
+use App\Http\Requests\ElementsUpdateAndDelete\UpdateSubcategoryRequest;
 use App\Http\Resources\CategoryElementExistValueResource;
 use App\Http\Resources\CategoryElementValueResource;
 use App\Http\Resources\Elements\CategoryElementResource;
@@ -23,7 +33,7 @@ class ElementsUpdateAndDeleteController extends Controller
 {
 
     //Update Functions
-    public function UpdateElementValueRange(Request $request,$id)
+    public function UpdateElementValueRange(UpdateElementValueRangeRequest $request,$id)
     {
         $range = ElementValueRange::find($id);
 
@@ -47,7 +57,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateCategoryElementValueRange(Request $request, $id)
+    public function UpdateCategoryElementValueRange(UpdateCategoryElementValueRangeRequest $request, $id)
     {
         $range = CategoryElementValueRange::find($id);
 
@@ -73,7 +83,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateElementExistValue(Request $request, $id)
+    public function UpdateElementExistValue(UpdateElementExistValueRequest $request, $id)
     {
         $value = ElementExistValue::find($id);
 
@@ -88,7 +98,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateCategoryElementExistValue(Request $request, $id)
+    public function UpdateCategoryElementExistValue(UpdateCategoryElementExistValueRequest $request, $id)
     {
         $value = CategoryElementExistValue::find($id);
 
@@ -103,7 +113,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateElement(Request $request, $id)
+    public function UpdateElement(UpdateElementRequest $request, $id)
     {
         $element = Element::find($id);
 
@@ -122,7 +132,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateCategoryElement(Request $request, $id)
+    public function UpdateCategoryElement(UpdateCategoryElementRequest $request, $id)
     {
         $element = CategoryElement::find($id);
 
@@ -142,7 +152,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateCategory(Request $request, $id)
+    public function UpdateCategory(UpdateCategoryRequest $request, $id)
     {
         $element = Element::find($id);
 
@@ -161,7 +171,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateSubcategory(Request $request, $id)
+    public function UpdateSubcategory(UpdateSubcategoryRequest $request, $id)
     {
         $element = CategoryElement::find($id);
 
@@ -180,7 +190,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateSubcategoryContent(Request $request, $id)
+    public function UpdateSubcategoryContent(UpdateSubcategoryContentRequest $request, $id)
     {
         CategoryElement::where('subcategory_id',$id)->update(['subcategory_id'=>null]);
         CategoryElement::whereIn('id',$request->elements)->Update(['subcategory_id'=>$id]);
@@ -191,7 +201,7 @@ class ElementsUpdateAndDeleteController extends Controller
         ]);
     }
 
-    public function UpdateCategoryContent(Request $request, $id)
+    public function UpdateCategoryContent(UpdateCategoryContentRequest $request, $id)
     {
         CategoryElement::where('category_id',$id)->update(['category_id'=>null]);
         CategoryElement::whereIn('id',$request->elements)->Update(['category_id'=>$id]);
