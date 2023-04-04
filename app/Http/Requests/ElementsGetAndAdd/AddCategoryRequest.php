@@ -29,9 +29,9 @@ class AddCategoryRequest extends FormRequest
         return [
             'name'=>['required'],
             'arabic_name'=>['required'],
-            'is_value'=>['required_if:is_exist,null','required_if:is_category,null'],
-            'is_exist'=>['required_if:is_value,null','required_if:is_category,null'],
-            'is_category'=>['required_if:is_value,null','required_if:is_exist,null'],
+            'is_value'=>['required'],
+            'is_exist'=>['required'],
+            'is_category'=>['required'],
         ];
     }
 
