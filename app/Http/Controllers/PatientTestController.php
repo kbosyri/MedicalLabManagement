@@ -11,6 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class PatientTestController extends Controller
 {
+    private static function Find($id,$array)
+    {
+        foreach($array as $value)
+        {
+            if($id == $value)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function add_patient_test(Request $request)
     {
         $patienttest=new Patienttest();
@@ -39,7 +51,7 @@ class PatientTestController extends Controller
             $test_group = TestsGroup::find($group);
             foreach($test_group->tests as $test)
             {
-                if(array_search($test->id,$tests))
+                if(!PatientTestController::Find($test->id,$tests))
                 {
                     array_push($tests,$test->id);
                 }
@@ -52,7 +64,7 @@ class PatientTestController extends Controller
             $patienttest=new Patienttest();
 
             $patienttest->test_date=$request->test_date;
-            $patienttest->test_id = $request->test_id;
+            $patienttest->test_id = $test;
             $patienttest->patient_id = $request->patient_id;
             $patienttest->staff_id = $request->staff_id;
             $patienttest->save();
