@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PatientTests\AddBulkPatientTestsRequest;
+use App\Http\Requests\PatientTests\AddPatientTestRequest;
+use App\Http\Requests\PatientTests\UpdatePatientTestRequest;
 use App\Http\Resources\patienttestResource;
 use Illuminate\Http\Request;
 use App\Models\Patienttest;
@@ -23,7 +26,7 @@ class PatientTestController extends Controller
         return false;
     }
 
-    public function add_patient_test(Request $request)
+    public function add_patient_test(AddPatientTestRequest $request)
     {
         $patienttest=new Patienttest();
 
@@ -38,7 +41,7 @@ class PatientTestController extends Controller
               ]); 
     }
 
-    public function AddPatientTests(Request $request)
+    public function AddPatientTests(AddBulkPatientTestsRequest $request)
     {
         $tests = [];
         foreach($request->tests as $test)
@@ -78,7 +81,7 @@ class PatientTestController extends Controller
         ]);
     }
 
-    public function update_patient_test(Request $request, $id)
+    public function update_patient_test(UpdatePatientTestRequest $request, $id)
     {
         $patienttest=Patienttest::find($id);
         $patienttest->test_date=$request->test_date;
