@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('element_value_ranges', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Element::class,'element_id');
-            $table->set('gender',['m','f','n']);
+            $table->set('gender',['m','f','n'])->nullable();
             $table->string('from_age')->nullable();
             $table->string('to_age')->nullable();
             $table->string('age_unit')->nullable();
