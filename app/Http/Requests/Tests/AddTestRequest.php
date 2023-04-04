@@ -5,6 +5,7 @@ namespace App\Http\Requests\Tests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
 class AddTestRequest extends FormRequest
 {
@@ -15,7 +16,7 @@ class AddTestRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->is_admin;
     }
 
     /**
