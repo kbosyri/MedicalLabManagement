@@ -57,9 +57,8 @@ Route::middleware('auth:sanctum')->group(function (){
 
 
 Route::middleware('auth:sanctum')->group(function(){
+
     Route::post('/elements/add',[ElementsController::class,'AddElement']);
-    Route::get('/elements',[ElementsController::class,'GetElements']);
-    Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
     Route::post('/elements/category/add',[ElementsController::class,'AddCategory']);
     Route::post('/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementValueRange']);
     Route::post('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementExistValue']);
@@ -82,16 +81,19 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'UpdateSubcategory']);
     Route::post('/category/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategory']);
 
-    Route::delete('/elements/value/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementValueRange']);
-    Route::delete('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementExistValue']);
-    Route::delete('/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElement']);
-    Route::delete('/category/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElementValueRange']);
-    Route::delete('/category/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElementExistValue']);
-    Route::delete('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElement']);
-    Route::delete('/category/remove-element/{id}',[ElementsUpdateAndDeleteController::class,'RemoveCategoryElementFromCategory']);
-    Route::delete('/category/subcategory/remove-element/{id}',[ElementsUpdateAndDeleteController::class,'RemoveCategoryElementFromSubcategory']);
-    Route::delete('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'DeleteSubcategory']);
-    Route::delete('/category/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategory']);
+    Route::middleware('admin-auth')->group(function(){
+        Route::delete('/elements/value/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementValueRange']);
+        Route::delete('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementExistValue']);
+        Route::delete('/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElement']);
+        Route::delete('/category/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElementValueRange']);
+        Route::delete('/category/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElementExistValue']);
+        Route::delete('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategoryElement']);
+        Route::delete('/category/remove-element/{id}',[ElementsUpdateAndDeleteController::class,'RemoveCategoryElementFromCategory']);
+        Route::delete('/category/subcategory/remove-element/{id}',[ElementsUpdateAndDeleteController::class,'RemoveCategoryElementFromSubcategory']);
+        Route::delete('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'DeleteSubcategory']);
+        Route::delete('/category/{id}',[ElementsUpdateAndDeleteController::class,'DeleteCategory']);
+    });
+    
 });
 
 Route::middleware('auth:sanctum')->group(function(){
@@ -99,9 +101,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/test-groups/add',[TestsController::class,'AddTestGroup']);
     Route::post('/tests/{id}',[TestsController::class,'updateTest']);
     Route::post('/test-groups/{id}',[TestsController::class,'UpdateTestsGroup']);
-
-    Route::delete('/tests/{id}',[TestsController::class,'DeleteTest']);
-    Route::delete('/test-groups/{id}',[TestsController::class,'DeleteTestGroup']);
+    
+    Route::middleware('admin-auth')->group(function(){
+        Route::delete('/tests/{id}',[TestsController::class,'DeleteTest']);
+        Route::delete('/test-groups/{id}',[TestsController::class,'DeleteTestGroup']);
+    });
 });
 
 Route::get('/tests',[TestsController::class,'GetTests']);
