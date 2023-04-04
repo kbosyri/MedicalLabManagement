@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tests\AddTestGroupRequest;
+use App\Http\Requests\Tests\AddTestRequest;
+use App\Http\Requests\Tests\UpdateTestGroupRequest;
+use App\Http\Requests\Tests\UpdateTestRequest;
 use App\Http\Resources\Tests\TestGroupResource;
 use App\Http\Resources\Tests\TestGroupTestResource;
 use App\Http\Resources\Tests\TestResource;
@@ -15,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class TestsController extends Controller
 {
 
-    public function AddTest(Request $request)
+    public function AddTest(AddTestRequest $request)
     {
         $new_test = new Test();
 
@@ -42,7 +46,7 @@ class TestsController extends Controller
         ]);
     }
 
-    public function AddTestGroup(Request $request)
+    public function AddTestGroup(AddTestGroupRequest $request)
     {
         $group = new TestsGroup();
 
@@ -127,7 +131,7 @@ class TestsController extends Controller
         return TestGroupTestResource::collection($group->tests);
     }
 
-    public function UpdateTestsGroup(Request $request, $id)
+    public function UpdateTestsGroup(UpdateTestGroupRequest $request, $id)
     {
         $group = TestsGroup::find($id);
 
@@ -151,7 +155,7 @@ class TestsController extends Controller
         ]);
     }
 
-    public function updateTest(Request $request, $id)
+    public function updateTest(UpdateTestRequest $request, $id)
     {
         $test = Test::find($id);
 

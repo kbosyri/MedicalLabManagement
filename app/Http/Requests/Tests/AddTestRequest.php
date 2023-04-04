@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Tests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AddTestRequest extends FormRequest
 {
@@ -24,7 +26,21 @@ class AddTestRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required'],
+            'arabic_name'=>['required'],
+            'overview'=>['required'],
+            'preconditions'=>['required'],
+            'cost'=>['required'],
+            'elements'=>['required','array']
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'=>false,
+            'message'=>'يوجد خطأ في القيم المدخلة',
+            'errors'=>$validator->errors()
+        ],400));
     }
 }
