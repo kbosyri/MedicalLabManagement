@@ -28,7 +28,7 @@ class AddPatientTestRequest extends FormRequest
     {
         return [
             'test_id'=>['required'],
-            'test_date'=>['requied','date'],
+            'test_date'=>['required','date'],
             'patient_id'=>['required'],
             'staff_id'=>['required'],
         ];

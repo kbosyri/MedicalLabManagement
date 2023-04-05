@@ -127,7 +127,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/patienttests/unaudited',[PatientTestController::class,'GetUnAuditedTests']);
     Route::get('patienttests/{id}/values',[PatientTestsValueController::class,'GetTestValues']);
     Route::get('/user/tests',[PatientTestController::class,'GetUserTests']);
-
+    Route::get('/patienttests/staff/patients',[PatientTestController::class,'GetStaffRecentPatinets']);
+    Route::get('/patienttests/patients',[PatientTestController::class,'GetRecentPatinets']);
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
 Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
