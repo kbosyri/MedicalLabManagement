@@ -9,6 +9,7 @@ use App\Http\Resources\patienttestResource;
 use App\Models\Patienttest;
 use App\Models\PatientTestValue;
 use Illuminate\Http\Request;
+use PDF;
 
 class PatientTestsValueController extends Controller
 {
@@ -85,5 +86,16 @@ class PatientTestsValueController extends Controller
         $resource = GetPatientTestValues::GetPatientTestResource($test);
 
         return response()->json($resource);
+    }
+    
+    public function MakePDF($id)
+    {
+        $test = Patienttest::find($id);
+
+        $resource = GetPatientTestValues::GetPatientTestResource($test);
+
+        $pdf = PDF::loadView('pdf');
+
+        return $pdf->download('file.pdf');
     }
 }

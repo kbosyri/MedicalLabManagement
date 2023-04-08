@@ -132,3 +132,4 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
 Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
+Route::get('/patienttests/{id}/pdf',[PatientTestsValueController::class,'MakePDF']);
