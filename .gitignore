@@ -20,3 +20,5 @@ error.html
 /examples
 /resources/views/elements.blade.php
 /public/js/elements.js
+/public/fonts/
+/storage/fonts/
