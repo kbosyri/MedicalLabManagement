@@ -9,6 +9,7 @@ use App\Http\Resources\patienttestResource;
 use App\Models\Patienttest;
 use App\Models\PatientTestValue;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class PatientTestsValueController extends Controller
 {
@@ -85,5 +86,29 @@ class PatientTestsValueController extends Controller
         $resource = GetPatientTestValues::GetPatientTestResource($test);
 
         return response()->json($resource);
+    }
+
+    public function seepdf($id)
+    {
+        $test = Patienttest::find($id);
+
+        $resource = GetPatientTestValues::GetPatientTestResource($test);
+
+        return view("pdf",['values'=>$resource]);
+    }
+
+    public function MakePDF($id)
+    {
+        $test = Patienttest::find($id);
+
+        $resource = GetPatientTestValues::GetPatientTestResource($test);
+        
+        view()->share('values',$resource);
+        error_log("Making View");
+        $pdf = PDF::loadView('pdf',$resource);
+
+        error_log("Downloading");
+        return $pdf->download('file.pdf');
+
     }
 }

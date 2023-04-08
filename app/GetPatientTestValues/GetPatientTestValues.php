@@ -10,12 +10,54 @@ use App\Http\Resources\PatientResource;
 use App\Http\Resources\StaffResource;
 use App\Models\CategoryElement;
 use App\Models\Element;
+use App\Models\ElementExistValue;
+use App\Models\Elements\CategoryElementExistValue;
+use App\Models\Elements\CategoryElementValueRange;
+use App\Models\ElementValueRange;
+use App\Models\Patient;
 use App\Models\Patienttest;
+use App\Models\Staff;
 use App\Models\Test;
 use Illuminate\Support\Facades\DB;
 
 class GetPatientTestValues 
 {
+    public static function GetPatientResource(Patient $patient)
+    {
+        return [
+            'id'=>$patient->id,
+            'first_name'=>$patient->First_Name,
+            'last_name'=>$patient->Last_Name,
+            'father_name'=>$patient->Father_Name,
+            'username'=>$patient->username,
+            'gender'=>$patient->Gender,
+            'date_of_birth'=>$patient->Date_Of_Birth,
+            'email'=>$patient->email,
+            'phone'=>$patient->phone,
+            'is_active'=>$patient->is_active,
+
+        ];
+    }
+
+    public static function GetStaffResource(Staff $staff)
+    {
+        return [
+            'id'=>$staff->id,
+            'biometric_id'=>$staff->biometric_id,
+            'first_name'=>$staff->first_name,
+            'father_name'=>$staff->father_name,
+            'last_name'=>$staff->last_name,
+            'username'=>$staff->username,
+            'qualifications'=>$staff->qualifications,
+            'email'=>$staff->email,
+            'phone'=>$staff->phone,
+            'is_admin'=>$staff->is_admin,
+            'is_lab_staff'=>$staff->is_lab_staff,
+            'is_reception'=>$staff->is_reception,
+            'is_active'=>$staff->is_active,
+            'is_staff'=>true,
+        ];
+    }
 
     public static function GetTestResource(Test $test,$id)
     {
@@ -43,14 +85,42 @@ class GetPatientTestValues
     {
         error_log("in GetPatientTestResource");
         $test = [
-            'patient'=>new PatientResource($patient_test->patient),
+            'patient'=>GetPatientTestValues::GetPatientResource($patient_test->patient),
             'test'=>GetPatientTestValues::GetTestResource($patient_test->test,$patient_test->id),
-            'staff'=>new StaffResource($patient_test->staff),
+            'staff'=>GetPatientTestValues::GetStaffResource($patient_test->staff),
         ];
 
         return $test;
     }
     
+    public static function GetElementValueRangeResource(ElementValueRange $range)
+    {
+        return [
+            'id'=>$range->id,
+            'gender'=>$range->gender,
+            'from_age'=>$range->from_age,
+            'to_age'=>$range->to_age,
+            'age_unit'=>$range->age_unit,
+            'min_value'=>$range->min_value,
+            'max_value'=>$range->max_value,
+            'value'=>$range->value,
+            'unit'=>$range->unit,
+            'is_range'=>$range->is_range,
+            'is_gender_affected'=>$range->is_gender_affected,
+            'is_age_affected'=>$range->is_age_affected,
+        ];
+    }
+
+    public static function GetElementExistValueResource(ElementExistValue $value)
+    {
+        return [
+            'id'=>$value->id,
+            'value'=>$value->value,
+            'difference'=>$value->difference,
+            'is_difference_affected'=>$value->is_difference_affected,
+        ];
+    }
+
     Public static function GetElementResource(Element $element, $id)
     {
         error_log("in GetElementResource");
@@ -66,7 +136,11 @@ class GetPatientTestValues
 
         if($element->is_value)
         {
-            $array['values'] = ElementValueRangeResource::collection($element->values);
+            $array['values'] = [];
+            foreach($element->values as $value)
+            {
+                GetPatientTestValues::GetElementValueRangeResource($value);
+            }
             $query = DB::table('patient_test_values')->select(['value'])
             ->where('element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
@@ -76,7 +150,11 @@ class GetPatientTestValues
         }
         else if($element->exist)
         {
-            $array['values'] = ElementExistValueResource::collection($element->values);
+            $array['values'] = [];
+            foreach($element->values as $value)
+            {
+                GetPatientTestValues::GetElementExistValueResource($value);
+            }
             $query = DB::table('patient_test_values')->select(['value'])
             ->where('element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
@@ -124,6 +202,35 @@ class GetPatientTestValues
         return $array;
     }
 
+    public static function GetCategoryElementValueRangeResource(CategoryElementValueRange $range)
+    {
+        return [
+            'id'=>$range->id,
+            'gender'=>$range->gender,
+            'from_age'=>$range->from_age,
+            'to_age'=>$range->to_age,
+            'difference'=>$range->difference,
+            'min_value'=>$range->min_value,
+            'max_value'=>$range->max_value,
+            'value'=>$range->value,
+            'unit'=>$range->unit,
+            'is_range'=>$range->is_range,
+            'is_gender_affected'=>$range->is_gender_affected,
+            'is_age_affected'=>$range->is_age_affected,
+            'is_difference_affected'=>$range->is_difference_affected,
+        ];
+    }
+
+    public static function GetCategoryElementExistValueResource(CategoryElementExistValue $value)
+    {
+        return [
+            'id'=>$value->id,
+            'value'=>$value->value,
+            'difference'=>$value->difference,
+            'is_difference_affected'=>$value->is_difference_affected,
+        ];
+    }
+
     public static function GetCategoryElementResource(CategoryElement $element, $id)
     {
         error_log("in GetCategoryElementResource");
@@ -138,7 +245,11 @@ class GetPatientTestValues
         
         if($element->is_value)
         {
-            $array['values'] = CategoryElementValueResource::collection($element->values);
+            $array['values'] = [];
+            foreach($element->values as $value)
+            {
+                GetPatientTestValues::GetCategoryElementValueRangeResource($value);
+            }
             $query = DB::table('patient_test_values')->select(['value'])
             ->where('category_element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
@@ -148,7 +259,11 @@ class GetPatientTestValues
         }
         else if($element->is_exist)
         {
-            $array['values'] = CategoryElementExistValueResource::collection($element->values);
+            $array['values'] = [];
+            foreach($element->values as $value)
+            {
+                GetPatientTestValues::GetCategoryElementExistValueResource($value);
+            }
             $query = DB::table('patient_test_values')->select(['value'])
             ->where('category_element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
