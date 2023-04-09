@@ -16,6 +16,7 @@ use App\Http\Requests\ElementsGetAndAdd\AddValueRangeToElementRequest;
 use App\Http\Resources\Elements\CategoryElementResource;
 use App\Http\Resources\Elements\CategoryResource;
 use App\Http\Resources\Elements\ElementResource;
+use App\Http\Resources\Elements\UnitResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
 use App\Models\Element;
@@ -23,6 +24,7 @@ use App\Models\ElementExistValue;
 use App\Models\Elements\CategoryElementExistValue;
 use App\Models\Elements\CategoryElementValueRange;
 use App\Models\ElementValueRange;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class ElementsController extends Controller
@@ -49,6 +51,19 @@ class ElementsController extends Controller
         $element->is_subcategory = $request->is_subcategory;
 
         $element->save();
+
+        if($request->units)
+        {
+            foreach($request->units as $unit)
+            {
+                $new = new Unit();
+
+                $new->unit_name = $unit;
+                $new->category_element_id = $element->id;
+
+                $new->save();
+            }
+        }
 
         return response()->json([
             'message'=>'تم إضافة المؤشر الجزئي',
@@ -204,6 +219,7 @@ class ElementsController extends Controller
 
     public function AddElement(AddElementRequest $request)
     {
+        error_log("in Add Element");
         $element = new Element();
 
         $element->name = $request->name;
@@ -214,6 +230,19 @@ class ElementsController extends Controller
         $element->is_category = $request->is_category;
 
         $element->save();
+
+        if($request->units)
+        {
+            foreach($request->units as $unit)
+            {
+                $new = new Unit();
+
+                $new->unit_name = $unit;
+                $new->element_id = $element->id;
+
+                $new->save();
+            }
+        }
 
         return response()->json([
             'message'=>'تم إضافة المؤشر',
@@ -330,5 +359,43 @@ class ElementsController extends Controller
         $element = Element::find($id);
 
         return new ElementResource($element);
+    }
+
+    public function GetElementUnits($id)
+    {
+        $element = Element::find($id);
+
+        return UnitResource::collection($element->units);
+    }
+
+    public function GetCategoryElementUnits($id)
+    {
+        $element = CategoryElement::find($id);
+
+        return UnitResource::collection($element->units);
+    }
+
+    public function AddUnitToElement(Request $request, $id)
+    {
+        $unit = new Unit();
+
+        $unit->element_id = $id;
+        $unit->unit = $request->unit;
+
+        $unit->save();
+
+        return response()->json(['message'=>"تم إضافة وحدة القياس إلى المؤشر"]);
+    }
+
+    public function AddUnitToCategoryElement(Request $request, $id)
+    {
+        $unit = new Unit();
+
+        $unit->category_element_id = $id;
+        $unit->unit = $request->unit;
+
+        $unit->save();
+
+        return response()->json(['message'=>"تم إضافة وحدة القياس إلى المؤشر الجزئي"]);
     }
 }

@@ -26,6 +26,7 @@ class ElementResource extends JsonResource
             'is_value'=>$this->is_value,
             'is_exist'=>$this->is_exist,
             'is_category'=>$this->is_category,
+            'units'=>ElementUnitResource::collection($this->units),
         ];
 
         if($this->is_value)

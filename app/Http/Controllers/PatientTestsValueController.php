@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\GetPatientTestValues\GetPatientTestValues;
+use App\Http\Requests\PatientTestValues\AddValuesToTestRequest;
+use App\Http\Requests\PatientTestValues\AuditTestRequest;
 use App\Http\Resources\patienttestResource;
 use App\Models\Patienttest;
 use App\Models\PatientTestValue;
@@ -10,7 +12,7 @@ use Illuminate\Http\Request;
 
 class PatientTestsValueController extends Controller
 {
-    public function AddValuesToTest(Request $request,$id)
+    public function AddValuesToTest(AddValuesToTestRequest $request,$id)
     {
         foreach($request->values as $value)
         {
@@ -43,7 +45,7 @@ class PatientTestsValueController extends Controller
         ]);
     }
 
-    public function AuditTest(Request $request,$id)
+    public function AuditTest(AuditTestRequest $request,$id)
     {
         foreach($request->values as $value)
         {

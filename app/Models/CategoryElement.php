@@ -51,4 +51,8 @@ class CategoryElement extends Model
         return $this->hasMany(PatientTestValue::class,'category_element_id','id');
     }
 
+    public function units()
+    {
+        return $this->hasMany(Unit::class,'category_element_id','id');
+    }
 }

@@ -28,6 +28,7 @@ class CategoryElementResource extends JsonResource
             'symbol'=>$this->symbol,
             'is_value'=>$this->is_value,
             'is_exist'=>$this->is_exist,
+            'units'=>ElementUnitResource::collection($this->units),
         ];
         
         if($this->is_value)

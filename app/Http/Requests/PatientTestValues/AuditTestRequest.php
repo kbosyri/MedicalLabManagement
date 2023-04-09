@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\ElementsGetAndAdd;
+namespace App\Http\Requests\PatientTestValues;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 
-class AddElementRequest extends FormRequest
+class AuditTestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,12 +27,7 @@ class AddElementRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required'],
-            'arabic_name'=>['required'],
-            'is_value'=>['required'],
-            'is_exist'=>['required'],
-            'is_category'=>['required'],
-            'units'=>['array'],
+            'values'=>['required','array']
         ];
     }
 

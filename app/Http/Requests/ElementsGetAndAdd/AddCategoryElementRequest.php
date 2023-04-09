@@ -31,6 +31,7 @@ class AddCategoryElementRequest extends FormRequest
             'element_id'=>['required'],
             'belongs_to_element'=>['required_unless:belongs_to_subcategory,true'],
             'belongs_to_subcategory'=>['required_unless:belongs_to_element,true'],
+            'units'=>['array'],
         ];
     }
 

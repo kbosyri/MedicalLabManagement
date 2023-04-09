@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         'staff-passwordchange-validation'=>\App\Http\Middleware\StaffPasswordChangeValidation::class,
         'patient-register-validation'=>\App\Http\Middleware\PatientRegisterValidation::class,
         'admin-auth'=>\App\Http\Middleware\AdminPermissionAuthentication::class,
+        'lab-staff-auth'=>\App\Http\Middleware\LabStaffPermission::class,
+        'patient-test-permisson'=>\App\Http\Middleware\PatientTestsPermission::class,
     ];
 
     protected $middlewarePriority = [
@@ -83,6 +85,8 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\AdminPermissionAuthentication::class,
+        \App\Http\Middleware\LabStaffPermission::class,
+        \App\Http\Middleware\PatientTestsPermission::class,
         \App\Http\Middleware\StaffValidationErrorHandler::class,
         \App\Http\Middleware\StaffRegisterValidation::class,
         \App\Http\Middleware\StaffUpdateValidation::class,

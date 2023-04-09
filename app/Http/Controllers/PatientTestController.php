@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PatientTests\AddBulkPatientTestsRequest;
+use App\Http\Requests\PatientTests\AddPatientTestRequest;
+use App\Http\Requests\PatientTests\UpdatePatientTestRequest;
 use App\Http\Resources\patienttestResource;
 use Illuminate\Http\Request;
 use App\Models\Patienttest;
 use App\Models\TestsGroup;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PatientTestController extends Controller
 {
@@ -23,7 +27,7 @@ class PatientTestController extends Controller
         return false;
     }
 
-    public function add_patient_test(Request $request)
+    public function add_patient_test(AddPatientTestRequest $request)
     {
         $patienttest=new Patienttest();
 
@@ -38,7 +42,7 @@ class PatientTestController extends Controller
               ]); 
     }
 
-    public function AddPatientTests(Request $request)
+    public function AddPatientTests(AddBulkPatientTestsRequest $request)
     {
         $tests = [];
         foreach($request->tests as $test)
@@ -78,7 +82,7 @@ class PatientTestController extends Controller
         ]);
     }
 
-    public function update_patient_test(Request $request, $id)
+    public function update_patient_test(UpdatePatientTestRequest $request, $id)
     {
         $patienttest=Patienttest::find($id);
         $patienttest->test_date=$request->test_date;
@@ -94,7 +98,7 @@ class PatientTestController extends Controller
 
     public function GetStaffPatientTests()
     {
-        $patienttests = Patienttest::where('staff_id',Auth::user()->id)->where('is_finished',false)->get();
+        $patienttests = Patienttest::where('staff_id',Auth::user()->id)->where('is_finished',false)->latest()->get();
         
         return patienttestResource::collection($patienttests);
     }
@@ -118,6 +122,30 @@ class PatientTestController extends Controller
         $tests = Patienttest::where('patient_id',$id)->where('is_finished',false)->get();
 
         return patienttestResource::collection($tests);
+    }
+
+    public function GetStaffRecentPatinets()
+    {
+        $patienttests = DB::table('patienttests')
+        ->where('patienttests.staff_id','=',Auth::user()->id)
+        ->where('patienttests.is_finished','=',false)
+        ->orderByDesc('patienttests.created_at')
+        ->join('patients','patienttests.patient_id','=','patients.id')
+        ->distinct('patients.id')
+        ->select(['patients.id','patients.First_Name','patients.Last_Name','patients.Father_Name'])->get();
+
+        return response()->json(['patients'=>$patienttests]);
+    }
+
+    public function GetRecentPatinets()
+    {
+        $patienttests = DB::table('patienttests')
+        ->orderByDesc('patienttests.created_at')
+        ->join('patients','patienttests.patient_id','=','patients.id')
+        ->distinct('patients.id')
+        ->select(['patients.id','patients.First_Name','patients.Last_Name','patients.Father_Name'])->get();
+
+        return response()->json(['patients'=>$patienttests]);
     }
 }
 

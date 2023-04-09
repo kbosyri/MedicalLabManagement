@@ -71,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
     Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
     Route::post('/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElement']);
+    Route::get('/elements/{id}/units',[ElementsController::class,'GetElementUnits']);
     Route::post('/category/elements/add',[ElementsController::class,'AddCategoryElement']);
     Route::get('/category/elements/',[ElementsController::class,'GetCategoryElements']);
     Route::get('/category/elements/{id}',[ElementsController::class,'GetCategoryElement']);
@@ -82,6 +83,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/category/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElementExistValue']);
     Route::post('/category/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToCategoryElement']);
     Route::post('/categoy/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToCategoryElement']);
+    Route::get('/category/elements/{id}/units',[ElementsController::class,'GetCategoryElementUnits']);
     Route::post('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElement']);
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
     Route::post('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'UpdateSubcategory']);
@@ -128,7 +130,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/patienttests/unaudited',[PatientTestController::class,'GetUnAuditedTests']);
     Route::get('patienttests/{id}/values',[PatientTestsValueController::class,'GetTestValues']);
     Route::get('/user/tests',[PatientTestController::class,'GetUserTests']);
-
+    Route::get('/patienttests/staff/patients',[PatientTestController::class,'GetStaffRecentPatinets']);
+    Route::get('/patienttests/patients',[PatientTestController::class,'GetRecentPatinets']);
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
 Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);

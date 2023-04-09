@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\ElementsGetAndAdd;
+namespace App\Http\Requests\PatientTests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 
-class AddElementRequest extends FormRequest
+class AddPatientTestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class AddElementRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin;
+        return Auth::user()->is_reception;
     }
 
     /**
@@ -27,12 +27,10 @@ class AddElementRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required'],
-            'arabic_name'=>['required'],
-            'is_value'=>['required'],
-            'is_exist'=>['required'],
-            'is_category'=>['required'],
-            'units'=>['array'],
+            'test_id'=>['required'],
+            'test_date'=>['required','date'],
+            'patient_id'=>['required'],
+            'staff_id'=>['required'],
         ];
     }
 
