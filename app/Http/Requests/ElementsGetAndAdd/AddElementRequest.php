@@ -32,6 +32,7 @@ class AddElementRequest extends FormRequest
             'is_value'=>['required'],
             'is_exist'=>['required'],
             'is_category'=>['required'],
+            'units'=>['array'],
         ];
     }
 
