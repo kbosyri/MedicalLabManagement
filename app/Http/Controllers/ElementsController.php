@@ -16,6 +16,7 @@ use App\Http\Requests\ElementsGetAndAdd\AddValueRangeToElementRequest;
 use App\Http\Resources\Elements\CategoryElementResource;
 use App\Http\Resources\Elements\CategoryResource;
 use App\Http\Resources\Elements\ElementResource;
+use App\Http\Resources\Elements\UnitResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\CategoryElement;
 use App\Models\Element;
@@ -351,6 +352,20 @@ class ElementsController extends Controller
         $element = Element::find($id);
 
         return new ElementResource($element);
+    }
+
+    public function GetElementUnits($id)
+    {
+        $element = Element::find($id);
+
+        return UnitResource::collection($element->units);
+    }
+
+    public function GetCategoryElementUnits($id)
+    {
+        $element = CategoryElement::find($id);
+
+        return UnitResource::collection($element->units);
     }
 
     public function AddUnitToElement(Request $request, $id)
