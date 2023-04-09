@@ -23,6 +23,7 @@ use App\Models\ElementExistValue;
 use App\Models\Elements\CategoryElementExistValue;
 use App\Models\Elements\CategoryElementValueRange;
 use App\Models\ElementValueRange;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class ElementsController extends Controller
@@ -49,6 +50,16 @@ class ElementsController extends Controller
         $element->is_subcategory = $request->is_subcategory;
 
         $element->save();
+
+        foreach($request->units as $unit)
+        {
+            $new = new Unit();
+
+            $new->unit = $unit;
+            $new->category_element_id = $element->id;
+
+            $new->save();
+        }
 
         return response()->json([
             'message'=>'تم إضافة المؤشر الجزئي',
@@ -215,6 +226,16 @@ class ElementsController extends Controller
 
         $element->save();
 
+        foreach($request->units as $unit)
+        {
+            $new = new Unit();
+
+            $new->unit = $unit;
+            $new->element_id = $element->id;
+
+            $new->save();
+        }
+
         return response()->json([
             'message'=>'تم إضافة المؤشر',
             'element'=>new ElementResource($element),
@@ -330,5 +351,29 @@ class ElementsController extends Controller
         $element = Element::find($id);
 
         return new ElementResource($element);
+    }
+
+    public function AddUnitToElement(Request $request, $id)
+    {
+        $unit = new Unit();
+
+        $unit->element_id = $id;
+        $unit->unit = $request->unit;
+
+        $unit->save();
+
+        return response()->json(['message'=>"تم إضافة وحدة القياس إلى المؤشر"]);
+    }
+
+    public function AddUnitToCategoryElement(Request $request, $id)
+    {
+        $unit = new Unit();
+
+        $unit->category_element_id = $id;
+        $unit->unit = $request->unit;
+
+        $unit->save();
+
+        return response()->json(['message'=>"تم إضافة وحدة القياس إلى المؤشر الجزئي"]);
     }
 }

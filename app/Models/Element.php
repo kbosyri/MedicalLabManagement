@@ -40,4 +40,9 @@ class Element extends Model
         return $this->hasMany(PatientTestValue::class,'element_id','id');
     }
 
+    public function units()
+    {
+        return $this->hasMany(Unit::class,'element_id','id');
+    }
+
 }
