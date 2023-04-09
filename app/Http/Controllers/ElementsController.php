@@ -52,14 +52,17 @@ class ElementsController extends Controller
 
         $element->save();
 
-        foreach($request->units as $unit)
+        if($request->units)
         {
-            $new = new Unit();
+            foreach($request->units as $unit)
+            {
+                $new = new Unit();
 
-            $new->unit = $unit;
-            $new->category_element_id = $element->id;
+                $new->unit_name = $unit;
+                $new->category_element_id = $element->id;
 
-            $new->save();
+                $new->save();
+            }
         }
 
         return response()->json([
@@ -216,6 +219,7 @@ class ElementsController extends Controller
 
     public function AddElement(AddElementRequest $request)
     {
+        error_log("in Add Element");
         $element = new Element();
 
         $element->name = $request->name;
@@ -227,14 +231,17 @@ class ElementsController extends Controller
 
         $element->save();
 
-        foreach($request->units as $unit)
+        if($request->units)
         {
-            $new = new Unit();
+            foreach($request->units as $unit)
+            {
+                $new = new Unit();
 
-            $new->unit = $unit;
-            $new->element_id = $element->id;
+                $new->unit_name = $unit;
+                $new->element_id = $element->id;
 
-            $new->save();
+                $new->save();
+            }
         }
 
         return response()->json([
