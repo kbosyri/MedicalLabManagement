@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/staff/changepassword',[StaffAccountsController::class,'ChangePassword']);
     Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
     Route::get('/staff/user',[StaffAccountsController::class,'GetUser']);
+    Route::get('/staff/labstaff',[StaffAccountsController::class,'GetLabStaff']);
     Route::get('/staff/tests',[PatientTestController::class,'GetStaffPatientTests']);
     Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
 });

@@ -161,4 +161,11 @@ class StaffAccountsController extends Controller
             'message'=>'تم إلغاء حساب الموظف',
         ]);
     }
+
+    public function GetLabStaff()
+    {
+        $staff = Staff::where('is_lab_staff',true)->where('is_active',true)->get();
+
+        return StaffResource::collection($staff);
+    }
 }
