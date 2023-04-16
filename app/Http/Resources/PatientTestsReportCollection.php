@@ -14,7 +14,7 @@ class PatientTestsReportCollection extends ResourceCollection
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-    protected $collects = Patienttest::class;
+    //public $collects = Patienttest::class;
 
     public function toArray($request)
     {

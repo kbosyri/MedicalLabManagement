@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PatientTestsReportCollection;
+use App\Http\Resources\Reports\StaffTestsReportCollection;
 use App\Http\Resources\TestReportCollection;
 use App\Models\Patient;
 use App\Models\Patienttest;
@@ -47,7 +48,7 @@ class TestReportController extends Controller
 
         if($request->first_name)
         {
-            $temp = DB::table('patients')->select(['id'])->where('First_Name','=',$request->name)->get();
+            $temp = DB::table('patients')->select(['id'])->where('First_Name','=',$request->first_name)->get();
             $array = [];
             foreach($temp as $patient)
             {
@@ -90,7 +91,6 @@ class TestReportController extends Controller
         }
 
         $tests = $tests->get();
-
         return new PatientTestsReportCollection($tests);
     }
 
@@ -100,7 +100,7 @@ class TestReportController extends Controller
         
         if($request->first_name)
         {
-            $temp = DB::table('staff')->select(['id'])->where('first_name','=',$request->name)->get();
+            $temp = DB::table('staff')->select(['id'])->where('first_name','=',$request->first_name)->get();
             $array = [];
             foreach($temp as $staff)
             {
@@ -130,5 +130,9 @@ class TestReportController extends Controller
             }
             $tests = $tests->whereIn('staff_id',$array);
         }
+
+        $tests = $tests->get();
+
+        return new StaffTestsReportCollection($tests);
     }
 }
