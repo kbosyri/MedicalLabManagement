@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Reports\ReportRequest;
 use App\Http\Resources\PatientTestsReportCollection;
 use App\Http\Resources\Reports\StaffTestsReportCollection;
 use App\Http\Resources\TestReportCollection;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class TestReportController extends Controller
 {
-    public function GetTestReport(Request $request)
+    public function GetTestReport(ReportRequest $request)
     {
         $tests = Patienttest::whereBetween('created_at',[$request->start_date,$request->end_date]);
 
@@ -42,7 +43,7 @@ class TestReportController extends Controller
         return new TestReportCollection($tests);
     }
 
-    public function GetPatientTests(Request $request)
+    public function GetPatientTests(ReportRequest $request)
     {
         $tests = Patienttest::whereBetween('created_at',[$request->start_date,$request->end_date]);
 
@@ -94,7 +95,7 @@ class TestReportController extends Controller
         return new PatientTestsReportCollection($tests);
     }
 
-    public function GetStaffTests(Request $request)
+    public function GetStaffTests(ReportRequest $request)
     {
         $tests = Patienttest::whereBetween('created_at',[$request->start_date,$request->end_date]);
         
