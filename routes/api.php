@@ -20,7 +20,6 @@ use App\Http\Controllers\PatientController;
 
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-<<<<<<< HEAD
 });*/
 
 Route::post('/patient/login',[PatientController::class,'Loginpatient']);
