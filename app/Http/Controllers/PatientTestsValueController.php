@@ -30,6 +30,7 @@ class PatientTestsValueController extends Controller
                 $new_value->element_id = $value['element_id'];
             }
             $new_value->value = $value['value'];
+            $new_value->unit = $value['unit'];
 
             $new_value->save();
         }

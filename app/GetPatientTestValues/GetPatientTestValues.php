@@ -142,12 +142,13 @@ class GetPatientTestValues
             {
                 GetPatientTestValues::GetElementValueRangeResource($value);
             }
-            $query = DB::table('patient_test_values')->select(['value'])
+            $query = DB::table('patient_test_values')->select(['value','unit'])
             ->where('element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
             ->where('is_category_element','=',false)
             ->get()[0];
             $array['test_value'] = $query->value;
+            $array['test_unit'] = $query->unit;
         }
         else if($element->exist)
         {
@@ -156,12 +157,13 @@ class GetPatientTestValues
             {
                 GetPatientTestValues::GetElementExistValueResource($value);
             }
-            $query = DB::table('patient_test_values')->select(['value'])
+            $query = DB::table('patient_test_values')->select(['value','unit'])
             ->where('element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
             ->where('is_category_element','=',false)
             ->get()[0];
             $array['test_value'] = $query->value;
+            $array['test_unit'] = $query->unit;
         }
 
         else if($element->is_category)
@@ -253,12 +255,13 @@ class GetPatientTestValues
             {
                 GetPatientTestValues::GetCategoryElementValueRangeResource($value);
             }
-            $query = DB::table('patient_test_values')->select(['value'])
+            $query = DB::table('patient_test_values')->select(['value','unit'])
             ->where('category_element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
             ->where('is_category_element','=',true)
             ->get()[0];
             $array['test_value'] = $query->value;
+            $array['test_unit'] = $query->unit;
         }
         else if($element->is_exist)
         {
@@ -267,12 +270,13 @@ class GetPatientTestValues
             {
                 GetPatientTestValues::GetCategoryElementExistValueResource($value);
             }
-            $query = DB::table('patient_test_values')->select(['value'])
+            $query = DB::table('patient_test_values')->select(['value','unit'])
             ->where('category_element_id','=',$element->id)
             ->where('patient_test_id','=',$id)
             ->where('is_category_element','=',true)
             ->get()[0];
             $array['test_value'] = $query->value;
+            $array['test_unit'] = $query->unit;
         }
         
         return $array;
