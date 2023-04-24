@@ -197,6 +197,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValuesStorageSeviceProvider::class,
         App\Providers\GetPatientTestValuesProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -214,7 +215,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'valuestorage'=> App\ElementsValuesStorage\ValueStorageFacade::class,
-        'GetPatientTestValues'=>App\GetPatientTestValues\GetPatientTestValuesFacade::class
+        'GetPatientTestValues'=>App\GetPatientTestValues\GetPatientTestValuesFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];
