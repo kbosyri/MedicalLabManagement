@@ -88,6 +88,7 @@ class GetPatientTestValues
             'patient'=>GetPatientTestValues::GetPatientResource($patient_test->patient),
             'test'=>GetPatientTestValues::GetTestResource($patient_test->test,$patient_test->id),
             'staff'=>GetPatientTestValues::GetStaffResource($patient_test->staff),
+            'date'=>$patient_test->test_date,
         ];
 
         return $test;
@@ -190,6 +191,7 @@ class GetPatientTestValues
             'name'=>$subcategory->name,
             'arabic_name'=>$subcategory->arabic_name,
             'symbol'=>$subcategory->symbol,
+            'is_subcategory'=>true,
         ];
 
         $array['values'] = [];
@@ -241,6 +243,7 @@ class GetPatientTestValues
             'symbol'=>$element->symbol,
             'is_value'=>$element->is_value,
             'is_exist'=>$element->is_exist,
+            'is_subcategory'=>$element->is_subcategory
         ];
         
         if($element->is_value)

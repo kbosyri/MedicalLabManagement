@@ -94,21 +94,24 @@ class PatientTestsValueController extends Controller
 
         $resource = GetPatientTestValues::GetPatientTestResource($test);
 
-        return view("pdf",['values'=>$resource]);
+        return view("mainpdf",['values'=>$resource]);
     }
 
     public function MakePDF($id)
     {
+        error_log('test');
         $test = Patienttest::find($id);
 
         $resource = GetPatientTestValues::GetPatientTestResource($test);
         
         view()->share('values',$resource);
         error_log("Making View");
-        $pdf = PDF::loadView('pdf',$resource);
+        $pdf = PDF::loadView('mainpdf',$resource);
 
         error_log("Downloading");
-        return $pdf->download('file.pdf');
+        $file = $pdf->download('file.pdf');
+        error_log('Response');
+        return $file;
 
     }
 }
