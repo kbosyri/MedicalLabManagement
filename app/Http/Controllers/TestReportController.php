@@ -16,7 +16,7 @@ class TestReportController extends Controller
 {
     public function GetTestReport(ReportRequest $request)
     {
-        $tests = Patienttest::whereBetween('created_at',[$request->start_date,$request->end_date]);
+        $tests = Patienttest::whereBetween('test_date',[$request->start_date,$request->end_date]);
 
         if($request->name)
         {
@@ -45,7 +45,7 @@ class TestReportController extends Controller
 
     public function GetPatientTests(ReportRequest $request)
     {
-        $tests = Patienttest::whereBetween('created_at',[$request->start_date,$request->end_date]);
+        $tests = Patienttest::whereBetween('test_date',[$request->start_date,$request->end_date]);
 
         if($request->first_name)
         {
@@ -97,7 +97,7 @@ class TestReportController extends Controller
 
     public function GetStaffTests(ReportRequest $request)
     {
-        $tests = Patienttest::whereBetween('created_at',[$request->start_date,$request->end_date]);
+        $tests = Patienttest::whereBetween('test_date',[$request->start_date,$request->end_date]);
         
         if($request->first_name)
         {
