@@ -53,6 +53,8 @@ class ElementResource extends JsonResource
             }
         }
 
+        $array['units'] = $this->value_units();
+
         return $array;
     }
 }

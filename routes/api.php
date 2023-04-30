@@ -74,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
     Route::post('/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElement']);
     Route::get('/elements/{id}/units',[ElementsController::class,'GetElementUnits']);
+    Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
     Route::post('/category/elements/add',[ElementsController::class,'AddCategoryElement']);
     Route::get('/category/elements/',[ElementsController::class,'GetCategoryElements']);
     Route::get('/category/elements/{id}',[ElementsController::class,'GetCategoryElement']);

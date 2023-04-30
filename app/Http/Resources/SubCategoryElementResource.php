@@ -34,6 +34,9 @@ class SubCategoryElementResource extends JsonResource
         {
             $array['values'] = CategoryElementExistValueResource::collection($this->values);
         }
+
+        $array['units'] = $this->value_units();
+
         return $array;
     }
 }

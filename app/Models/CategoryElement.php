@@ -55,4 +55,22 @@ class CategoryElement extends Model
     {
         return $this->hasMany(Unit::class,'category_element_id','id');
     }
+
+    public function value_units()
+    {
+        if($this->is_value)
+        {
+            $array = [];
+            $query = DB::table('category_element_value_ranges')->select(['unit'])
+                    ->distinct()->where('category_element_id','=',$this->id)->get();
+
+            foreach($query as $unit)
+            {
+                array_push($array,$unit->unit);
+            }
+            return $array;
+        }
+
+        return null;
+    }
 }
