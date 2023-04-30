@@ -66,6 +66,7 @@ Route::middleware('auth:sanctum')->group(function (){
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('/elements',[ElementsController::class,'GetElements']);
+    Route::get('/elements/filter',[ElementsController::class,'FilterTests']);
     Route::post('/elements/add',[ElementsController::class,'AddElement']);
     Route::post('/elements/category/add',[ElementsController::class,'AddCategory']);
     Route::post('/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementValueRange']);

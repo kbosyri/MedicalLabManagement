@@ -20,7 +20,7 @@ class TestReportController extends Controller
 
         if($request->name)
         {
-            $temp = DB::table('tests')->select(['id'])->where('name','=',$request->name)->get();
+            $temp = DB::table('tests')->select(['id'])->where('name','like',$request->name."%")->get();
             $array = [];
             foreach($temp as $test)
             {
@@ -30,7 +30,7 @@ class TestReportController extends Controller
         }
         if($request->arabic_name)
         {
-            $temp = DB::table('tests')->select(['id'])->where('arabic_name','=',$request->arabic_name)->get();
+            $temp = DB::table('tests')->select(['id'])->where('arabic_name','like',$request->arabic_name."%")->get();
             $array = [];
             foreach($temp as $test)
             {
@@ -49,7 +49,7 @@ class TestReportController extends Controller
 
         if($request->first_name)
         {
-            $temp = DB::table('patients')->select(['id'])->where('First_Name','=',$request->first_name)->get();
+            $temp = DB::table('patients')->select(['id'])->where('First_Name','like',$request->first_name."%")->get();
             $array = [];
             foreach($temp as $patient)
             {
@@ -60,7 +60,7 @@ class TestReportController extends Controller
 
         if($request->father_name)
         {
-            $temp = DB::table('patients')->select(['id'])->where('Father_Name','=',$request->father_name)->get();
+            $temp = DB::table('patients')->select(['id'])->where('Father_Name','like',$request->father_name."%")->get();
             $array = [];
             foreach($temp as $patient)
             {
@@ -71,7 +71,7 @@ class TestReportController extends Controller
 
         if($request->last_name)
         {
-            $temp = DB::table('patients')->select(['id'])->where('Last_Name','=',$request->last_name)->get();
+            $temp = DB::table('patients')->select(['id'])->where('Last_Name','like',$request->last_name."%")->get();
             $array = [];
             foreach($temp as $patient)
             {
@@ -101,7 +101,7 @@ class TestReportController extends Controller
         
         if($request->first_name)
         {
-            $temp = DB::table('staff')->select(['id'])->where('first_name','=',$request->first_name)->get();
+            $temp = DB::table('staff')->select(['id'])->where('first_name','like',$request->first_name."%")->get();
             $array = [];
             foreach($temp as $staff)
             {
@@ -112,7 +112,7 @@ class TestReportController extends Controller
 
         if($request->father_name)
         {
-            $temp = DB::table('staff')->select(['id'])->where('father_name','=',$request->father_name)->get();
+            $temp = DB::table('staff')->select(['id'])->where('father_name','like',$request->father_name."%")->get();
             $array = [];
             foreach($temp as $staff)
             {
@@ -123,7 +123,7 @@ class TestReportController extends Controller
 
         if($request->last_name)
         {
-            $temp = DB::table('staff')->select(['id'])->where('last_name','=',$request->last_name)->get();
+            $temp = DB::table('staff')->select(['id'])->where('last_name','like',$request->last_name."%")->get();
             $array = [];
             foreach($temp as $staff)
             {

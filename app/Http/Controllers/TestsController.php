@@ -183,4 +183,21 @@ class TestsController extends Controller
             'message'=>"تم تعديل التحليل بنجاح",
         ]);
     }
+
+    public function FilterTests(Request $request)
+    {
+        $tests = Test::all();
+
+        if($request->name)
+        {
+            $tests = $tests->where('name','like',$request->name."%");
+        }
+
+        if($request->arabic_name)
+        {
+            $tests = $tests->where('arabic_name','like',$request->arabic_name."%");
+        }
+
+        return TestResource::collection($tests);
+    }
 }
