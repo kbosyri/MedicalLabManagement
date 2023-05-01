@@ -115,4 +115,21 @@ class PatientTestsValueController extends Controller
         return $file;
 
     }
+
+    public function SendResultToPatient($id)
+    {
+        $test = Patienttest::find($id);
+
+        $resource = GetPatientTestValues::GetPatientTestResource($test);
+        
+        view()->share('values',$resource);
+        $pdf = PDF::loadView('mainpdf',$resource);
+
+        $file = $pdf->download('file.pdf');
+
+        $test->is_seen = true;
+        $test->save();
+        
+        return $file;
+    }
 }

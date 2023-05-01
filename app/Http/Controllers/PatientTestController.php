@@ -147,5 +147,19 @@ class PatientTestController extends Controller
 
         return response()->json(['patients'=>$patienttests]);
     }
+
+    public function GetUnseen()
+    {
+        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_seen',false)->get();
+
+        return patienttestResource::collection($tests);
+    }
+
+    public function GetArchive()
+    {
+        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_seen',true)->get();
+
+        return patienttestResource::collection($tests);
+    }
 }
 
