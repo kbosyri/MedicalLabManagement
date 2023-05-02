@@ -124,6 +124,13 @@ class PatientTestController extends Controller
         return patienttestResource::collection($tests);
     }
 
+    public function GetPatientTest($id)
+    {
+        $test = Patienttest::find($id);
+
+        return new patienttestResource($test);
+    }
+
     public function GetStaffRecentPatinets()
     {
         $patienttests = DB::table('patienttests')
