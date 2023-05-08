@@ -73,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementExistValue']);
     Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
     Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
+    Route::post('/elements/{id}/units',[ElementsController::class,'AddUnitToElement']);
     Route::post('/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElement']);
     Route::get('/elements/{id}/units',[ElementsController::class,'GetElementUnits']);
     Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
@@ -88,6 +89,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/category/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToCategoryElement']);
     Route::post('/categoy/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToCategoryElement']);
     Route::get('/category/elements/{id}/units',[ElementsController::class,'GetCategoryElementUnits']);
+    Route::post('/category/elements/{id}/units',[ElementsController::class,'AddUnitToCategoryElement']);
     Route::post('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElement']);
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
     Route::post('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'UpdateSubcategory']);

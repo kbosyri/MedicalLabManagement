@@ -44,7 +44,14 @@ class CategoryCategoryElementResource extends JsonResource
             $array['elements'] = SubCategoryElementResource::collection($this->values);
         }
 
-        $array['units'] = $this->value_units();
+        $units = [];
+
+        foreach($this->units as $unit)
+        {
+            array_push($units,$unit->unit_name);
+        }
+
+        $array['units'] = $units;
 
         return $array;
     }

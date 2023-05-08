@@ -53,7 +53,14 @@ class CategoryElementResource extends JsonResource
             $array['subcategory'] = new CategoryElementSubCategoryResource($this->category);
         }
 
-        $array['units'] = $this->value_units();
+        $units = [];
+
+        foreach($this->units as $unit)
+        {
+            array_push($units,$unit->unit_name);
+        }
+
+        $array['units'] = $units;
 
         return $array;
     }
