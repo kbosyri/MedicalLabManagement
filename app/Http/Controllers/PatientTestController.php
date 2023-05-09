@@ -157,14 +157,14 @@ class PatientTestController extends Controller
 
     public function GetUnseen()
     {
-        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_finished',true)->where('is_seen',false)->get();
+        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_audited',true)->where('is_seen',false)->get();
 
         return patienttestResource::collection($tests);
     }
 
     public function GetArchive()
     {
-        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_finished',true)->where('is_seen',true)->get();
+        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_audited',true)->where('is_seen',true)->get();
 
         return patienttestResource::collection($tests);
     }
