@@ -96,6 +96,7 @@ class GetPatientTestValues
     
     public static function GetElementValueRangeResource(ElementValueRange $range)
     {
+        error_log("in Element Value");
         return [
             'id'=>$range->id,
             'gender'=>$range->gender,
@@ -114,6 +115,7 @@ class GetPatientTestValues
 
     public static function GetElementExistValueResource(ElementExistValue $value)
     {
+        error_log("in Element Exist");
         return [
             'id'=>$value->id,
             'value'=>$value->value,
@@ -208,6 +210,7 @@ class GetPatientTestValues
 
     public static function GetCategoryElementValueRangeResource(CategoryElementValueRange $range)
     {
+        error_log("in category element exist");
         return [
             'id'=>$range->id,
             'gender'=>$range->gender,
@@ -227,6 +230,7 @@ class GetPatientTestValues
 
     public static function GetCategoryElementExistValueResource(CategoryElementExistValue $value)
     {
+        error_log('in category element value');
         return [
             'id'=>$value->id,
             'value'=>$value->value,
