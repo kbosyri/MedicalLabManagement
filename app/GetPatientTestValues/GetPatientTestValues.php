@@ -152,7 +152,7 @@ class GetPatientTestValues
             $array['test_value'] = $query->value;
             $array['test_unit'] = $query->unit;
         }
-        else if($element->exist)
+        else if($element->is_exist)
         {
             $array['values'] = [];
             foreach($element->values as $value)
