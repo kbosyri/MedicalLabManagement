@@ -168,5 +168,15 @@ class PatientTestController extends Controller
 
         return patienttestResource::collection($tests);
     }
+
+    public function SetSeen($id)
+    {
+        $test = Patienttest::find($id);
+
+        $test->is_seen = true;
+        $test->save();
+
+        return new patienttestResource($test);
+    }
 }
 
