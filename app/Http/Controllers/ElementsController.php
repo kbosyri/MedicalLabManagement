@@ -380,7 +380,7 @@ class ElementsController extends Controller
         $unit = new Unit();
 
         $unit->element_id = $id;
-        $unit->unit = $request->unit;
+        $unit->unit_name = $request->unit;
 
         $unit->save();
 
@@ -392,7 +392,7 @@ class ElementsController extends Controller
         $unit = new Unit();
 
         $unit->category_element_id = $id;
-        $unit->unit = $request->unit;
+        $unit->unit_name = $request->unit;
 
         $unit->save();
 

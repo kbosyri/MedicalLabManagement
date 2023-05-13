@@ -1,5 +1,4 @@
 <?php
-error_log("entered Config");
 return array(
 
     /*

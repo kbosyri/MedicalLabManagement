@@ -124,6 +124,13 @@ class PatientTestController extends Controller
         return patienttestResource::collection($tests);
     }
 
+    public function GetPatientTest($id)
+    {
+        $test = Patienttest::find($id);
+
+        return new patienttestResource($test);
+    }
+
     public function GetStaffRecentPatinets()
     {
         $patienttests = DB::table('patienttests')
@@ -146,6 +153,30 @@ class PatientTestController extends Controller
         ->select(['patients.id','patients.First_Name','patients.Last_Name','patients.Father_Name'])->get();
 
         return response()->json(['patients'=>$patienttests]);
+    }
+
+    public function GetUnseen()
+    {
+        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_audited',true)->where('is_seen',false)->get();
+
+        return patienttestResource::collection($tests);
+    }
+
+    public function GetArchive()
+    {
+        $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_audited',true)->where('is_seen',true)->get();
+
+        return patienttestResource::collection($tests);
+    }
+
+    public function SetSeen($id)
+    {
+        $test = Patienttest::find($id);
+
+        $test->is_seen = true;
+        $test->save();
+
+        return new patienttestResource($test);
     }
 }
 

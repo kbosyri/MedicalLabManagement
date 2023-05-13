@@ -7,6 +7,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\AdvertisController;
 use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\ElementsUpdateAndDeleteController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientTestController;
 use App\Http\Controllers\PatientTestsValueController;
@@ -74,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementExistValue']);
     Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
     Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
+    Route::post('/elements/{id}/units',[ElementsController::class,'AddUnitToElement']);
     Route::post('/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElement']);
     Route::get('/elements/{id}/units',[ElementsController::class,'GetElementUnits']);
     Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
@@ -89,6 +91,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/category/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToCategoryElement']);
     Route::post('/categoy/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToCategoryElement']);
     Route::get('/category/elements/{id}/units',[ElementsController::class,'GetCategoryElementUnits']);
+    Route::post('/category/elements/{id}/units',[ElementsController::class,'AddUnitToCategoryElement']);
     Route::post('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElement']);
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
     Route::post('/category/subcategory/{id}',[ElementsUpdateAndDeleteController::class,'UpdateSubcategory']);
@@ -137,6 +140,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user/tests',[PatientTestController::class,'GetUserTests']);
     Route::get('/patienttests/staff/patients',[PatientTestController::class,'GetStaffRecentPatinets']);
     Route::get('/patienttests/patients',[PatientTestController::class,'GetRecentPatinets']);
+    Route::get('/patienttests/new',[PatientTestController::class,'GetUnseen']);
+    Route::get('/patienttests/archive',[PatientTestController::class,'GetArchive']);
+    Route::get('/patienttests/{id}/download',[PatientTestsValueController::class,'SendResultToPatient']);
+    Route::post('/patienttests/{id}/set-seen',[PatientTestController::class,'SetSeen']);
+    Route::get('/patienttests/{id}',[PatientTestController::class,'GetPatientTest']);
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
 Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
@@ -155,5 +163,5 @@ Route::get('/show_all_ad',[AdvertisController::class,'show_all_ad']);
 Route::post('/create_advertis',[AdvertisController::class,'create_advertis']);
 Route::post('/update_advertis/{id}',[AdvertisController::class,'update_advertis']);
 
-Route::get('/show_all_jobapplication',[AdvertisController::class,'show_all_jobapplication']);
-Route::post('/store_jobapplication',[AdvertisController::class,'store_jobapplication']);
+Route::get('/show_all_jobapplication',[JobController::class,'show_all_jobapplication']);
+Route::post('/store_jobapplication',[JobController::class,'store_jobapplication']);
