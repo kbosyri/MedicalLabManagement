@@ -35,9 +35,7 @@ class PatientController extends Controller
         return  response()->json([
             'message'=>' لا يوجد سجلات للمرضى '
               ],500);
-       }
-
-    
+       }    
 
     }
 
