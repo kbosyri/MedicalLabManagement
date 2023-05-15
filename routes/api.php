@@ -7,6 +7,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\AdvertisController;
 use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\ElementsUpdateAndDeleteController;
+use App\Http\Controllers\JobapplicationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientTestController;
@@ -165,3 +166,7 @@ Route::post('/update_advertis/{id}',[AdvertisController::class,'update_advertis'
 
 Route::get('/show_all_jobapplication',[JobController::class,'show_all_jobapplication']);
 Route::post('/store_jobapplication',[JobController::class,'store_jobapplication']);
+
+Route::get('/show_all_jobapplications',[JobapplicationController::class,'show_all_jobapplication']);
+Route::post('/create_jobapplications',[JobapplicationController::class,'create_jobapplication']);
+Route::post('/update_jobapplications/{id}',[JobapplicationController::class,'update_jobapplication']);
