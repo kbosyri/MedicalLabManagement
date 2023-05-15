@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('advertis', function (Blueprint $table) {
+        Schema::create('ads', function (Blueprint $table) {
             $table->id();
-            $table-> integer('ad_number');
-            $table->string('ad_title');
-            $table->text('ad_content');
+            $table->string('title');
+            $table->string('content');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('advertis');
+        Schema::dropIfExists('ads');
     }
 };

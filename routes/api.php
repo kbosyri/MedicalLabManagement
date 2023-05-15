@@ -4,6 +4,7 @@ use App\Http\Controllers\StaffAccountsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdvertisController;
 use App\Http\Controllers\ElementsController;
 use App\Http\Controllers\ElementsUpdateAndDeleteController;
@@ -160,9 +161,9 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::get('/patienttests/{id}/pdf',[PatientTestsValueController::class,'MakePDF']);
 Route::get('/patienttests/{id}/view',[PatientTestsValueController::class,'seepdf']);
 
-Route::get('/show_all_ad',[AdvertisController::class,'show_all_ad']);
-Route::post('/create_advertis',[AdvertisController::class,'create_advertis']);
-Route::post('/update_advertis/{id}',[AdvertisController::class,'update_advertis']);
+Route::get('/show_all_ad',[AdController::class,'show_all_ad']);
+Route::post('/create_ad',[AdController::class,'create_ad']);
+Route::post('/update_ad/{id}',[AdController::class,'update_ad']);
 
 Route::get('/show_all_jobapplication',[JobController::class,'show_all_jobapplication']);
 Route::post('/store_jobapplication',[JobController::class,'store_jobapplication']);
