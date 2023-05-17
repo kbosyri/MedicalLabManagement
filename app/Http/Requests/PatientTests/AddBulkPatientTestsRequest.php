@@ -28,7 +28,7 @@ class AddBulkPatientTestsRequest extends FormRequest
     {
         return [
             'tests'=>['required','array'],
-            'groups'=>['required','array'],
+            'groups'=>['present','array'],
             'test_date'=>['required','date'],
             'patient_id'=>['required'],
             'staff_id'=>['required'],

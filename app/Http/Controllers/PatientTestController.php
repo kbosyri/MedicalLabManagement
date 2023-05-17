@@ -8,6 +8,7 @@ use App\Http\Requests\PatientTests\UpdatePatientTestRequest;
 use App\Http\Resources\patienttestResource;
 use Illuminate\Http\Request;
 use App\Models\Patienttest;
+use App\Models\Test;
 use App\Models\TestsGroup;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,13 @@ class PatientTestController extends Controller
             }
         }
 
+        $test_records = Test::whereIn('id',$tests)->get();
+        $cost = 0;
+        foreach($test_records as $test)
+        {
+            $cost = $cost + $test->cost;
+        }
+
         $resource = [];
         foreach($tests as $test)
         {
@@ -79,6 +87,7 @@ class PatientTestController extends Controller
         return response()->json([
             'message'=>"تم إضافة التحاليل المطلوبة",
             "tests"=>patienttestResource::collection($resource),
+            "cost"=>$cost,
         ]);
     }
 
