@@ -161,13 +161,17 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::get('/patienttests/{id}/pdf',[PatientTestsValueController::class,'MakePDF']);
 Route::get('/patienttests/{id}/view',[PatientTestsValueController::class,'seepdf']);
 
+
+Route::middleware('auth:sanctum')->group(function(){
 Route::get('/show_all_ad',[AdController::class,'show_all_ad']);
 Route::post('/create_ad',[AdController::class,'create_ad']);
 Route::post('/update_ad/{id}',[AdController::class,'update_ad']);
+});
 
-Route::get('/show_all_jobapplication',[JobController::class,'show_all_jobapplication']);
-Route::post('/store_jobapplication',[JobController::class,'store_jobapplication']);
-
+Route::middleware('auth:sanctum')->group(function(){
 Route::get('/show_all_jobapplications',[JobapplicationController::class,'show_all_jobapplication']);
 Route::post('/create_jobapplications',[JobapplicationController::class,'create_jobapplication']);
 Route::post('/update_jobapplications/{id}',[JobapplicationController::class,'update_jobapplication']);
+});
+
+
