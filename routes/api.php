@@ -161,17 +161,20 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::get('/patienttests/{id}/pdf',[PatientTestsValueController::class,'MakePDF']);
 Route::get('/patienttests/{id}/view',[PatientTestsValueController::class,'seepdf']);
 
+Route::get('/show_all_ad',[AdController::class,'show_all_ad']);
+Route::get('/get_ad/{id}',[AdController::class,'show_ad']);
 
 Route::middleware('auth:sanctum')->group(function(){
-Route::get('/show_all_ad',[AdController::class,'show_all_ad']);
 Route::post('/create_ad',[AdController::class,'create_ad']);
 Route::post('/update_ad/{id}',[AdController::class,'update_ad']);
 });
 
+Route::get('/show_all_jobapplications',[JobapplicationController::class,'show_all_jobapplications']);
+Route::get('/get_jobapp/{id}',[JobapplicationController::class,'get_jobapplication']);
+
 Route::middleware('auth:sanctum')->group(function(){
-Route::get('/show_all_jobapplications',[JobapplicationController::class,'show_all_jobapplication']);
-Route::post('/create_jobapplications',[JobapplicationController::class,'create_jobapplication']);
-Route::post('/update_jobapplications/{id}',[JobapplicationController::class,'update_jobapplication']);
+Route::post('/create_jobapplications',[JobapplicationController::class,'create_jobapplications']);
+Route::post('/update_jobapplications/{id}',[JobapplicationController::class,'update_jobapplications']);
 });
 
 

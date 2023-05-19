@@ -15,8 +15,9 @@ class JobapplicationaResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'title'=>$this->title,
-            'jobtitle'=>$this->email,
+            'jobtitle'=>$this->job_title,
             'qualifications'=>$this->qualifications,
             'features'=>$this->features,
             'salary'=>$this->salary,
