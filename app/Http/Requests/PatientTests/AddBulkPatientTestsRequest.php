@@ -27,7 +27,7 @@ class AddBulkPatientTestsRequest extends FormRequest
     public function rules()
     {
         return [
-            'tests'=>['required','array'],
+            'tests'=>['present','array'],
             'groups'=>['present','array'],
             'test_date'=>['required','date'],
             'patient_id'=>['required'],
