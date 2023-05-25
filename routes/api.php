@@ -37,6 +37,7 @@ Route::post('/patient/login',[PatientController::class,'Loginpatient']);
 Route::middleware('auth:sanctum')->group(function (){
 
     Route::get('/patients',[App\Http\Controllers\PatientController::class,'index']);
+    Route::get('/patients/withtest',[PatientController::class,'GetPatientsWithTests']);
     Route::get('/patients/user',[PatientController::class,'GetUser']);
     Route::post('/patients/changepassword',[PatientController::class,'ChangePassword']);
     Route::get('/patients/{id}/tests',[PatientTestController::class,'GetPatientTests']);

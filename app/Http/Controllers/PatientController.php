@@ -9,6 +9,7 @@ use App\Http\Requests\PatientPasswordChangeRequest;
 use App\Http\Requests\PatientRegisterRequest;
 use App\Http\Requests\PatientreisterRequest;
 use App\Http\Resources\PatientResource;
+use App\Models\Patienttest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -188,6 +189,15 @@ class PatientController extends Controller
         $user->save();
 
         return response()->json(['message'=>'تم تغيير كلمة السر بنجاح']);
+    }
+
+    public function GetPatientsWithTests()
+    {
+        $patients_id = Patienttest::all()->pluck('patient_id')->unique();
+
+        $patients = Patient::whereIn('id',$patients_id)->get();
+
+        return PatientResource::collection($patients);
     }
 
 }
