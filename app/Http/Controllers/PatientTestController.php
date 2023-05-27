@@ -187,5 +187,12 @@ class PatientTestController extends Controller
 
         return new patienttestResource($test);
     }
+
+    public function GetAuditedTests($id)
+    {
+        $tests = Patienttest::where('patient_id',$id)->where('is_finished',true)->where('is_audited',true)->get();
+
+        return patienttestResource::collection($tests);
+    }
 }
 
