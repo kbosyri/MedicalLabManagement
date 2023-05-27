@@ -10,6 +10,7 @@ use App\Models\Patienttest;
 use App\Models\PatientTestValue;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\PDF;
+use Illuminate\Support\Facades\DB;
 
 class PatientTestsValueController extends Controller
 {
@@ -49,6 +50,8 @@ class PatientTestsValueController extends Controller
 
     public function AuditTest(AuditTestRequest $request,$id)
     {
+        $test = Patienttest::find($id);
+        DB::table('patient_test_values')->where('patient_test_id','=',$id)->delete();
         foreach($request->values as $value)
         {
             $new_value = new PatientTestValue();
@@ -68,9 +71,7 @@ class PatientTestsValueController extends Controller
             $new_value->save();
         }
 
-        $test = Patienttest::find($id);
-
-        $test->is_finished = true;
+        $test->is_audited = true;
 
         $test->save();
 
