@@ -42,6 +42,11 @@ class StaffAccountsController extends Controller
             $new_staff->is_reception = $request->is_reception;
         }
 
+        else if($request->role)
+        {
+            $new_staff->role_id = $request->role;
+        }
+
         if($request->email)
         {
             $new_staff->email = $request->email;

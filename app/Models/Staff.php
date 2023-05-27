@@ -24,7 +24,15 @@ class Staff extends Authenticatable
         return $this->hasMany(Patienttest::class,'staff_id');
     }
 
+    public function role()
+    {
+        if($this->role_id != null)
+        {
+            return $this->belongsTo(Role::class,'role_id','id');
+        }
 
+        return null;
+    }
 
 }
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Role;
 
-use App\Http\Resources\Staff\StaffRoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StaffResource extends JsonResource
+class RoleStaffResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +14,6 @@ class StaffResource extends JsonResource
      */
     public function toArray($request)
     {
-        $active = false;
-        if($this->is_active)
-        {
-            $active = true;
-        }
-
         return [
             'id'=>$this->id,
             'biometric_id'=>$this->biometric_id,
@@ -31,12 +24,6 @@ class StaffResource extends JsonResource
             'qualifications'=>$this->qualifications,
             'email'=>$this->email,
             'phone'=>$this->phone,
-            'is_admin'=>$this->when($this->is_admin,true,false),
-            'is_lab_staff'=>$this->when($this->is_lab_staff,true,false),
-            'is_reception'=>$this->when($this->is_reception,true,false),
-            'is_active'=>$active,
-            'is_staff'=>true,
-            'role'=>new StaffRoleResource($this->role),
         ];
     }
 }
