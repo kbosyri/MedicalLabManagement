@@ -26,12 +26,7 @@ class Staff extends Authenticatable
 
     public function role()
     {
-        if($this->role_id != null)
-        {
-            return $this->belongsTo(Role::class,'role_id','id');
-        }
-
-        return null;
+        return $this->belongsTo(Role::class,'role_id','id');
     }
 
 }
