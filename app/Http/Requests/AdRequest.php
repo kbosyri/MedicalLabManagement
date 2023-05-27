@@ -16,7 +16,7 @@ class AdRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin || Auth::user()->role->announcements;
+        return Auth::user()->is_admin;
     }
 
     /**

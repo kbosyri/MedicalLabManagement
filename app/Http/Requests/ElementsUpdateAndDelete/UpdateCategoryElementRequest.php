@@ -16,7 +16,7 @@ class UpdateCategoryElementRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin || Auth::user()->role->tests;
+        return Auth::user()->is_admin;
     }
 
     /**

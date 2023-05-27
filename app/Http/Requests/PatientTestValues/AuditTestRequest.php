@@ -16,7 +16,7 @@ class AuditTestRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin || Auth::user()->role->auditing;
+        return Auth::user()->is_admin;
     }
 
     /**

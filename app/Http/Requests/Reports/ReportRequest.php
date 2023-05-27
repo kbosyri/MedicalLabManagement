@@ -16,7 +16,7 @@ class ReportRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->is_admin || Auth::user()->role->reports;
+        return Auth::user()->is_admin;
     }
 
     /**
