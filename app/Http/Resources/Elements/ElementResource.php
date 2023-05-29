@@ -33,7 +33,7 @@ class ElementResource extends JsonResource
         {
             $array['values'] = ElementValueRangeResource::collection($this->values);
         }
-        else if($this->exist)
+        else if($this->is_exist)
         {
             $array['values'] = ElementExistValueResource::collection($this->values);
         }
