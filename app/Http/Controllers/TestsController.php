@@ -201,13 +201,4 @@ class TestsController extends Controller
 
         return TestResource::collection($tests);
     }
-
-    public function GetTestElements($id)
-    {
-        $test = Test::find($id);
-
-        $elements = GetTestElements::GetTestElements($test);
-
-        return $elements;
-    }
 }
