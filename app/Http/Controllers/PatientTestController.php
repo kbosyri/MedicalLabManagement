@@ -202,6 +202,7 @@ class PatientTestController extends Controller
         
         $test_info = [];
         $test_info['patient_name'] = $test->patient->First_Name." ".$test->patient->Father_Name." ".$test->patient->Last_Name;
+        $test_info['patient_gender'] = $test->patient->Gender;
         $test_info['patient_DOB'] = $test->patient->Date_Of_Birth;
         $test_info['test_date'] = $test->test_date;
         $test_info['elements'] = GetTestElements::GetTestElements($test->test);
