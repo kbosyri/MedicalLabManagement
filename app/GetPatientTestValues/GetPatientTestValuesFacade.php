@@ -2,7 +2,7 @@
 
 namespace App\GetPatientTestValues;
 
-class GetPatientTestValues 
+class GetPatientTestValuesFacade
 {
     protected static function getFacadeAccessor()
     {

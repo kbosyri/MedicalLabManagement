@@ -197,6 +197,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValuesStorageSeviceProvider::class,
         App\Providers\GetPatientTestValuesProvider::class,
+        App\Providers\GetTestElementsProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
@@ -216,6 +217,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'valuestorage'=> App\ElementsValuesStorage\ValueStorageFacade::class,
         'GetPatientTestValues'=>App\GetPatientTestValues\GetPatientTestValuesFacade::class,
+        'GetTestElements'=>App\GetPatientTestValues\GetPatientTestValuesFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 

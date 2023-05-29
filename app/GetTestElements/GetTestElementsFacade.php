@@ -2,7 +2,7 @@
 
 namespace App\GetTestElements;
 
-class GetTestElements
+class GetTestElementsFacade
 {
     protected static function getFacadeAccessor()
     {

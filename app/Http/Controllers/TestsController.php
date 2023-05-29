@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GetTestElements\GetTestElements;
 use App\Http\Requests\Tests\AddTestGroupRequest;
 use App\Http\Requests\Tests\AddTestRequest;
 use App\Http\Requests\Tests\UpdateTestGroupRequest;
@@ -199,5 +200,14 @@ class TestsController extends Controller
         }
 
         return TestResource::collection($tests);
+    }
+
+    public function GetTestElements($id)
+    {
+        $test = Test::find($id);
+
+        $elements = GetTestElements::GetTestElements($test);
+
+        return $elements;
     }
 }
