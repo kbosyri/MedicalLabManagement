@@ -209,5 +209,19 @@ class PatientTestController extends Controller
         
         return $test_info;
     }
+
+    public function GetTestElementsValues($id)
+    {
+        $test = Patienttest::find($id);
+        
+        $test_info = [];
+        $test_info['patient_name'] = $test->patient->First_Name." ".$test->patient->Father_Name." ".$test->patient->Last_Name;
+        $test_info['patient_gender'] = $test->patient->Gender;
+        $test_info['patient_DOB'] = $test->patient->Date_Of_Birth;
+        $test_info['test_date'] = $test->test_date;
+        $test_info['elements'] = GetTestElements::GetTestElementsValues($test->test,$id);
+        
+        return $test_info;
+    }
 }
 

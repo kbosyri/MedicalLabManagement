@@ -150,6 +150,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/patienttests/{id}/download',[PatientTestsValueController::class,'SendResultToPatient']);
     Route::post('/patienttests/{id}/set-seen',[PatientTestController::class,'SetSeen']);
     Route::get('/patienttests/{id}/elements',[PatientTestController::class,'GetTestElements']);
+    Route::get('/patienttests/{id}/elements/values',[PatientTestController::class,'GetTestElementsValues']);
     Route::get('/patienttests/{id}',[PatientTestController::class,'GetPatientTest']);
 });
 Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
