@@ -97,16 +97,16 @@ class GetTestElements
                     if($catelem->is_value || $catelem->is_exist)
                     {
                         $query = DB::table('patient_test_values')->select(['value','unit'])
-                        ->where('category_element_id','=',$element->id)
+                        ->where('category_element_id','=',$catelem->id)
                         ->where('patient_test_id','=',$id)
                         ->where('is_category_element','=',true)
                         ->get()[0];
                         $info = [];
-                        $info['name'] = $element->name;
-                        $info['element_id'] = $element->id;
+                        $info['name'] = $catelem->name;
+                        $info['element_id'] = $catelem->id;
                         $info['unit'] = $query->unit;
                         $info['value'] = $query->value;
-                        $info['is_category_element'] = false;
+                        $info['is_category_element'] = true;
                         array_push($elements,$info);
                     }
                     else if($catelem->is_subcategory)
@@ -114,16 +114,16 @@ class GetTestElements
                         foreach($catelem->values as $subcatelem)
                         {
                             $query = DB::table('patient_test_values')->select(['value','unit'])
-                            ->where('category_element_id','=',$element->id)
+                            ->where('category_element_id','=',$subcatelem->id)
                             ->where('patient_test_id','=',$id)
                             ->where('is_category_element','=',true)
                             ->get()[0];
                             $info = [];
-                            $info['name'] = $element->name;
-                            $info['element_id'] = $element->id;
+                            $info['name'] = $subcatelem->name;
+                            $info['element_id'] = $subcatelem->id;
                             $info['unit'] = $query->unit;
                             $info['value'] = $query->value;
-                            $info['is_category_element'] = false;
+                            $info['is_category_element'] = true;
                             array_push($elements,$info);
                         }
                     }
