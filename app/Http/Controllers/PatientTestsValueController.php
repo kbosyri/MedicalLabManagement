@@ -93,10 +93,11 @@ class PatientTestsValueController extends Controller
     public function seepdf($id)
     {
         $test = Patienttest::find($id);
-
+        
         $resource = GetPatientTestValues::GetPatientTestResource($test);
+        $resource['web'] = true;
 
-        return view("mainpdf",['values'=>$resource]);
+        return view("main_pdf",['values'=>$resource]);
     }
 
     public function MakePDF($id)
@@ -105,10 +106,11 @@ class PatientTestsValueController extends Controller
         $test = Patienttest::find($id);
 
         $resource = GetPatientTestValues::GetPatientTestResource($test);
+        $resource['web'] = false;
         
         view()->share('values',$resource);
         error_log("Making View");
-        $pdf = PDF::loadView('mainpdf',$resource);
+        $pdf = PDF::loadView('main_pdf',$resource);
 
         error_log("Downloading");
         $file = $pdf->download('file.pdf');
@@ -122,9 +124,10 @@ class PatientTestsValueController extends Controller
         $test = Patienttest::find($id);
 
         $resource = GetPatientTestValues::GetPatientTestResource($test);
+        $resource['web'] = true;
         
         view()->share('values',$resource);
-        $pdf = PDF::loadView('mainpdf',$resource);
+        $pdf = PDF::loadView('main_pdf',$resource);
 
         $file = $pdf->download('file.pdf');
 
