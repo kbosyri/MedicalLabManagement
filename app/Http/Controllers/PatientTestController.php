@@ -12,8 +12,10 @@ use App\Models\Patienttest;
 use App\Models\Test;
 use App\Models\TestsGroup;
 use Carbon\Carbon;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class PatientTestController extends Controller
 {
@@ -46,6 +48,29 @@ class PatientTestController extends Controller
 
     public function AddPatientTests(AddBulkPatientTestsRequest $request)
     {
+        $debts = [1];
+        try{
+            $debts = Http::withToken($request->bearerToken())
+                    ->get('http://localhost:8001/api/'.'patients/'.$request->patient_id.'/debts/unpaid');
+        }
+        catch(ConnectionException $e)
+        {
+            return response()->json([
+                'message'=>'لا يمكن الوصول لنظام المالية للتحقق من الذمة المالية حالياً',
+            ],500);
+        }
+        if(count($debts['data']) > 0)
+        {
+            $amount = 0;
+            foreach ($debts['data'] as $debt)
+            {
+                $amount = $amount + $debt['amount'];
+            }
+            return response()->json([
+                'message'=>"المريض ما زال عليه زمة مالية يجب دفعها",
+                "amount"=>$amount
+            ],402);
+        }
         $tests = [];
         foreach($request->tests as $test)
         {
@@ -165,8 +190,32 @@ class PatientTestController extends Controller
         return response()->json(['patients'=>$patienttests]);
     }
 
-    public function GetUnseen()
+    public function GetUnseen(Request $request)
     {
+        $debts = [1];
+        try{
+            $debts = Http::withToken($request->bearerToken())
+                    ->get('http://localhost:8001/api/'.'patients/'.Auth::user()->id.'/debts/unpaid');
+        }
+        catch(ConnectionException $e)
+        {
+            return response()->json([
+                'message'=>'لا يمكن الوصول لنظام نتائج التحاليل حالياً',
+            ],500);
+        }
+        if(count($debts['data']) > 0)
+        {
+            $amount = 0;
+            foreach ($debts['data'] as $debt)
+            {
+                $amount = $amount + $debt['amount'];
+            }
+            return response()->json([
+                'message'=>"ما زال عليك زمة مالية يجب دفعها من أجل رؤية النتائج الحديثة",
+                "amount"=>$amount
+            ],402);
+        }
+
         $tests = Patienttest::where('patient_id',Auth::user()->id)->where('is_audited',true)->where('is_seen',false)->get();
 
         return patienttestResource::collection($tests);
