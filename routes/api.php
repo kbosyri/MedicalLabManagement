@@ -13,6 +13,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientTestController;
 use App\Http\Controllers\PatientTestsValueController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TestReportController;
 use App\Http\Controllers\TestsController;
 use App\Models\Patienttest;
@@ -67,6 +68,13 @@ Route::middleware('auth:sanctum')->group(function (){
 });
 
 
+Route::middleware('auth:sanctum')->group(function (){
+
+    Route::post('/roles',[RoleController::class,'AddRole']);
+    Route::post('/roles/{id}',[RoleController::class,'UpdateRole']);
+    Route::get('/roles',[RoleController::class,'GetRoles']);
+    Route::get('/roles/{id}',[RoleController::class,'GetRole']);
+});
 
 
 Route::middleware('auth:sanctum')->group(function(){
