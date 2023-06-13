@@ -27,6 +27,7 @@ class StaffResource extends JsonResource
             'first_name'=>$this->first_name,
             'father_name'=>$this->father_name,
             'last_name'=>$this->last_name,
+            'salary'=>$this->salary,
             'username'=>$this->username,
             'qualifications'=>$this->qualifications,
             'email'=>$this->email,

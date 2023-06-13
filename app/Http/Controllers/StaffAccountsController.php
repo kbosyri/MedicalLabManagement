@@ -55,6 +55,10 @@ class StaffAccountsController extends Controller
         {
             $new_staff->phone = $request->phone;
         }
+        if($request->salary)
+        {
+            $new_staff->salary = $request->salary;
+        }
 
         $new_staff->save();
 
