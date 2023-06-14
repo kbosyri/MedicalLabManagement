@@ -14,7 +14,6 @@ class RoleController extends Controller
 
         $role->name = $request->name;
         $role->tests = $request->tests;
-        $role->patient_tests = $request->patient_tests;
         $role->auditing = $request->auditing;
         $role->reports = $request->reports;
         $role->job_applications = $request->job_applications;
@@ -36,7 +35,6 @@ class RoleController extends Controller
 
         $role->name = $request->name;
         $role->tests = $request->tests;
-        $role->patient_tests = $request->patient_tests;
         $role->auditing = $request->auditing;
         $role->reports = $request->reports;
         $role->job_applications = $request->job_applications;
