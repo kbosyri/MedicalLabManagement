@@ -141,7 +141,7 @@
     }
   </style>
   <div class="container-fluid">
-    @if($values["web"])
+    <!--@if($values["web"])
       <header class="blog-header lh-1 py-3">
         <div class="row">
 
@@ -166,17 +166,28 @@
 
         </div>
       </header>
-    @endif
+    @endif-->
 
-
+    <p>
+    <h1>Habbas Medical Laboratory</h1>
+    <h1>Dr.Ahmad Habbas</h1>
+    <h2>Name : {{$values['patient']['first_name']}} &nbsp; {{$values['patient']['father_name']}}&nbsp; {{$values['patient']['last_name']}}
+    &nbsp; @if($values['patient']['gender'] == 'f')
+            Gender : Female
+            @else
+            Gender : Male
+            @endif 
+            &nbsp; Date Of Birth: {{\Carbon\Carbon::parse($values['patient']['date_of_birth'])->format("d/m/Y")}}<br><br>
+    Test Date : {{\Carbon\Carbon::parse($values['date'])->format("d/m/Y")}}</h2>
+    </p>
+    <hr>
     <main>
       <h1>{{$values['test']['name']}}</h1>
       <table>
         <thead>
           <tr>
-            <td>Tests</td>
+            <td>Elements</td>
             <td>Result</td>
-            <td>Reference range</td>
             <td>Units</td>
           </tr>
         </thead>
@@ -193,17 +204,17 @@
               <tr>
                 <td class="testName">{{$main_element['name']}}</td>
                 <td class="result">{{$main_element['test_value']}}</td>
-                <td>8.5-10.5</td>
-                <td>{{$main_element['test_unit']}}</td>
+                @if($main_element['test_unit'])
+                  <td>{{$main_element['test_unit']}}</td>
+                @else
+                  <td>N/A</td>
+                @endif
               </tr>
             @else
               @php
                 error_log("Category")
               @endphp
               <tr>
-                <td>
-                  <hr>
-                </td>
                 <td>
                   <hr>
                 </td>
@@ -229,23 +240,26 @@
                   <tr>
                     <td class="testName">{{$subcat_elem['name']}}</td>
                     <td class="result">{{$subcat_elem['test_value']}}</td>
-                    <td>8.5-10.5</td>
-                    <td>{{$subcat_elem['test_unit']}}</td>
+                    @if($subcat_elem['test_unit'])
+                      <td>{{$subcat_elem['test_unit']}}</td>
+                    @else
+                      <td>N/A</td>
+                    @endif
                   </tr>
                 @endforeach
               @else
                 <tr>
                   <td class="testName">{{$cat_elem['name']}}</td>
                   <td class="result">{{$cat_elem['test_value']}}</td>
-                  <td>8.5-10.5</td>
-                  <td>{{$cat_elem['test_unit']}}</td>
+                  @if($cat_elem['test_unit'])
+                    <td>{{$cat_elem['test_unit']}}</td>
+                  @else
+                    <td>N/A</td>
+                  @endif
                 </tr>
               @endif
           @endforeach
             <tr>
-              <td>
-                <hr>
-              </td>
               <td>
                 <hr>
               </td>
