@@ -120,6 +120,25 @@ class PatientTestsValueController extends Controller
 
     }
 
+    public function StreamPDF($id)
+    {
+        error_log('test');
+        $test = Patienttest::find($id);
+
+        $resource = GetPatientTestValues::GetPatientTestResource($test);
+        $resource['web'] = false;
+        
+        view()->share('values',$resource);
+        error_log("Making View");
+        $pdf = PDF::loadView('main_pdf',$resource);
+
+        error_log("Downloading");
+        $file = $pdf->stream('file.pdf');
+        error_log('Response');
+        return $file;
+
+    }
+
     public function SendResultToPatient($id)
     {
         $test = Patienttest::find($id);

@@ -173,6 +173,7 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::get('/patienttests/{id}/pdf',[PatientTestsValueController::class,'MakePDF']);
 Route::get('/patienttests/{id}/view',[PatientTestsValueController::class,'seepdf']);
+Route::get('/patienttests/{id}/stream',[PatientTestsValueController::class,'StreamPDF']);
 
 Route::get('/show_all_ad',[AdController::class,'show_all_ad']);
 Route::get('/get_ad/{id}',[AdController::class,'show_ad']);

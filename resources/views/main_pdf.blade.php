@@ -171,14 +171,14 @@
     <p>
     <h1>Habbas Medical Laboratory</h1>
     <h1>Dr.Ahmad Habbas</h1>
-    <h2>Name : {{$values['patient']['first_name']}} &nbsp; {{$values['patient']['father_name']}}&nbsp; {{$values['patient']['last_name']}}
-    &nbsp; @if($values['patient']['gender'] == 'f')
+    <h3>Name : {{$values['patient']['first_name']}} &nbsp; {{$values['patient']['father_name']}}&nbsp; {{$values['patient']['last_name']}} <br>
+     @if($values['patient']['gender'] == 'f')
             Gender : Female
             @else
             Gender : Male
-            @endif 
-            &nbsp; Date Of Birth: {{\Carbon\Carbon::parse($values['patient']['date_of_birth'])->format("d/m/Y")}}<br><br>
-    Test Date : {{\Carbon\Carbon::parse($values['date'])->format("d/m/Y")}}</h2>
+            @endif <br>
+           Date Of Birth: {{\Carbon\Carbon::parse($values['patient']['date_of_birth'])->format("d/m/Y")}}<br><br>
+    Test Date : {{\Carbon\Carbon::parse($values['date'])->format("d/m/Y")}}</h3>
     </p>
     <hr>
     <main>
