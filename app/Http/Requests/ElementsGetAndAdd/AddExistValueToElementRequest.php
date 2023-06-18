@@ -35,7 +35,6 @@ class AddExistValueToElementRequest extends FormRequest
     {
         return [
             'is_difference_affected'=>['required'],
-            'element_id'=>['required'],
             'value'=>['required'],
             'difference'=>['required_if:is_difference_affected,true'],
         ];
