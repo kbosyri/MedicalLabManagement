@@ -25,6 +25,7 @@ class GetTestElements
                 $info['element_id'] = $element->id;
                 $info['units'] = $units;
                 $info['is_category_element'] = false;
+                $info['is_exist'] = $element->is_exist;
                 array_push($elements,$info);
             }
             else if($element->is_category)
@@ -43,6 +44,7 @@ class GetTestElements
                         $info['element_id'] = $catelem->id;
                         $info['units'] = $units;
                         $info['is_category_element'] = true;
+                        $info['is_exist'] = $catelem->is_exist;
                         array_push($elements,$info);
                     }
                     else if($catelem->is_subcategory)
@@ -59,6 +61,7 @@ class GetTestElements
                             $info['element_id'] = $subcatelem->id;
                             $info['units'] = $units;
                             $info['is_category_element'] = true;
+                            $info['is_exist'] = $subcatelem->is_exist;
                             array_push($elements,$info);
                         }
                     }
@@ -88,6 +91,7 @@ class GetTestElements
                 $info['unit'] = $query->unit;
                 $info['value'] = $query->value;
                 $info['is_category_element'] = false;
+                $info['is_exist'] = $element->is_exist;
                 array_push($elements,$info);
             }
             else if($element->is_category)
@@ -107,6 +111,7 @@ class GetTestElements
                         $info['unit'] = $query->unit;
                         $info['value'] = $query->value;
                         $info['is_category_element'] = true;
+                        $info['is_exist'] = $catelem->is_exist;
                         array_push($elements,$info);
                     }
                     else if($catelem->is_subcategory)
@@ -124,6 +129,7 @@ class GetTestElements
                             $info['unit'] = $query->unit;
                             $info['value'] = $query->value;
                             $info['is_category_element'] = true;
+                            $info['is_exist'] = $subcatelem->is_exist;
                             array_push($elements,$info);
                         }
                     }
