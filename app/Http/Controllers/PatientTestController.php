@@ -49,9 +49,16 @@ class PatientTestController extends Controller
     public function AddPatientTests(AddBulkPatientTestsRequest $request)
     {
         $debts = [1];
+        $url = sprintf("http://%s:%s/api/patients/%s/debts/unpaid"
+                        ,env('MEDICAL_LAB_MANAGEMENT_FINANCE_HOST')
+                        ,env("MEDICAL_LAB_MANAGEMENT_FINANCE_PORT")
+                        ,$request->patient_id);
+
         try{
-            $debts = Http::withToken($request->bearerToken())
-                    ->get('http://localhost:8001/api/'.'patients/'.$request->patient_id.'/debts/unpaid');
+            $debts = Http::withToken($request->bearerToken())->get($url);
+            error_log($debts->body());
+            error_log($url);
+            
         }
         catch(ConnectionException $e)
         {
@@ -193,9 +200,13 @@ class PatientTestController extends Controller
     public function GetUnseen(Request $request)
     {
         $debts = [1];
+        $url = sprintf("http://%s:%s/api/patients/%s/debts/unpaid"
+                        ,env('MEDICAL_LAB_MANAGEMENT_FINANCE_HOST')
+                        ,env("MEDICAL_LAB_MANAGEMENT_FINANCE_PORT")
+                        ,Auth::user()->id);
+
         try{
-            $debts = Http::withToken($request->bearerToken())
-                    ->get('http://localhost:8001/api/'.'patients/'.Auth::user()->id.'/debts/unpaid');
+            $debts = Http::withToken($request->bearerToken())->get($url);
         }
         catch(ConnectionException $e)
         {
