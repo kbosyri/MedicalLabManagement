@@ -34,7 +34,6 @@ class AddValueRangeToCategoryElementRequest extends FormRequest
     public function rules()
     {
         return [
-            'element_id'=>['required'],
             'gender'=>['required'],
             'from_age'=>['required_unless:is_age_affected,false'],
             'to_age'=>['required_unless:is_age_affected,false'],
