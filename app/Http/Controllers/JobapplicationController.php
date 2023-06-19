@@ -19,7 +19,7 @@ class JobapplicationController extends Controller
             return  response()->json([
                 'message' => ' لا يوجد طلبات توظيف',
                 'jobapp' => new JobapplicationaResource($jobapp)
-            ],);
+            ]);
         }
     }
 
