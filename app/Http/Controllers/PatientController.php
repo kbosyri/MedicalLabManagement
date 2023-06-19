@@ -193,7 +193,7 @@ class PatientController extends Controller
 
     public function GetPatientsWithTests()
     {
-        $patients_id = Patienttest::all()->pluck('patient_id')->unique();
+        $patients_id = Patienttest::where('is_finished',true)->where('is_audited',true)->pluck('patient_id')->unique();
 
         $patients = Patient::whereIn('id',$patients_id)->get();
 
