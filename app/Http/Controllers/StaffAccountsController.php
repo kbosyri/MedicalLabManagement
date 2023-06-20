@@ -118,8 +118,12 @@ class StaffAccountsController extends Controller
         $staff->qualifications = $request->qualifications;
         $staff->email = $request->email;
         $staff->phone = $request->phone;
-        $staff->salary = $request->salary;
-
+        
+        if($request->salary)
+        {
+            $staff->salary = $request->salary;
+        }
+        
         if($request->is_lab_staff)
         {
             $staff->is_lab_staff = $request->is_lab_staff;
