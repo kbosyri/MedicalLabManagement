@@ -140,6 +140,10 @@ class StaffAccountsController extends Controller
         {
             $staff->role_id = $request->role;
         }
+        else
+        {
+            $staff->role_id = null;
+        }
 
         if($request->email)
         {
