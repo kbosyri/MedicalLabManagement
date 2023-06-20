@@ -11,14 +11,8 @@ class AdController extends Controller
   public function show_all_ad()
   {
     $ad = Ad::all();
-    if ($ad->count() > 0) {
-      return AdResource::collection($ad);
-    } else {
-      return  response()->json([
-        'message' => 'لا يوجد اعلانات ',
-        'ad' => new AdResource($ad)
-      ],);
-    }
+    
+    return AdResource::collection($ad);
   }
   public function create_ad(Request $request)
   {

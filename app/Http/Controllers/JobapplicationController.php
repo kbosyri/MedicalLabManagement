@@ -13,14 +13,8 @@ class JobapplicationController extends Controller
     public function show_all_jobapplications()
     {
         $jobapp = Jobapplication::all();
-        if ($jobapp->count() > 0) {
-            return JobapplicationaResource::collection($jobapp);
-        } else {
-            return  response()->json([
-                'message' => ' لا يوجد طلبات توظيف',
-                'jobapp' => new JobapplicationaResource($jobapp)
-            ]);
-        }
+        
+        return JobapplicationaResource::collection($jobapp);
     }
 
     public function create_jobapplications(Request $request)
