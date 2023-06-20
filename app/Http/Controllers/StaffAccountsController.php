@@ -117,6 +117,22 @@ class StaffAccountsController extends Controller
         $staff->username = $request->username;
         $staff->qualifications = $request->qualifications;
 
+
+        if($request->is_lab_staff)
+        {
+            $staff->is_lab_staff = $request->is_lab_staff;
+        }
+
+        if($request->is_reception)
+        {
+            $staff->is_reception = $request->is_reception;
+        }
+
+        if($request->role)
+        {
+            $staff->role_id = $request->role;
+        }
+
         if($request->email)
         {
             $staff->email = $request->email;
@@ -124,6 +140,10 @@ class StaffAccountsController extends Controller
         if($request->phone)
         {
             $staff->phone = $request->phone;
+        }
+        if($request->salary)
+        {
+            $staff->salary = $request->salary;
         }
         
         $staff->save();
