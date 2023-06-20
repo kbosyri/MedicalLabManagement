@@ -122,10 +122,18 @@ class StaffAccountsController extends Controller
         {
             $staff->is_lab_staff = $request->is_lab_staff;
         }
+        else
+        {
+            $staff->is_lab_staff = false;
+        }
 
         if($request->is_reception)
         {
             $staff->is_reception = $request->is_reception;
+        }
+        else
+        {
+            $staff->is_reception = false;
         }
 
         if($request->role)
