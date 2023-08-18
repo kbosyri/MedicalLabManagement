@@ -17,23 +17,9 @@ class StaffRegisterValidation
      */
     public function handle(Request $request, Closure $next)
     {
-
         if(Staff::where('username',$request->username)->where('is_active',true)->exists())
         {
             return response()->json(['message'=>'المستخدم مسجل في النظام'],400);
-        }
-
-        if($request->is_lab_staff == null)
-        {
-            $request->validate([
-                'is_reception'=>'required'
-            ]);
-        }
-        else
-        {
-            $request->validate([
-                'is_lab_staff'=>'required'
-            ]);
         }
         return $next($request);
     }

@@ -17,6 +17,13 @@ class AdminPermissionAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
+        if(Auth::user()->role)
+        {
+            if(!Auth::user()->role->tests)
+            {
+                return response()->json(['message'=>'هذا المستخدم غير مسموح له بالدخول'],403);
+            }
+        }
         if(!Auth::user()->is_admin)
         {
             return response()->json(['message'=>'هذا المستخدم غير مسموح له بالدخول'],403);

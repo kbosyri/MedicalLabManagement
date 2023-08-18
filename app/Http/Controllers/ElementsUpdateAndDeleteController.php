@@ -208,7 +208,7 @@ class ElementsUpdateAndDeleteController extends Controller
         
         return response()->json([
             'message'=>'تم تعديل محتوى الفئة',
-            'category'=>new SubCategoryResource(CategoryElement::find($id)),
+            'category'=>new CategoryResource(CategoryElement::find($id)),
         ]);
     }
 
