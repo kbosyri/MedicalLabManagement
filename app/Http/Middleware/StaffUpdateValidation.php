@@ -16,16 +16,6 @@ class StaffUpdateValidation
      */
     public function handle(Request $request, Closure $next)
     {
-        $request->validate([
-            'first_name'=>'required',
-            'father_name'=>'required',
-            'last_name'=>'required',
-            'username'=>'required',
-            'qualifications'=>'required',
-            'email'=>'email',
-
-        ]);
-
         return $next($request);
     }
 }
