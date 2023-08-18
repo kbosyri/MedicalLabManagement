@@ -24,7 +24,7 @@ class AdminPermissionAuthentication
                 return response()->json(['message'=>'هذا المستخدم غير مسموح له بالدخول'],403);
             }
         }
-        if(!Auth::user()->is_admin)
+        else if(!Auth::user()->is_admin)
         {
             return response()->json(['message'=>'هذا المستخدم غير مسموح له بالدخول'],403);
         }
