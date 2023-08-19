@@ -8,6 +8,7 @@ use App\Http\Requests\PatientLoginRequest;
 use App\Http\Requests\PatientPasswordChangeRequest;
 use App\Http\Requests\PatientRegisterRequest;
 use App\Http\Requests\PatientreisterRequest;
+use App\Http\Requests\PatientUpdateRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patienttest;
 use Carbon\Carbon;
@@ -47,7 +48,7 @@ class PatientController extends Controller
         return new PatientResource($patient);
     }
 
-    public function createpatient(Request $request){
+    public function createpatient(PatientreisterRequest $request){
         $patient=new patient;
         $patient->First_Name=$request->First_Name;
         $patient->Last_Name=$request->Last_Name;
@@ -69,7 +70,7 @@ class PatientController extends Controller
 
 
 
-    public function updatepatient (Request $request,$id){
+    public function updatepatient (PatientUpdateRequest $request,$id){
         $patient=patient::find($id);
         $patient->First_Name=$request->First_Name;
         $patient->Last_Name=$request->Last_Name;

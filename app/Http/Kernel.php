@@ -71,6 +71,11 @@ class Kernel extends HttpKernel
         'admin-auth'=>\App\Http\Middleware\AdminPermissionAuthentication::class,
         'lab-staff-auth'=>\App\Http\Middleware\LabStaffPermission::class,
         'patient-test-permisson'=>\App\Http\Middleware\PatientTestsPermission::class,
+        'human-resource-auth'=>\App\Http\Middleware\HumanResourceAuth::class,
+        'main-admin-auth'=>\App\Http\Middleware\AdminAuth::class,
+        'patient-tests-auth'=>\App\Http\Middleware\PatientTestsAuth::class,
+        'auditing-auth'=>\App\Http\Middleware\AuditingAuth::class,
+        'reception-auth'=>\App\Http\Middleware\ReceptionAuth::class,
     ];
 
     protected $middlewarePriority = [

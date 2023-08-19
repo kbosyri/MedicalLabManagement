@@ -17,7 +17,7 @@ class JobapplicationController extends Controller
         return JobapplicationaResource::collection($jobapp);
     }
 
-    public function create_jobapplications(Request $request)
+    public function create_jobapplications(JobapplicationRequest $request)
     {
         $jobapp = new Jobapplication();
         $jobapp->title = $request->title;
@@ -33,7 +33,7 @@ class JobapplicationController extends Controller
     }
 
 
-    public function update_jobapplications(Request $request, $id)
+    public function update_jobapplications(JobapplicationRequest $request, $id)
     {
         $jobapp = Jobapplication::find($id);
         $jobapp->title = $request->title;

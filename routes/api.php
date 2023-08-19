@@ -35,74 +35,74 @@ use App\Models\Patienttest;
 });*/
 
 Route::post('/patient/login',[PatientController::class,'Loginpatient']);
+
 Route::middleware('auth:sanctum')->group(function (){
+
+    Route::post('/patients/changepassword',[PatientController::class,'ChangePassword']);
+    Route::post('/createpatients',[App\Http\Controllers\PatientController::class,'creatpatient'])->name('create');
+    Route::post('/updatepatients/{id}',[App\Http\Controllers\PatientController::class,'updatepatient'])->name('update');
+    Route::post('/patients/logout',[PatientController::class,'Logoutpatient']);
+    Route::middleware('patient-register-validation')->post('/patients/register',[PatientController::class,'Registerpatient']);
 
     Route::get('/patients',[App\Http\Controllers\PatientController::class,'index']);
     Route::get('/patients/withtest',[PatientController::class,'GetPatientsWithTests']);
     Route::get('/patients/user',[PatientController::class,'GetUser']);
-    Route::post('/patients/changepassword',[PatientController::class,'ChangePassword']);
     Route::get('/patients/{id}/tests',[PatientTestController::class,'GetPatientTests']);
     Route::get('/patients/{id}/audited-tests',[PatientTestController::class,'GetAuditedTests']);
     Route::get('/patients/{id}',[App\Http\Controllers\PatientController::class,'GetSpecificPatient']);
-    Route::post('/createpatients',[App\Http\Controllers\PatientController::class,'creatpatient'])->name('create');
-    Route::post('/updatepatients/{id}',[App\Http\Controllers\PatientController::class,'updatepatient'])->name('update');
-    Route::delete('/deletepatients/{id}',[App\Http\Controllers\PatientController::class,'deletepatient'])->name('delete');
-    Route::post('/patients/logout',[PatientController::class,'Logoutpatient']);
-    Route::middleware('patient-register-validation')->post('/patients/register',[PatientController::class,'Registerpatient']);
+
+    Route::middleware('reception-auth')->delete('/deletepatients/{id}',[App\Http\Controllers\PatientController::class,'deletepatient'])->name('delete');
+    
 
 });
+
 Route::post('/staff/login',[StaffAccountsController::class,'LoginStaff']);
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::middleware('staff-register-validation')->post('/staff/register',[StaffAccountsController::class,'RegisterStaff']);
     
     Route::post('/staff/update/{id}',[StaffAccountsController::class,'UpdateStaff']);
-    Route::delete('/staff/terminate/{id}',[StaffAccountsController::class,'TerminateStaff']);
     Route::post('/staff/logout',[StaffAccountsController::class,'LogoutStaff']);
     Route::post('/staff/changepassword',[StaffAccountsController::class,'ChangePassword']);
-    Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
-    Route::get('/staff/user',[StaffAccountsController::class,'GetUser']);
-    Route::get('/staff/labstaff',[StaffAccountsController::class,'GetLabStaff']);
+    Route::middleware('human-resource-auth')->group(function(){
+        Route::delete('/staff/terminate/{id}',[StaffAccountsController::class,'TerminateStaff']);
+        Route::get('/staff',[StaffAccountsController::class,'GetAllStaff']);
+        Route::get('/staff/user',[StaffAccountsController::class,'GetUser']);
+        Route::get('/staff/labstaff',[StaffAccountsController::class,'GetLabStaff']);
+        Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
+    });
+
     Route::get('/staff/tests',[PatientTestController::class,'GetStaffPatientTests']);
-    Route::get('/staff/{id}',[StaffAccountsController::class,'GetStaff']);
 });
 
 
 Route::middleware('auth:sanctum')->group(function (){
 
-    Route::post('/roles',[RoleController::class,'AddRole']);
-    Route::post('/roles/{id}',[RoleController::class,'UpdateRole']);
-    Route::get('/roles',[RoleController::class,'GetRoles']);
-    Route::get('/roles/{id}',[RoleController::class,'GetRole']);
+    Route::middleware('main-admin-auth')->group(function(){
+        Route::post('/roles',[RoleController::class,'AddRole']);
+        Route::post('/roles/{id}',[RoleController::class,'UpdateRole']);
+        Route::get('/roles',[RoleController::class,'GetRoles']);
+        Route::get('/roles/{id}',[RoleController::class,'GetRole']);
+    });
 });
 
 
 Route::middleware('auth:sanctum')->group(function(){
 
-    Route::get('/elements',[ElementsController::class,'GetElements']);
-    Route::get('/elements/filter',[ElementsController::class,'FilterTests']);
+    
     Route::post('/elements/add',[ElementsController::class,'AddElement']);
     Route::post('/elements/category/add',[ElementsController::class,'AddCategory']);
     Route::post('/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementValueRange']);
     Route::post('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElementExistValue']);
     Route::post('/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToElement']);
-    Route::post('elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
+    Route::post('/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToElement']);
     Route::post('/elements/{id}/units',[ElementsController::class,'AddUnitToElement']);
     Route::post('/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateElement']);
-    Route::get('/elements/{id}/units',[ElementsController::class,'GetElementUnits']);
-    Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
     Route::post('/category/elements/add',[ElementsController::class,'AddCategoryElement']);
-    Route::get('/category/elements/',[ElementsController::class,'GetCategoryElements']);
-    Route::get('/category/elements/{id}',[ElementsController::class,'GetCategoryElement']);
-    Route::get('/category',[ElementsController::class,'GetCategories']);
-    Route::get('/category/subcategory/',[ElementsController::class,'GetSubCategories']);
-    Route::get('/category/subcategory/{id}',[ElementsController::class,'GetSubcategory']);
-    Route::get('/category/{id}',[ElementsController::class,'GetCategory']);
     Route::post('/category/elements/values/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElementValueRange']);
     Route::post('/category/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElementExistValue']);
     Route::post('/category/elements/{element_id}/value/add',[ElementsController::class,'AddValueRangeToCategoryElement']);
     Route::post('/categoy/elements/{element_id}/exist/add',[ElementsController::class,'AddExistValueToCategoryElement']);
-    Route::get('/category/elements/{id}/units',[ElementsController::class,'GetCategoryElementUnits']);
     Route::post('/category/elements/{id}/units',[ElementsController::class,'AddUnitToCategoryElement']);
     Route::post('/category/elements/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategoryElement']);
     Route::post('/category/subcategory/add',[ElementsController::class,'AddSubcategory']);
@@ -110,6 +110,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/category/{id}',[ElementsUpdateAndDeleteController::class,'UpdateCategory']);
 
     Route::middleware('admin-auth')->group(function(){
+        Route::get('/elements',[ElementsController::class,'GetElements']);
+        Route::get('/elements/filter',[ElementsController::class,'FilterTests']);
+        Route::get('/elements/{id}/units',[ElementsController::class,'GetElementUnits']);
+        Route::get('/elements/{id}',[ElementsController::class,'GetElement']);
+        Route::get('/category',[ElementsController::class,'GetCategories']);
+        Route::get('/category/elements/',[ElementsController::class,'GetCategoryElements']);
+        Route::get('/category/elements/{id}/units',[ElementsController::class,'GetCategoryElementUnits']);
+        Route::get('/category/elements/{id}',[ElementsController::class,'GetCategoryElement']);
+        Route::get('/category/subcategory/',[ElementsController::class,'GetSubCategories']);
+        Route::get('/category/subcategory/{id}',[ElementsController::class,'GetSubcategory']);
+        Route::get('/category/{id}',[ElementsController::class,'GetCategory']);
+
         Route::delete('/elements/value/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementValueRange']);
         Route::delete('/elements/exist/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElementExistValue']);
         Route::delete('/elements/{id}',[ElementsUpdateAndDeleteController::class,'DeleteElement']);
@@ -139,8 +151,8 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::get('/tests',[TestsController::class,'GetTests']);
 Route::get('/tests/{id}',[TestsController::class,'GetTest']);
 Route::get('/test-groups',[TestsController::class,'GetTestGroups']);
+Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
 Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
-
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/add_patient_test',[PatientTestController::class,'add_patient_test']);
@@ -148,11 +160,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/patienttests/bulk',[PatientTestController::class,'AddPatientTests']);
     Route::post('/patienttests/{id}/values',[PatientTestsValueController::class,'AddValuesToTest']);
     Route::post('/patienttests/{id}/audit',[PatientTestsValueController::class,'AuditTest']);
-    Route::get('/patienttests/unaudited',[PatientTestController::class,'GetUnAuditedTests']);
+
+    Route::middleware('auditing-auth')->get('/patienttests/unaudited',[PatientTestController::class,'GetUnAuditedTests']);
+
     Route::get('patienttests/{id}/values',[PatientTestsValueController::class,'GetTestValues']);
+
     Route::get('/user/tests',[PatientTestController::class,'GetUserTests']);
-    Route::get('/patienttests/staff/patients',[PatientTestController::class,'GetStaffRecentPatinets']);
-    Route::get('/patienttests/patients',[PatientTestController::class,'GetRecentPatinets']);
+
+    Route::middleware('patient-tests-auth')->group(function(){
+        Route::get('/patienttests/staff/patients',[PatientTestController::class,'GetStaffRecentPatinets']);
+        Route::get('/patienttests/patients',[PatientTestController::class,'GetRecentPatinets']);
+    });
+
     Route::get('/patienttests/new',[PatientTestController::class,'GetUnseen']);
     Route::get('/patienttests/archive',[PatientTestController::class,'GetArchive']);
     Route::get('/patienttests/{id}/download',[PatientTestsValueController::class,'SendResultToPatient']);
@@ -161,8 +180,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/patienttests/{id}/elements/values',[PatientTestController::class,'GetTestElementsValues']);
     Route::get('/patienttests/{id}',[PatientTestController::class,'GetPatientTest']);
 });
-Route::get('/test-groups/{id}/tests',[TestsController::class,'GetGroupTests']);
-Route::get('/test-groups/{id}',[TestsController::class,'GetTestGroup']);
 
 Route::middleware('auth:sanctum')->group(function(){
 
@@ -171,6 +188,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/reports/patients/tests',[TestReportController::class,'GetPatientTests']);
     
 });
+
 Route::get('/patienttests/{id}/pdf',[PatientTestsValueController::class,'MakePDF']);
 Route::get('/patienttests/{id}/view',[PatientTestsValueController::class,'seepdf']);
 Route::get('/patienttests/{id}/stream',[PatientTestsValueController::class,'StreamPDF']);

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 
-class JobapplicationRequest extends FormRequest
+class AddUnitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,7 @@ class JobapplicationRequest extends FormRequest
     {
         if(Auth::user()->role)
         {
-            if(Auth::user()->role->job_applications)
+            if(Auth::user()->role->tests)
             {
                 return true;
             }
@@ -34,14 +34,9 @@ class JobapplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'jobtitle'=>'required',
-            'qualifications'=>'required',
-            'features'=>'required',
-            'salary'=>'required'
+            'unit'=>['required']
         ];
     }
-
 
     public function failedValidation(Validator $validator)
     {

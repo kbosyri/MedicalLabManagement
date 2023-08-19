@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ElementsValuesStorage\ValueStorage;
+use App\Http\Requests\AddUnitRequest;
 use App\Http\Requests\ElementsGetAndAdd\AddCategoryElementRequest;
 use App\Http\Requests\ElementsGetAndAdd\AddCategoryRequest;
 use App\Http\Requests\ElementsGetAndAdd\AddElementRequest;
@@ -375,7 +376,7 @@ class ElementsController extends Controller
         return UnitResource::collection($element->units);
     }
 
-    public function AddUnitToElement(Request $request, $id)
+    public function AddUnitToElement(AddUnitRequest $request, $id)
     {
         $unit = new Unit();
 
@@ -387,7 +388,7 @@ class ElementsController extends Controller
         return response()->json(['message'=>"تم إضافة وحدة القياس إلى المؤشر"]);
     }
 
-    public function AddUnitToCategoryElement(Request $request, $id)
+    public function AddUnitToCategoryElement(AddUnitRequest $request, $id)
     {
         $unit = new Unit();
 
